@@ -240,17 +240,17 @@ export default function TrackingSection() {
                     <span className="meta-value">{orderResult.receivedDate}</span>
                   </div>
                   <div className="meta-item">
-                    <span className="meta-label">⏱Entrega Estimada</span>
+                    <span className="meta-label">Entrega Estimada</span>
                     <span className="meta-value meta-value-highlight">{orderResult.estimatedDate}</span>
                   </div>
                   <div className="meta-item" style={{ gridColumn: "1 / -1" }}>
-                    <span className="meta-label">👓 Tipo de Servicio / Producto</span>
+                    <span className="meta-label">Tipo de Servicio / Producto</span>
                     <span className="meta-value" style={{ fontSize: "1rem", color: "var(--color-dark-800)" }}>
                       {orderResult.service}
                     </span>
                   </div>
                   <div className="meta-item" style={{ gridColumn: "1 / -1" }}>
-                    <span className="meta-label">📍Sede de Entrega en Trujillo</span>
+                    <span className="meta-label">Sede de Entrega en Trujillo</span>
                     <span className="meta-value" style={{ fontSize: "0.95rem", fontWeight: 600, color: "var(--color-dark-700)" }}>
                       {orderResult.branch} (Horario: Lun-Sáb 9am–9pm / Dom 9:30am–2pm)
                     </span>

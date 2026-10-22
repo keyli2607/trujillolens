@@ -1,7 +1,3 @@
-/* ==========================================================================
-   LENS GROUP TRUJILLO — MAIN APPLICATION SCRIPT
-   ========================================================================== */
-
 document.addEventListener('DOMContentLoaded', () => {
   initStickyHeader();
   initMobileMenu();
@@ -46,7 +42,6 @@ function initMobileMenu() {
     toggleBtn.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   }
-
   toggleBtn.addEventListener('click', () => {
     if (navMenu.classList.contains('active')) {
       closeMenu();
@@ -54,19 +49,15 @@ function initMobileMenu() {
       openMenu();
     }
   });
-
   if (closeBtn) {
     closeBtn.addEventListener('click', closeMenu);
   }
-
   if (overlay) {
     overlay.addEventListener('click', closeMenu);
   }
-
   navMenu.querySelectorAll('.nav-link, .drawer-contact-btn').forEach(link => {
     link.addEventListener('click', closeMenu);
   });
-
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && navMenu.classList.contains('active')) {
       closeMenu();

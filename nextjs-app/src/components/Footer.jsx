@@ -64,7 +64,7 @@ export default function Footer() {
               <li><Link href="/#catalogo">Lunas Progresivas Digitales</Link></li>
               <li><Link href="/#catalogo">Lentes de Contacto</Link></li>
               <li><Link href="/seguimiento" style={{ color: "var(--color-teal-300)" }}>Seguimiento de Pedido</Link></li>
-              <li><Link href="/admin.html" style={{ color: "var(--color-teal-400)", fontWeight: 600 }}>🔒 Portal Staff (Acceso)</Link></li>
+              <li><Link href="/admin.html" style={{ color: "var(--color-teal-400)", fontWeight: 600 }}>Portal Staff (Acceso)</Link></li>
             </ul>
           </div>
 

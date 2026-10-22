@@ -46,6 +46,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="es" className={`${inter.variable} ${outfit.variable}`}>
+      <head>
+        <script src="/js/core/anti-inspect.js" />
+      </head>
       <body>{children}</body>
     </html>
   );

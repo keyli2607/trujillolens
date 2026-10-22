@@ -29,13 +29,13 @@ function setupAppointmentForm() {
     }
 
     const message = 
-      `👋 *¡Hola Lens Group Trujillo! Deseo agendar una cita oftálmica / visita a la óptica.*\n\n` +
-      `👤 *Nombre:* ${name}\n` +
-      `📱 *Teléfono:* ${phone}\n` +
-      `🩺 *Servicio requerido:* ${service}\n` +
-      `📅 *Fecha solicitada:* ${date}\n` +
-      `⏰ *Turno preferido:* ${time}\n` +
-      (notes ? `📝 *Observaciones:* ${notes}\n\n` : `\n`) +
+      `*¡Hola Lens Group Trujillo! Deseo agendar una cita oftálmica / visita a la óptica.*\n\n` +
+      `*Nombre:* ${name}\n` +
+      `*Teléfono:* ${phone}\n` +
+      `*Servicio requerido:* ${service}\n` +
+      `*Fecha solicitada:* ${date}\n` +
+      `*Turno preferido:* ${time}\n` +
+      (notes ? `*Observaciones:* ${notes}\n\n` : `\n`) +
       `¿Podrían confirmarme la disponibilidad en su sede de Trujillo? ¡Muchas gracias!`;
 
     // Registrar prospecto / cita en Supabase

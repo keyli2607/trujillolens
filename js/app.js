@@ -1,7 +1,3 @@
-/* ==========================================================================
-   LENS GROUP TRUJILLO — MAIN APPLICATION SCRIPT
-   ========================================================================== */
-
 document.addEventListener('DOMContentLoaded', () => {
   initStickyHeader();
   initMobileMenu();

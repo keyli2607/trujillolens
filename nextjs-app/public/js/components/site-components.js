@@ -1,9 +1,3 @@
-/* ==========================================================================
-   LENS GROUP TRUJILLO — COMPONENTES DE INTERFAZ DEL SITIO PÚBLICO
-   --------------------------------------------------------------------------
-   Cada componente genera el HTML de su respectiva sección a partir de
-   los datos en LG.data.site y los íconos de LG.icon.
-   ========================================================================== */
 (function () {
   'use strict';
 
@@ -55,7 +49,7 @@
           </a>
 
           <nav class="nav-menu" id="navMenu">
-            <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Cerrar menú">✕</button>
+            <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Cerrar menú">&times;</button>
             <div class="nav-menu-divider"></div>
             ${LG.each(links, (item) => {
               const isActive = (item.href === `#${current}` || item.href === current);
@@ -308,7 +302,7 @@
 
             <div id="empty-state-ninos" class="empty-state"
               style="display: none; grid-column: 1 / -1; text-align: center; padding: 3rem; color: var(--color-dark-400);">
-              <div style="font-size: 3rem; margin-bottom: 1rem;">🔍</div>
+              <div style="display: flex; justify-content: center; margin-bottom: 1rem; color: var(--color-dark-400);">${LG.icon('search', { size: 48 })}</div>
               <h3 style="margin-bottom: 0.5rem; color: var(--color-dark-800);">No encontramos modelos infantiles que coincidan</h3>
               <p>Prueba con otro término de búsqueda o selecciona la categoría "Todos".</p>
             </div>
@@ -848,7 +842,7 @@
     return LG.html`
       <div class="floating-whatsapp" id="floatingWhatsApp">
         <div class="whatsapp-bubble">
-          ¡Hola! 👋 ¿Necesitas asesoría con tus lentes en Trujillo? Chatea con nosotros
+          ¡Hola! ¿Necesitas asesoría con tus lentes en Trujillo? Chatea con nosotros
         </div>
         <a href="${LG.wa(LG.data.site.messages.advice)}"
           target="_blank" rel="noopener" class="whatsapp-trigger-btn"

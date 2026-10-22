@@ -53,7 +53,7 @@ function setupLensSimulator() {
       // Update text
       if (simTitle) simTitle.textContent = data.title;
       if (simDesc) simDesc.textContent = data.description;
-      if (simIdeal) simIdeal.textContent = `💡 Ideal para: ${data.idealFor}`;
+      if (simIdeal) simIdeal.textContent = `Ideal para: ${data.idealFor}`;
     });
   });
 }

@@ -1,11 +1,3 @@
-/* ==========================================================================
-   LENS GROUP TRUJILLO — SERVICIO DE CONSULTA RENIEC (DNI) Y SUNAT (RUC)
-   --------------------------------------------------------------------------
-   Permite autocompletar en un clic los datos del cliente al emitir boletas
-   o facturas:
-   - DNI (8 dígitos) -> Nombres y apellidos completos desde RENIEC.
-   - RUC (11 dígitos) -> Razón social, dirección fiscal y estado desde SUNAT.
-   ========================================================================== */
 (function () {
   'use strict';
 

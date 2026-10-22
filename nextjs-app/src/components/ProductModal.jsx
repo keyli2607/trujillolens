@@ -14,7 +14,6 @@ export default function ProductModal({ product, isOpen, onClose }) {
       document.body.style.overflow = "";
     };
   }, [isOpen]);
-
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape" && isOpen) {
@@ -24,9 +23,7 @@ export default function ProductModal({ product, isOpen, onClose }) {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
-
   if (!isOpen || !product) return null;
-
   return (
     <div
       className="modal-overlay active"
@@ -45,7 +42,6 @@ export default function ProductModal({ product, isOpen, onClose }) {
             <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
         </button>
-
         <div className="modal-content-grid">
           {/* Product Image Showcase Container */}
           {/* Columna Izquierda: Información Principal + Imagen del Producto */}

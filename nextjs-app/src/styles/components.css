@@ -1,10 +1,3 @@
-/* ==========================================================================
-   LENS GROUP TRUJILLO — COMPONENTS & INTERACTIVE STYLES
-   ========================================================================== */
-
-/* --------------------------------------------------------------------------
-   0. GLOBAL SAFETY
-   -------------------------------------------------------------------------- */
 html,
 body {
   overflow-x: hidden;
@@ -24,9 +17,7 @@ body {
   }
 }
 
-/* --------------------------------------------------------------------------
-   1. TOP ANNOUNCEMENT BAR
-   -------------------------------------------------------------------------- */
+/*  1. TOP ANNOUNCEMENT BAR*/
 .top-bar {
   background-color: var(--color-primary-950);
   color: var(--color-dark-300);
@@ -96,9 +87,7 @@ body {
 }
 
 
-/* --------------------------------------------------------------------------
-   2. HEADER & STICKY NAVBAR
-   -------------------------------------------------------------------------- */
+/* 2. HEADER & STICKY NAVBAR */
 .site-header {
   position: sticky;
   top: 0;
@@ -215,9 +204,7 @@ body {
   color: var(--color-dark-900);
 }
 
-/* --------------------------------------------------------------------------
-   3. BUTTONS & CTAS
-   -------------------------------------------------------------------------- */
+/* 3. BUTTONS & CTAS*/
 .btn {
   display: inline-flex;
   align-items: center;
@@ -313,9 +300,7 @@ body {
   }
 }
 
-/* --------------------------------------------------------------------------
-   4. HERO SECTION
-   -------------------------------------------------------------------------- */
+/*. HERO SECTION */
 .hero-section {
   position: relative;
   background: radial-gradient(circle at 85% 20%, rgba(20, 184, 166, 0.12) 0%, rgba(255, 255, 255, 0) 60%),
@@ -485,9 +470,7 @@ body {
   color: var(--color-dark-500);
 }
 
-/* --------------------------------------------------------------------------
-   5. DISTRIBUIDOR AUTORIZADO & BRANDS SECTION
-   -------------------------------------------------------------------------- */
+/* 5. DISTRIBUIDOR AUTORIZADO & BRANDS SECTION */
 .brands-section {
   padding: 3rem 0 4.5rem 0;
   background: #ffffff;
@@ -623,9 +606,7 @@ body {
   line-height: 1.5;
 }
 
-/* --------------------------------------------------------------------------
-   6. CATALOG SECTION & FILTERS
-   -------------------------------------------------------------------------- */
+/* 6. CATALOG SECTION & FILTERS */
 .catalog-controls {
   display: flex;
   justify-content: space-between;
@@ -803,9 +784,7 @@ body {
   }
 }
 
-/* --------------------------------------------------------------------------
-   CATALOG PRODUCTS — Carrusel táctil en celulares (<= 768px), cuadrícula en escritorio
-   -------------------------------------------------------------------------- */
+/* CATALOG PRODUCTS — Carrusel táctil en celulares */
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -862,9 +841,7 @@ body {
   }
 }
 
-/* ==========================================================================
-   CORRECCIÓN FORZADA: BANNER & BOTÓN EN MÓVILES
-   ========================================================================== */
+/*CORRECCIÓN FORZADA: BANNER & BOTÓN EN MÓVILES */
 
 .catalog-promo-banner {
   display: flex !important;
@@ -958,9 +935,7 @@ body {
   }
 }
 
-/* --------------------------------------------------------------------------
-   PRODUCT CARD
-   -------------------------------------------------------------------------- */
+/* PRODUCT CARD */
 .product-card {
   background: var(--color-white);
   border: 1px solid rgba(226, 232, 240, 0.9);
@@ -1154,9 +1129,7 @@ body {
   font-weight: 500;
 }
 
-/* --------------------------------------------------------------------------
-   7. MODAL WITH INTERACTIVE PRODUCT ZOOM
-   -------------------------------------------------------------------------- */
+/*7. MODAL WITH INTERACTIVE PRODUCT ZOOM */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -1317,9 +1290,7 @@ body {
   text-align: right;
 }
 
-/* --------------------------------------------
-   8. LENS SIMULATOR (TREATMENTS COMPARISON)
-   -------------------------------------------- */
+/*8. LENS SIMULATOR (TREATMENTS COMPARISON) */
 .simulator-card {
   background: var(--color-white);
   border-radius: var(--radius-xl);
@@ -1443,9 +1414,7 @@ body {
   color: var(--color-dark-600);
 }
 
-/* --------------------------------------------------------------------------
-   9. NOSOTROS & CLINIC SHOWCASE
-   -------------------------------------------------------------------------- */
+/* 9. NOSOTROS & CLINIC SHOWCASE */
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1509,9 +1478,7 @@ body {
   color: var(--color-dark-500);
 }
 
-/* --------------------------------------------------------------------------
-   10. TESTIMONIALS
-   -------------------------------------------------------------------------- */
+/*10. TESTIMONIALS */
 .testimonials-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1757,9 +1724,7 @@ body {
   font-weight: 600;
 }
 
-/* --------------------------------------------------
-   11. LOCATION & APPOINTMENT BOOKING SECTION
-   -------------------------------------------------- */
+/* 11. LOCATION & APPOINTMENT BOOKING SECTION */
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1892,9 +1857,7 @@ body {
   gap: 1rem;
 }
 
-/* ---------------------------------
-   12. FOOTER
-   --------------------------------- */
+/* 12. FOOTER */
 .site-footer {
   background: var(--color-primary-950);
   color: var(--color-dark-400);
@@ -1973,9 +1936,7 @@ body {
   font-size: 0.85rem;
 }
 
-/* -----------------------------------------
-   13. FLOATING WHATSAPP BUTTON & RADAR
-   ------------------------------------------ */
+/* 13. FLOATING WHATSAPP BUTTON & RADA */
 .floating-whatsapp {
   position: fixed;
   bottom: 2rem;
@@ -2062,9 +2023,7 @@ body {
   }
 }
 
-/* --------------------------------------------------------------------------
-   14. SEGUIMIENTO DE PEDIDO (ORDER TRACKING SYSTEM)
-   -------------------------------------------------------------------------- */
+/* 14. SEGUIMIENTO DE PEDIDO (ORDER TRACKING SYSTEM) */
 .tracking-hero {
   background: linear-gradient(135deg, var(--color-primary-950) 0%, var(--color-primary-900) 60%, #08284d 100%);
   color: var(--color-white);

@@ -1,7 +1,3 @@
-/* ==========================================================================
-   LENS GROUP TRUJILLO — ORDER TRACKING DATA
-   ========================================================================== */
-
 export const WHATSAPP_STORE_PHONE = '51958169535';
 
 export const ORDERS_DB = {

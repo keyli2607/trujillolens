@@ -48,7 +48,7 @@ export default function Header() {
               aria-label="Cerrar menú"
               onClick={closeMenu}
             >
-              ✕
+              &times;
             </button>
 
             <div className="nav-menu-divider"></div>
@@ -77,7 +77,7 @@ export default function Header() {
               Agendar Cita en Trujillo
             </Link>
             <Link href="/admin.html" className="btn btn-outline drawer-contact-btn" style={{ marginTop: "0.5rem" }} onClick={closeMenu}>
-              🔒 Portal Staff
+              Portal Staff
             </Link>
           </nav>
 

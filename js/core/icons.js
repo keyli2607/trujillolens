@@ -1,18 +1,6 @@
-/* ==========================================================================
-   LENS GROUP TRUJILLO — LIBRERÍA DE ÍCONOS SVG
-   --------------------------------------------------------------------------
-   Antes cada ícono se repetía completo en el HTML (el de WhatsApp aparecía
-   más de 10 veces). Ahora se define una sola vez y se usa así:
-
-     LG.icon('whatsapp', { size: 16 })
-     LG.icon('search', { size: 20, sw: 2.2 })
-
-   Opciones: size, sw (stroke-width), fill, stroke, className, attrs.
-   ========================================================================== */
 (function () {
   'use strict';
 
-  // type 'stroke' => fill="none" stroke="currentColor" | type 'fill' => fill="currentColor"
   const ICONS = {
     // ---- Contacto / ubicación ----
     pin: { type: 'stroke', body: '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle>' },
@@ -93,6 +81,8 @@
     barChart: { type: 'stroke', body: '<line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line>' },
     fileText: { type: 'stroke', body: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline>' },
     fileLines: { type: 'stroke', body: '<polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline>' },
+    clipboard: { type: 'stroke', body: '<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>' },
+    printer: { type: 'stroke', body: '<polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect>' },
     zap: { type: 'stroke', body: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>' }
   };
 

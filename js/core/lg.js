@@ -1,16 +1,3 @@
-/* ==========================================================================
-   LENS GROUP TRUJILLO — MICRO FRAMEWORK DE COMPONENTES (LG)
-   --------------------------------------------------------------------------
-   Utilidades mínimas para construir la interfaz desde JavaScript:
-     - LG.html   : template tag que acepta arrays, null y false.
-     - LG.each   : mapea una lista a HTML.
-     - LG.attrs  : convierte un objeto en atributos HTML.
-     - LG.esc    : escapa texto para insertarlo de forma segura.
-     - LG.wa     : genera enlaces de WhatsApp.
-     - LG.mount  : reemplaza un contenedor por los componentes renderizados.
-   Se carga como script clásico (sin módulos) para funcionar también
-   abriendo los archivos directamente desde el disco.
-   ========================================================================== */
 (function () {
   'use strict';
 

@@ -1,7 +1,3 @@
-/* ==========================================================================
-   LENS GROUP TRUJILLO — VISOR MODAL DE PRODUCTO (IMAGEN DIRECTA)
-   ========================================================================== */
-
 let activeProduct = null;
 
 function openProductModal(productId) {
