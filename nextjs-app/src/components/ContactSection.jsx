@@ -81,13 +81,13 @@ export default function ContactSection() {
     }
 
     const message =
-      `👋 *¡Hola Lens Group Trujillo! Deseo agendar una cita oftálmica / visita a la óptica.*\n\n` +
-      `👤 *Nombre:* ${name.trim()}\n` +
-      `📱 *Teléfono:* ${phone.trim()}\n` +
-      `🩺 *Servicio requerido:* ${service}\n` +
-      `📅 *Fecha solicitada:* ${date}\n` +
-      `⏰ *Turno preferido:* ${time}\n` +
-      (notes.trim() ? `📝 *Observaciones:* ${notes.trim()}\n\n` : `\n`) +
+      `*¡Hola Lens Group Trujillo! Deseo agendar una cita oftálmica / visita a la óptica.*\n\n` +
+      `*Nombre:* ${name.trim()}\n` +
+      `*Teléfono:* ${phone.trim()}\n` +
+      `*Servicio requerido:* ${service}\n` +
+      `*Fecha solicitada:* ${date}\n` +
+      `*Turno preferido:* ${time}\n` +
+      (notes.trim() ? `*Observaciones:* ${notes.trim()}\n\n` : `\n`) +
       `¿Podrían confirmarme la disponibilidad en su sede de Trujillo? ¡Muchas gracias!`;
 
     const whatsappUrl = `https://wa.me/51958169535?text=${encodeURIComponent(message)}`;

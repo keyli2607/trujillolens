@@ -133,7 +133,12 @@ export default function CatalogSection() {
                 color: "var(--color-dark-400)",
               }}
             >
-              <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>🔍</div>
+              <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem", color: "var(--color-dark-400)" }}>
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </div>
               <h3 style={{ marginBottom: "0.5rem" }}>No encontramos modelos que coincidan</h3>
               <p>Prueba buscando con otro término o selecciona la categoría &quot;Todos&quot;.</p>
             </div>

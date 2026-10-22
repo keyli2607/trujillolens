@@ -1,8 +1,3 @@
-/* ==========================================================================
-   LENS GROUP TRUJILLO — PÁGINA DE SEGUIMIENTO (TRACKING)
-   --------------------------------------------------------------------------
-   Monta la interfaz de la página seguimiento.html usando componentes JS.
-   ========================================================================== */
 (function () {
   'use strict';
 

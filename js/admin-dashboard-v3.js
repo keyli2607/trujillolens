@@ -5,8 +5,8 @@
 
 const ADMIN_STORAGE_KEY = 'lens_group_admin_session';
 
-const SUPABASE_URL = 'https://tyzxjrtekbpwkfshvnua.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_0FE-anyjwe14BQ7WoGsU6Q_C08cnpFE';
+const SUPABASE_URL = 'https://rsjondlejagmnjrmbolf.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_A86Q2r3lrF6z14HunWuuwQ_Y-G8ziVV';
 
 // Ya no usamos las rutas locales /api porque en GitHub Pages no hay servidor Node
 const API_ORDERS_URL = `${SUPABASE_URL}/rest/v1/ordenes_laboratorio?select=*,ventas(*)`;
@@ -808,7 +808,7 @@ window.switchCategory = function(categoryId) {
   // Para vendedor limita las cosas que puede ver a solo historial de ventas, catálogos (niños y adultos) y al inventario local
   if (isSeller && !SELLER_ALLOWED.includes(categoryId)) {
     if (typeof showToast === 'function') {
-      showToast('⚠️ Vista restringida: Tu perfil solo tiene acceso a Ventas, Catálogos e Inventario.');
+      showToast('Vista restringida: Tu perfil solo tiene acceso a Ventas, Catálogos e Inventario.');
     }
     categoryId = 'sales';
   }
@@ -816,7 +816,7 @@ window.switchCategory = function(categoryId) {
   // Para laboratorio y clínica limita a solo atención y pacientes (órdenes y postventa)
   if (isClinical && !CLINICAL_ALLOWED.includes(categoryId)) {
     if (typeof showToast === 'function') {
-      showToast('⚠️ Vista restringida: Tu perfil solo tiene acceso a Atención & Pacientes (Órdenes y Postventa).');
+      showToast('Vista restringida: Tu perfil solo tiene acceso a Atención & Pacientes (Órdenes y Postventa).');
     }
     categoryId = 'orders';
   }
@@ -1459,7 +1459,7 @@ window.renderSales = function() {
           </div>
           ${s.clienteTelefono ? `
             <div style="font-size: 0.76rem; color: var(--admin-text-dim); margin-top: 0.2rem; display: inline-flex; align-items: center; gap: 0.3rem;">
-              <span>📞</span>
+              <span>${LG.icon('phone', { size: 14, sw: 2 })}</span>
               <span style="font-weight: 500;">${s.clienteTelefono}</span>
             </div>
           ` : ''}
@@ -1474,10 +1474,10 @@ window.renderSales = function() {
         </td>
         <td style="min-width: 220px;">
           <div style="font-size: 0.84rem; color: var(--admin-text-main); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 250px;" title="${s.monturaNombre}">
-            👓 ${s.monturaNombre}
+            ${s.monturaNombre}
           </div>
           <div style="font-size: 0.74rem; color: var(--admin-primary); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 250px; margin-top: 0.15rem;" title="${s.lunasNombre}">
-            🔬 ${s.lunasNombre}
+            ${s.lunasNombre}
           </div>
         </td>
         <td style="white-space: nowrap;">
@@ -1496,7 +1496,7 @@ window.renderSales = function() {
               WA
             </button>
             <button type="button" class="btn-table-action" title="Imprimir Comprobante" onclick="printInvoiceById('${s.id}')">
-              🖨️
+              ${LG.icon('printer', { size: 14, sw: 2 })}
             </button>
           </div>
         </td>
@@ -1626,7 +1626,7 @@ window.handleConsultarFiscal = async function() {
   } catch (err) {
     feedbackEl.innerHTML = `
       <div class="verified-badge warning">
-        <span>⚠️ ${err.message} Puedes ingresar los datos manualmente.</span>
+        <span>${err.message} Puedes ingresar los datos manualmente.</span>
       </div>
     `;
     showToast(err.message);
@@ -2017,21 +2017,21 @@ window.sendCurrentInvoiceWhatsApp = function() {
 
   const docTitle = sale.tipoDoc === 'factura' ? 'Factura Electrónica' : 'Boleta de Venta Electrónica';
   const msg = [
-    `👓 *LENS GROUP TRUJILLO*`,
+    `*LENS GROUP TRUJILLO*`,
     `Hola ${sale.clienteNombre}, adjuntamos su comprobante de pago:`,
     ``,
-    `📄 *${docTitle}:* ${sale.correlativo}`,
-    `👤 *Cliente:* ${sale.clienteNombre} (${sale.clienteDocTipo}: ${sale.clienteDocNumero})`,
-    `📅 *Fecha:* ${sale.fechaCompleta || sale.fechaHora}`,
+    `*${docTitle}:* ${sale.correlativo}`,
+    `*Cliente:* ${sale.clienteNombre} (${sale.clienteDocTipo}: ${sale.clienteDocNumero})`,
+    `*Fecha:* ${sale.fechaCompleta || sale.fechaHora}`,
     `--------------------------------`,
     `• Montura: ${sale.monturaNombre} (S/ ${Number(sale.monturaPrecio).toFixed(2)})`,
     sale.lunasPrecio > 0 ? `• Lunas: ${sale.lunasNombre} (S/ ${Number(sale.lunasPrecio).toFixed(2)})` : null,
     sale.descuento > 0 ? `• Descuento: - S/ ${Number(sale.descuento).toFixed(2)}` : null,
     `--------------------------------`,
-    `💰 *TOTAL PAGADO: S/ ${Number(sale.total).toFixed(2)}*`,
-    `💳 *Método de Pago:* ${sale.metodoPago}`,
+    `*TOTAL PAGADO: S/ ${Number(sale.total).toFixed(2)}*`,
+    `*Método de Pago:* ${sale.metodoPago}`,
     ``,
-    `📍 Sede: Jr. Gamarra N° 778 Int. 12 (Galería San Antonio), Trujillo`,
+    `Sede: Jr. Gamarra N° 778 Int. 12 (Galería San Antonio), Trujillo`,
     `Consulte el estado de su orden en: https://lensgrouptrujillo.com/seguimiento.html`,
     `¡Gracias por su preferencia!`
   ].filter(Boolean).join('\n');
@@ -2293,22 +2293,22 @@ function generateBotReply(rawMsg) {
   if (/^(hola|buenas|buenos|hey|hi|que tal|saludos)/.test(t)) {
     const h = new Date().getHours();
     const saludo = h < 12 ? 'Buenos días' : h < 19 ? 'Buenas tardes' : 'Buenas noches';
-    return `${saludo} 👋 Soy <strong>LensBot</strong>. Puedo responderte sobre ventas, ganancias, lentes más vendidos, stock, órdenes, clientes, catálogo y más. ¿Qué necesitas?`;
+    return `${saludo} Soy <strong>LensBot</strong>. Puedo responderte sobre ventas, ganancias, lentes más vendidos, stock, órdenes, clientes, catálogo y más. ¿Qué necesitas?`;
   }
-  if (botHas(t, ['gracias', 'thank'])) return '¡Con gusto! 😊 Si necesitas algo más, aquí estoy.';
-  if (botHas(t, ['adios', 'chau', 'hasta luego', 'bye'])) return '¡Hasta luego! Que tengas excelentes ventas 👓';
+  if (botHas(t, ['gracias', 'thank'])) return '¡Con gusto! Si necesitas algo más, aquí estoy.';
+  if (botHas(t, ['adios', 'chau', 'hasta luego', 'bye'])) return '¡Hasta luego! Que tengas excelentes ventas';
   if (botHas(t, ['quien eres', 'que eres', 'como te llamas', 'tu nombre'])) {
     return 'Soy <strong>LensBot</strong>, el asistente inteligente de Lens Group Trujillo. Analizo en tiempo real las órdenes, el inventario y los catálogos del sistema.';
   }
   if (botHas(t, ['ayuda', 'que puedes', 'que sabes', 'opciones', 'comandos', 'help'])) {
     return `Puedo ayudarte con:<br>
-      📈 <em>"ventas totales"</em>, <em>"ganancias"</em><br>
-      🏆 <em>"lentes más vendidos"</em>, <em>"mejor marca"</em><br>
-      📦 <em>"stock crítico"</em>, <em>"inventario"</em><br>
-      🧾 <em>"órdenes pendientes"</em>, <em>"urgentes"</em>, <em>"listos"</em><br>
-      👤 <em>"clientes"</em> o busca por nombre/DNI/código<br>
-      🧒 <em>"catálogo niños"</em>, 🧑 <em>"catálogo adultos"</em><br>
-      💡 <em>"recomendaciones"</em>, <em>"hora"</em>, <em>"fecha"</em>`;
+      • <em>"ventas totales"</em>, <em>"ganancias"</em><br>
+      • <em>"lentes más vendidos"</em>, <em>"mejor marca"</em><br>
+      • <em>"stock crítico"</em>, <em>"inventario"</em><br>
+      • <em>"órdenes pendientes"</em>, <em>"urgentes"</em>, <em>"listos"</em><br>
+      • <em>"clientes"</em> o busca por nombre/DNI/código<br>
+      • <em>"catálogo niños"</em>, <em>"catálogo adultos"</em><br>
+      • <em>"recomendaciones"</em>, <em>"hora"</em>, <em>"fecha"</em>`;
   }
 
   // 2. Hora / fecha
@@ -2321,7 +2321,7 @@ function generateBotReply(rawMsg) {
   if (codeMatch || dniMatch) {
     const o = d.orders.find(x => (codeMatch && BOT_NORM(x.code) === codeMatch[0]) || (dniMatch && x.dni === dniMatch[0]));
     if (o) {
-      return `<strong>Orden ${o.code}</strong><br>👤 ${o.customer} (DNI ${o.dni})<br>👓 ${o.service}<br>📅 Entrega: ${o.estimatedDate}<br>📌 Estado: ${BOT_HL(statusLabel[o.estado] || o.estado)}${o.urgente ? ' 🔥 Urgente' : ''}<br>💰 ${BOT_MONEY(o.price)}`;
+      return `<strong>Orden ${o.code}</strong><br>Cliente: ${o.customer} (DNI ${o.dni})<br>Servicio: ${o.service}<br>Entrega: ${o.estimatedDate}<br>Estado: ${BOT_HL(statusLabel[o.estado] || o.estado)}${o.urgente ? ' [Urgente]' : ''}<br>Total: ${BOT_MONEY(o.price)}`;
     }
     return 'No encontré ninguna orden con ese código o DNI. Verifica el dato e inténtalo de nuevo.';
   }
@@ -2329,14 +2329,14 @@ function generateBotReply(rawMsg) {
   // 4. Búsqueda por nombre de cliente
   const byName = d.orders.find(o => BOT_NORM(o.customer).split(' ').some(p => p.length > 3 && t.split(/\s+/).includes(p)));
   if (byName && !botHas(t, ['marca'])) {
-    return `Encontré a <strong>${byName.customer}</strong>:<br>🧾 Orden ${byName.code}<br>👓 ${byName.service}<br>📌 Estado: ${BOT_HL(statusLabel[byName.estado] || byName.estado)}<br>📞 ${byName.phone}`;
+    return `Encontré a <strong>${byName.customer}</strong>:<br>Orden: ${byName.code}<br>Servicio: ${byName.service}<br>Estado: ${BOT_HL(statusLabel[byName.estado] || byName.estado)}<br>Teléfono: ${byName.phone}`;
   }
 
   // 5. Más vendidos / ranking
   if (botHas(t, ['mas vendid', 'mas se vende', 'top', 'ranking', 'popular', 'mejor marca', 'mejores', 'favorit'])) {
     const top = botTopBrands(d.orders).slice(0, 5);
-    const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
-    return `<strong>🏆 Lentes / marcas más vendidos:</strong><br>` +
+    const medals = ['1.', '2.', '3.', '4.', '5.'];
+    return `<strong>Lentes / marcas más vendidos:</strong><br>` +
       top.map((b, i) => `${medals[i]} ${b.brand} — ${b.count} venta(s) · ${BOT_MONEY(b.total)}`).join('<br>') +
       `<br><br>Líder: ${BOT_HL(top[0].brand)}. Puedes ver el gráfico de barras en <em>Analítica & Gráficos BI</em>.`;
   }
@@ -2345,35 +2345,35 @@ function generateBotReply(rawMsg) {
   if (botHas(t, ['menos vendid', 'no se vende', 'peor'])) {
     const all = botTopBrands(d.orders);
     const low = all.slice(-3).reverse();
-    return `<strong>📉 Menor rotación:</strong><br>` + low.map(b => `• ${b.brand} — ${b.count} venta(s)`).join('<br>') +
-      `<br>💡 Considera promociones o combos para estas marcas.`;
+    return `<strong>Menor rotación:</strong><br>` + low.map(b => `• ${b.brand} — ${b.count} venta(s)`).join('<br>') +
+      `<br>Considera promociones o combos para estas marcas.`;
   }
 
   // 7. Ganancias / utilidad / margen
   if (botHas(t, ['ganancia', 'utilidad', 'margen', 'rentab', 'beneficio', 'profit'])) {
     const margin = d.revenue ? (d.profit / d.revenue * 100).toFixed(1) : 0;
-    return `<strong>💰 Rentabilidad:</strong><br>Ingresos: ${BOT_MONEY(d.revenue)}<br>Costos: ${BOT_MONEY(d.cost)}<br>Utilidad neta: ${BOT_HL(BOT_MONEY(d.profit))}<br>Margen: <strong>${margin}%</strong>`;
+    return `<strong>Rentabilidad:</strong><br>Ingresos: ${BOT_MONEY(d.revenue)}<br>Costos: ${BOT_MONEY(d.cost)}<br>Utilidad neta: ${BOT_HL(BOT_MONEY(d.profit))}<br>Margen: <strong>${margin}%</strong>`;
   }
 
   // 8. Ventas / ingresos
   if (botHas(t, ['venta', 'vendi', 'ingreso', 'factur', 'dinero', 'plata', 'cuanto', 'total', 'caja', 'hoy', 'semana', 'resumen', 'mes'])) {
     const avg = d.orders.length ? d.revenue / d.orders.length : 0;
     const best = [...d.orders].sort((a, b) => b.price - a.price)[0];
-    return `<strong>📈 Resumen de ventas:</strong><br>🧾 Órdenes registradas: <strong>${d.orders.length}</strong><br>💵 Ingresos totales: ${BOT_HL(BOT_MONEY(d.revenue))}<br>🎯 Ticket promedio: ${BOT_MONEY(avg)}<br>⭐ Venta más alta: ${best ? `${best.customer} (${BOT_MONEY(best.price)})` : '-'}`;
+    return `<strong>Resumen de ventas:</strong><br>Órdenes registradas: <strong>${d.orders.length}</strong><br>Ingresos totales: ${BOT_HL(BOT_MONEY(d.revenue))}<br>Ticket promedio: ${BOT_MONEY(avg)}<br>Venta más alta: ${best ? `${best.customer} (${BOT_MONEY(best.price)})` : '-'}`;
   }
 
   // 9. Órdenes por estado
   if (botHas(t, ['urgente'])) {
     const u = d.orders.filter(o => o.urgente);
-    return u.length ? `<strong>🔥 Órdenes urgentes (${u.length}):</strong><br>` + u.map(o => `• ${o.code} — ${o.customer} (${statusLabel[o.estado]})`).join('<br>') : 'No hay órdenes urgentes en este momento ✅';
+    return u.length ? `<strong>Órdenes urgentes (${u.length}):</strong><br>` + u.map(o => `• ${o.code} — ${o.customer} (${statusLabel[o.estado]})`).join('<br>') : 'No hay órdenes urgentes en este momento.';
   }
   if (botHas(t, ['listo', 'entrega', 'recoger', 'terminad'])) {
     const l = d.orders.filter(o => o.estado === 'listo');
-    return `<strong>✅ Listos para entrega (${l.length}):</strong><br>` + (l.map(o => `• ${o.code} — ${o.customer} 📞 ${o.phone}`).join('<br>') || 'Ninguno por ahora.');
+    return `<strong>Listos para entrega (${l.length}):</strong><br>` + (l.map(o => `• ${o.code} — ${o.customer} · Tel: ${o.phone}`).join('<br>') || 'Ninguno por ahora.');
   }
   if (botHas(t, ['orden', 'pedido', 'pendiente', 'proceso', 'taller', 'laboratorio', 'cola', 'trabajo'])) {
     const c = s => d.orders.filter(o => o.estado === s).length;
-    return `<strong>🧾 Estado del laboratorio:</strong><br>⏳ En cola: <strong>${c('cola')}</strong><br>⚙️ En proceso: <strong>${c('proceso')}</strong><br>✅ Listos: <strong>${c('listo')}</strong><br>🔥 Urgentes: <strong>${d.orders.filter(o => o.urgente).length}</strong>`;
+    return `<strong>Estado del laboratorio:</strong><br>En cola: <strong>${c('cola')}</strong><br>En proceso: <strong>${c('proceso')}</strong><br>Listos: <strong>${c('listo')}</strong><br>Urgentes: <strong>${d.orders.filter(o => o.urgente).length}</strong>`;
   }
 
   // 10. Clientes / pacientes
@@ -2386,22 +2386,22 @@ function generateBotReply(rawMsg) {
   if (botHas(t, ['nino', 'nina', 'infantil', 'kids', 'junior'])) {
     const stock = d.kids.reduce((s, f) => s + f.stock, 0);
     const out = d.kids.filter(f => f.stock === 0);
-    return `<strong>🧒 Catálogo de Niños:</strong><br>${d.kids.length} modelos · ${BOT_HL(stock + ' unidades')} en stock<br>` +
+    return `<strong>Catálogo de Niños:</strong><br>${d.kids.length} modelos · ${BOT_HL(stock + ' unidades')} en stock<br>` +
       d.kids.map(f => `• ${f.brand} ${f.model} — ${f.stock} u. · ${BOT_MONEY(f.price)}`).join('<br>') +
-      (out.length ? `<br>⚠️ Agotados: ${out.map(f => f.model).join(', ')}` : '');
+      (out.length ? `<br>Agotados: ${out.map(f => f.model).join(', ')}` : '');
   }
   if (botHas(t, ['adulto', 'dama', 'caballero', 'hombre', 'mujer'])) {
     const stock = d.adults.reduce((s, f) => s + f.stock, 0);
     const out = d.adults.filter(f => f.stock === 0);
-    return `<strong>🧑 Catálogo de Adultos:</strong><br>${d.adults.length} modelos · ${BOT_HL(stock + ' unidades')} en stock<br>` +
+    return `<strong>Catálogo de Adultos:</strong><br>${d.adults.length} modelos · ${BOT_HL(stock + ' unidades')} en stock<br>` +
       d.adults.map(f => `• ${f.brand} ${f.model} — ${f.stock} u. · ${BOT_MONEY(f.price)}`).join('<br>') +
-      (out.length ? `<br>⚠️ Agotados: ${out.map(f => f.model).join(', ')}` : '');
+      (out.length ? `<br>Agotados: ${out.map(f => f.model).join(', ')}` : '');
   }
 
   // 12. Stock / inventario
   if (botHas(t, ['agotad', 'critico', 'falta', 'reponer', 'comprar', 'bajo'])) {
     const crit = d.inventory.filter(i => i.stock <= i.threshold);
-    return `<strong>⚠️ Productos a reponer (${crit.length}):</strong><br>` +
+    return `<strong>Productos a reponer (${crit.length}):</strong><br>` +
       crit.map(i => `• ${i.brand} ${i.model} — ${i.stock}/${i.threshold} u.`).join('<br>');
   }
   if (botHas(t, ['stock', 'inventario', 'montura', 'catalogo', 'producto', 'unidades', 'existencia', 'lente', 'luna', 'cristal', 'gafa'])) {
@@ -2410,14 +2410,14 @@ function generateBotReply(rawMsg) {
     const crit = d.inventory.filter(i => i.stock <= i.threshold).length;
     const kidsStock = d.kids.reduce((s, f) => s + f.stock, 0);
     const adultStock = d.adults.reduce((s, f) => s + f.stock, 0);
-    return `<strong>📦 Inventario general:</strong><br>Productos: ${d.inventory.length} · Unidades: <strong>${total}</strong><br>Valor en stock: ${BOT_HL(BOT_MONEY(value))}<br>⚠️ En nivel crítico: <strong>${crit}</strong><br>🧒 Monturas niños: ${kidsStock} u. · 🧑 Adultos: ${adultStock} u.`;
+    return `<strong>Inventario general:</strong><br>Productos: ${d.inventory.length} · Unidades: <strong>${total}</strong><br>Valor en stock: ${BOT_HL(BOT_MONEY(value))}<br>En nivel crítico: <strong>${crit}</strong><br>Monturas niños: ${kidsStock} u. · Adultos: ${adultStock} u.`;
   }
 
   // 13. Precios
   if (botHas(t, ['precio', 'caro', 'barato', 'cuesta', 'vale'])) {
     const all = [...d.inventory, ...d.kids, ...d.adults];
     const sorted = [...all].sort((a, b) => b.price - a.price);
-    return `💲 Más caro: <strong>${sorted[0].brand} ${sorted[0].model}</strong> (${BOT_MONEY(sorted[0].price)})<br>💲 Más económico: <strong>${sorted.at(-1).brand} ${sorted.at(-1).model}</strong> (${BOT_MONEY(sorted.at(-1).price)})`;
+    return `Mayor precio: <strong>${sorted[0].brand} ${sorted[0].model}</strong> (${BOT_MONEY(sorted[0].price)})<br>Menor precio: <strong>${sorted.at(-1).brand} ${sorted.at(-1).model}</strong> (${BOT_MONEY(sorted.at(-1).price)})`;
   }
 
   // 14. Búsqueda por marca o modelo
@@ -2427,7 +2427,7 @@ function generateBotReply(rawMsg) {
     return t.split(/\s+/).some(w => w.length > 3 && name.includes(w));
   });
   if (prodHits.length) {
-    return `<strong>🔎 Encontré ${prodHits.length} producto(s):</strong><br>` +
+    return `<strong>Encontré ${prodHits.length} producto(s):</strong><br>` +
       prodHits.slice(0, 6).map(p => `• ${p.brand} ${p.model} — ${p.stock} u. · ${BOT_MONEY(p.price)}`).join('<br>');
   }
 
@@ -2435,25 +2435,25 @@ function generateBotReply(rawMsg) {
   if (botHas(t, ['recomienda', 'consejo', 'sugerencia', 'que hago', 'decision', 'mejorar', 'estrategia', 'idea'])) {
     const crit = d.inventory.filter(i => i.stock <= i.threshold);
     const top = botTopBrands(d.orders)[0];
-    return `<strong>💡 Recomendaciones:</strong><br>1. Reponer ${crit.length} producto(s) críticos (ej. ${crit[0] ? crit[0].brand + ' ' + crit[0].model : '-'}).<br>2. Potenciar ${top.brand}, tu marca líder, con exhibición destacada.<br>3. Ofrecer combos montura + tratamiento Blue Protect para subir el ticket.<br>4. Contactar a los clientes con órdenes listas para acelerar la entrega.`;
+    return `<strong>Recomendaciones:</strong><br>1. Reponer ${crit.length} producto(s) críticos (ej. ${crit[0] ? crit[0].brand + ' ' + crit[0].model : '-'}).<br>2. Potenciar ${top.brand}, tu marca líder, con exhibición destacada.<br>3. Ofrecer combos montura + tratamiento Blue Protect para subir el ticket.<br>4. Contactar a los clientes con órdenes listas para acelerar la entrega.`;
   }
 
   // 16. Usuarios / personal
   if (botHas(t, ['usuario', 'personal', 'empleado', 'trabajador', 'equipo'])) {
-    return `<strong>👥 Personal:</strong><br>` + state.users.map(u => `• ${u.name} — ${u.role} (${u.status})`).join('<br>');
+    return `<strong>Personal:</strong><br>` + state.users.map(u => `• ${u.name} — ${u.role} (${u.status})`).join('<br>');
   }
 
   // 17. Preguntas generales sobre ópticas
   if (botHas(t, ['miopia', 'astigmat', 'hipermetrop', 'presbicia', 'vista', 'ojo', 'vision'])) {
-    return '👁️ Para problemas visuales recomendamos un examen optométrico completo. Ofrecemos lunas monofocales, bifocales, progresivas FreeForm, fotocromáticas y con filtro Blue Protect para pantallas.';
+    return 'Para problemas visuales recomendamos un examen optométrico completo. Ofrecemos lunas monofocales, bifocales, progresivas FreeForm, fotocromáticas y con filtro Blue Protect para pantallas.';
   }
   if (botHas(t, ['horario', 'abren', 'cierran', 'direccion', 'ubicacion', 'donde'])) {
-    return '📍 Galería San Antonio, Jr. Gamarra N° 778 – Trujillo.<br>🕘 Lunes a sábado de 9:00 a.m. a 8:00 p.m.';
+    return 'Galería San Antonio, Jr. Gamarra N° 778 – Trujillo.<br>Lunes a sábado de 9:00 a.m. a 8:00 p.m.';
   }
 
   // 18. Respuesta general (siempre útil, nunca "no entendí")
   const d2 = d.orders.filter(o => o.estado !== 'listo').length;
-  return `Buena pregunta 🤔 Te comparto un panorama rápido del negocio:<br>💵 Ingresos: ${BOT_HL(BOT_MONEY(d.revenue))} · Utilidad: ${BOT_MONEY(d.profit)}<br>🧾 Órdenes activas: <strong>${d2}</strong><br>🏆 Marca líder: <strong>${botTopBrands(d.orders)[0].brand}</strong><br><br>Puedes preguntarme por ventas, ganancias, stock, clientes, órdenes, catálogo o pedirme recomendaciones.`;
+  return `Buena pregunta Te comparto un panorama rápido del negocio:<br>Ingresos: ${BOT_HL(BOT_MONEY(d.revenue))} · Utilidad: ${BOT_MONEY(d.profit)}<br>Órdenes activas: <strong>${d2}</strong><br>Marca líder: <strong>${botTopBrands(d.orders)[0].brand}</strong><br><br>Puedes preguntarme por ventas, ganancias, stock, clientes, órdenes, catálogo o pedirme recomendaciones.`;
 }
 
 
@@ -2787,7 +2787,7 @@ function renderInventory() {
     let pillText = 'En Stock';
     if (item.status === 'critical') {
       pillClass = 'stock-critical';
-      pillText = '⚠️ Crítico';
+      pillText = 'Crítico';
     } else if (item.status === 'medium') {
       pillClass = 'stock-medium';
       pillText = 'Reposición';
@@ -2836,7 +2836,7 @@ function renderInventory() {
 
 window.openInventoryModal = function(itemId = null) {
   if (isUserSeller()) {
-    showToast('⚠️ Solo los administradores pueden registrar o editar productos de inventario.');
+    showToast('Solo los administradores pueden registrar o editar productos de inventario.');
     return;
   }
   const modal = document.getElementById('modalInventory');
@@ -3502,9 +3502,9 @@ async function renderUsers() {
         <td>Galería San Antonio, Jr. Gamarra N° 778</td>
         <td>
           <select class="user-estado-select ${cfg.cls}" onchange="updateUserEstado('${u.id}', this)">
-            <option value="activo"     ${estadoVal === 'activo'     ? 'selected' : ''}>🟢 ACTIVO</option>
-            <option value="inactivo"   ${estadoVal === 'inactivo'   ? 'selected' : ''}>🔴 INACTIVO</option>
-            <option value="suspendido" ${estadoVal === 'suspendido' ? 'selected' : ''}>🟡 SUSPENDIDO</option>
+            <option value="activo"     ${estadoVal === 'activo'     ? 'selected' : ''}>ACTIVO</option>
+            <option value="inactivo"   ${estadoVal === 'inactivo'   ? 'selected' : ''}>INACTIVO</option>
+            <option value="suspendido" ${estadoVal === 'suspendido' ? 'selected' : ''}>SUSPENDIDO</option>
           </select>
         </td>
         <td style="text-align: right;">
@@ -3731,17 +3731,17 @@ window.openCardexModal = function() {
     modal.innerHTML = `
       <div class="modal-card" style="max-width:540px;">
         <div class="modal-header">
-          <h3 style="font-size:1.15rem;font-weight:800;color:var(--admin-text-main);">📋 Registrar Movimiento de Stock</h3>
-          <button type="button" class="modal-close-btn" onclick="document.getElementById('modalCardex').classList.remove('active')">✕</button>
+          <h3 style="font-size:1.15rem;font-weight:800;color:var(--admin-text-main);">Registrar Movimiento de Stock</h3>
+          <button type="button" class="modal-close-btn" onclick="document.getElementById('modalCardex').classList.remove('active')">&times;</button>
         </div>
         <form id="formCardex" style="display:flex;flex-direction:column;gap:1rem;padding:1.5rem;">
           <div class="form-group">
             <label class="form-label">Tipo de Movimiento</label>
             <select id="cdxType" class="form-input" required>
-              <option value="entrada">📥 Entrada (Compra / Reposición)</option>
-              <option value="salida">📤 Salida (Venta / Despacho)</option>
-              <option value="ajuste">⚖️ Ajuste (Corrección de conteo)</option>
-              <option value="merma">🗑️ Merma (Daño / Pérdida)</option>
+              <option value="entrada">Entrada (Compra / Reposición)</option>
+              <option value="salida">Salida (Venta / Despacho)</option>
+              <option value="ajuste">Ajuste (Corrección de conteo)</option>
+              <option value="merma">Merma (Daño / Pérdida)</option>
             </select>
           </div>
           <div class="form-group">
@@ -3805,7 +3805,7 @@ window.openCardexModal = function() {
       modal.classList.remove('active');
       this.reset();
       filterCardex();
-      showToast('✅ Movimiento registrado exitosamente en el Cardex');
+      showToast('Movimiento registrado exitosamente en el Cardex');
     });
   }
   modal.classList.add('active');
@@ -3825,7 +3825,7 @@ window.exportCardexCsv = function() {
   a.download = `cardex_lens_group_${new Date().toISOString().split('T')[0]}.csv`;
   a.click();
   URL.revokeObjectURL(url);
-  showToast('📊 Cardex exportado como CSV');
+  showToast('Cardex exportado como CSV');
 };
 
 // ==========================================================================
@@ -3890,7 +3890,7 @@ window.renderCRM = function() {
     tbody.innerHTML = `
       <tr>
         <td colspan="7" style="text-align: center; padding: 3rem; color: var(--admin-text-muted);">
-          <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔍</div>
+          <div style="margin-bottom: 0.5rem; display: flex; justify-content: center;">${LG.icon('search', { size: 32, sw: 1.8 })}</div>
           <div style="font-weight: 700; font-size: 1rem; color: var(--admin-text-main);">No se encontraron pacientes</div>
           <p style="font-size: 0.82rem; margin-top: 0.25rem;">Intenta con otro término de búsqueda o cambia la pestaña de filtro.</p>
         </td>
@@ -3901,10 +3901,10 @@ window.renderCRM = function() {
 
   tbody.innerHTML = list.map(p => {
     const badgeMap = {
-      listo: { cls: 'crm-badge-listo', icon: '📦', text: 'Listo p/ Retiro' },
-      adaptacion: { cls: 'crm-badge-adaptacion', icon: '👓', text: 'En Adaptación' },
-      control: { cls: 'crm-badge-control', icon: '📅', text: 'Control Anual' },
-      garantia: { cls: 'crm-badge-garantia', icon: '🛡️', text: 'Garantía Vigente' },
+      listo: { cls: 'crm-badge-listo', icon: '', text: 'Listo p/ Retiro' },
+      adaptacion: { cls: 'crm-badge-adaptacion', icon: '', text: 'En Adaptación' },
+      control: { cls: 'crm-badge-control', icon: '', text: 'Control Anual' },
+      garantia: { cls: 'crm-badge-garantia', icon: '', text: 'Garantía Vigente' },
       fidelizado: { cls: 'crm-badge-fidelizado', icon: '⭐', text: 'Fidelizado / VIP' }
     };
     const bInfo = badgeMap[p.estado] || badgeMap.listo;
@@ -3932,7 +3932,7 @@ window.renderCRM = function() {
                 <span>${p.ocupacion || 'Trujillo'}</span>
               </div>
               <div style="font-size: 0.7rem; color: var(--admin-text-dim); margin-top: 0.1rem;">
-                📍 ${p.direccion || 'Trujillo, Perú'}
+                ${p.direccion || 'Trujillo, Perú'}
               </div>
             </div>
           </div>
@@ -3940,7 +3940,7 @@ window.renderCRM = function() {
         <td>
           <div style="display: flex; flex-direction: column; gap: 0.35rem; align-items: flex-start;">
             <div style="font-weight: 700; font-family: monospace; font-size: 0.86rem; color: var(--admin-text-main);">
-              📱 +51 ${p.telefono}
+              +51 ${p.telefono}
             </div>
             <div style="display: flex; gap: 0.35rem;">
               <button type="button" class="crm-wa-btn" onclick="sendPatientWhatsApp('${p.id}')" title="Enviar WhatsApp con plantilla personalizada">
@@ -3980,10 +3980,10 @@ window.renderCRM = function() {
               <span>${bInfo.text}</span>
             </span>
             <select class="select-state" onchange="updatePatientStatus('${p.id}', this.value)" style="font-size: 0.72rem; padding: 0.2rem 0.4rem; width: 135px;">
-              <option value="listo" ${p.estado === 'listo' ? 'selected' : ''}>📦 Listo p/ Retiro</option>
-              <option value="adaptacion" ${p.estado === 'adaptacion' ? 'selected' : ''}>👓 En Adaptación</option>
-              <option value="control" ${p.estado === 'control' ? 'selected' : ''}>📅 Control Anual</option>
-              <option value="garantia" ${p.estado === 'garantia' ? 'selected' : ''}>🛡️ Garantía</option>
+              <option value="listo" ${p.estado === 'listo' ? 'selected' : ''}>Listo p/ Retiro</option>
+              <option value="adaptacion" ${p.estado === 'adaptacion' ? 'selected' : ''}>En Adaptación</option>
+              <option value="control" ${p.estado === 'control' ? 'selected' : ''}>Control Anual</option>
+              <option value="garantia" ${p.estado === 'garantia' ? 'selected' : ''}>Garantía</option>
               <option value="fidelizado" ${p.estado === 'fidelizado' ? 'selected' : ''}>⭐ Fidelizado</option>
             </select>
           </div>
@@ -4040,7 +4040,7 @@ window.updatePatientStatus = function(patientId, newStatus) {
   });
 
   renderCRM();
-  showToast(`✓ Estado de ${p.nombre} cambiado a: ${p.estadoTexto}`);
+  showToast(`Estado de ${p.nombre} cambiado a: ${p.estadoTexto}`);
 };
 
 window.sendPatientWhatsApp = function(patientId, templateKey) {
@@ -4052,10 +4052,10 @@ window.sendPatientWhatsApp = function(patientId, templateKey) {
   const firstName = p.nombre.split(' ')[0] || p.nombre;
 
   const templates = {
-    listo: `¡Hola ${firstName}! Te saludamos de Lens Group Trujillo. 👓\nTe informamos que tus lentes con montura *${p.montura}* y lunas *${p.lunas}* ya se encuentran calibrados y listos en nuestra sede de Jr. Gamarra 778 (Galería San Antonio, Trujillo).\n¡Puedes pasar a recogerlos cuando gustes! Quedamos atentos para atenderte.`,
-    adaptacion: `¡Hola ${firstName}! Te saluda el equipo de Lens Group Trujillo. 👁️\nQueremos saber cómo te has sentido con tus nuevas lunas *${p.lunas}*. Recuerda que si necesitas algún ajuste en las plaquetas o calibración de la montura, puedes visitarnos en Jr. Gamarra 778 sin ningún costo. ¡Tu confort visual es nuestra prioridad!`,
-    control: `¡Hola ${firstName}! Esperamos que te encuentres muy bien. Te escribimos de Lens Group Trujillo. 📅\nRevisando tu historial óptico, ha transcurrido un año desde tu última graduación. Te invitamos a una reevaluación optométrica preventiva gratuita en nuestra sede de Jr. Gamarra 778 para verificar tu agudeza visual. ¿Te gustaría agendar tu cita esta semana?`,
-    garantia: `¡Hola ${firstName}! En Lens Group Trujillo te recordamos que tu montura *${p.montura}* cuenta con garantía activa hasta el *${p.fechaGarantia || '2027'}*. 🛡️\nPuedes visitarnos cuando desees para tu servicio gratuito de limpieza ultrasónica y ajuste de tornillos. ¡Te esperamos en Jr. Gamarra 778!`,
+    listo: `¡Hola ${firstName}! Te saludamos de Lens Group Trujillo.\nTe informamos que tus lentes con montura *${p.montura}* y lunas *${p.lunas}* ya se encuentran calibrados y listos en nuestra sede de Jr. Gamarra 778 (Galería San Antonio, Trujillo).\n¡Puedes pasar a recogerlos cuando gustes! Quedamos atentos para atenderte.`,
+    adaptacion: `¡Hola ${firstName}! Te saluda el equipo de Lens Group Trujillo.\nQueremos saber cómo te has sentido con tus nuevas lunas *${p.lunas}*. Recuerda que si necesitas algún ajuste en las plaquetas o calibración de la montura, puedes visitarnos en Jr. Gamarra 778 sin ningún costo. ¡Tu confort visual es nuestra prioridad!`,
+    control: `¡Hola ${firstName}! Esperamos que te encuentres muy bien. Te escribimos de Lens Group Trujillo.\nRevisando tu historial óptico, ha transcurrido un año desde tu última graduación. Te invitamos a una reevaluación optométrica preventiva gratuita en nuestra sede de Jr. Gamarra 778 para verificar tu agudeza visual. ¿Te gustaría agendar tu cita esta semana?`,
+    garantia: `¡Hola ${firstName}! En Lens Group Trujillo te recordamos que tu montura *${p.montura}* cuenta con garantía activa hasta el *${p.fechaGarantia || '2027'}*.\nPuedes visitarnos cuando desees para tu servicio gratuito de limpieza ultrasónica y ajuste de tornillos. ¡Te esperamos en Jr. Gamarra 778!`,
     fidelizado: `¡Hola ${firstName}! Gracias por confiar tu salud visual en Lens Group Trujillo. ⭐\nPor ser un paciente preferencial, este mes cuentas con un beneficio exclusivo del 20% de descuento en gafas de sol polarizadas o para un familiar directo. ¡Pregúntanos por los nuevos modelos de catálogo!`
   };
 
@@ -4074,7 +4074,7 @@ window.sendPatientWhatsApp = function(patientId, templateKey) {
 
   const waUrl = `https://api.whatsapp.com/send?phone=51${cleanPhone}&text=${encodeURIComponent(text)}`;
   window.open(waUrl, '_blank');
-  showToast(`💬 Abriendo WhatsApp para ${firstName}...`);
+  showToast(`Abriendo WhatsApp para ${firstName}...`);
   renderCRM();
 };
 
@@ -4120,7 +4120,7 @@ window.openPatientRecordModal = function(patientId) {
             <span style="font-size: 0.78rem; color: var(--admin-text-muted);">Ficha Clínica Oftalmológica &amp; Historial CRM</span>
           </div>
         </div>
-        <button type="button" class="modal-close-btn" onclick="document.getElementById('modalPatientRecord').classList.remove('active')">✕</button>
+        <button type="button" class="modal-close-btn" onclick="document.getElementById('modalPatientRecord').classList.remove('active')">&times;</button>
       </div>
 
       <div style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem;">
@@ -4177,7 +4177,7 @@ window.openPatientRecordModal = function(patientId) {
 
         <!-- DETALLES DEL PRODUCTO Y GARANTÍA -->
         <div style="background: rgba(13, 148, 136, 0.08); border: 1px solid rgba(13, 148, 136, 0.25); border-radius: var(--radius-sm); padding: 0.9rem; font-size: 0.82rem;">
-          <div style="font-weight: 800; color: var(--admin-active-text); margin-bottom: 0.4rem;">👓 Montura &amp; Lunas Adquiridas</div>
+          <div style="font-weight: 800; color: var(--admin-active-text); margin-bottom: 0.4rem;">Montura &amp; Lunas Adquiridas</div>
           <div><strong>Montura:</strong> ${p.montura}</div>
           <div style="margin-top: 0.2rem;"><strong>Lunas / Tratamiento:</strong> ${p.lunas}</div>
           <div style="display: flex; gap: 1.5rem; margin-top: 0.5rem; font-size: 0.78rem; border-top: 1px dashed rgba(13, 148, 136, 0.2); padding-top: 0.4rem;">
@@ -4247,7 +4247,7 @@ window.submitPatientNote = function(patientId) {
   const text = textEl ? textEl.value.trim() : '';
 
   if (!text) {
-    showToast('⚠️ Escriba el detalle de la interacción antes de guardar');
+    showToast('Escriba el detalle de la interacción antes de guardar');
     return;
   }
 
@@ -4264,7 +4264,7 @@ window.submitPatientNote = function(patientId) {
   });
   p.notaSeguimiento = text;
 
-  showToast('✅ Nota guardada en el historial del paciente');
+  showToast('Nota guardada en el historial del paciente');
   renderCRM();
   openPatientRecordModal(patientId);
 };
@@ -4291,8 +4291,8 @@ window.openNewPatientModal = function() {
   modal.innerHTML = `
     <div class="modal-card" style="max-width: 680px; max-height: 90vh; overflow-y: auto;">
       <div class="modal-header">
-        <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--admin-text-main);">➕ Registrar Nuevo Paciente en CRM</h3>
-        <button type="button" class="modal-close-btn" onclick="document.getElementById('modalNewPatientCRM').classList.remove('active')">✕</button>
+        <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--admin-text-main);">Registrar Nuevo Paciente en CRM</h3>
+        <button type="button" class="modal-close-btn" onclick="document.getElementById('modalNewPatientCRM').classList.remove('active')">&times;</button>
       </div>
 
       <form id="formNewPatientCRM" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
@@ -4367,11 +4367,11 @@ window.openNewPatientModal = function() {
           <div class="form-group">
             <label class="form-label">Etapa CRM Inicial *</label>
             <select id="newPatEstado" class="form-input" required>
-              <option value="listo">📦 Listo p/ Retiro en Tienda</option>
-              <option value="adaptacion" selected>👓 En Adaptación (1 a 15 días)</option>
-              <option value="control">📅 Control Anual / Cita</option>
-              <option value="garantia">🛡️ En Garantía</option>
-              <option value="fidelizado">⭐ Fidelizado / VIP</option>
+              <option value="listo">Listo p/ Retiro en Tienda</option>
+              <option value="adaptacion" selected>En Adaptación (1 a 15 días)</option>
+              <option value="control">Control Anual / Cita</option>
+              <option value="garantia">En Garantía</option>
+              <option value="fidelizado">Fidelizado / VIP</option>
             </select>
           </div>
           <div class="form-group">
@@ -4401,7 +4401,7 @@ window.openNewPatientModal = function() {
     btnReniec.addEventListener('click', async () => {
       const dni = document.getElementById('newPatDni').value.trim();
       if (!dni || dni.length !== 8) {
-        showToast('⚠️ Ingrese un DNI válido de 8 dígitos');
+        showToast('Ingrese un DNI válido de 8 dígitos');
         return;
       }
       btnReniec.textContent = 'Consultando...';
@@ -4409,7 +4409,7 @@ window.openNewPatientModal = function() {
         const info = await window.LG.consultarDNI(dni);
         if (info && info.nombreCompleto) {
           document.getElementById('newPatNombre').value = info.nombreCompleto;
-          showToast(`✓ Datos RENIEC encontrados: ${info.nombreCompleto}`);
+          showToast(`Datos RENIEC encontrados: ${info.nombreCompleto}`);
         } else {
           showToast('No se encontró el DNI en RENIEC. Ingréselo manualmente.');
         }
@@ -4500,7 +4500,7 @@ window.openNewPatientModal = function() {
       state.crmPatients.unshift(newPat);
       modal.classList.remove('active');
       renderCRM();
-      showToast(`✅ Paciente ${nombre} registrado con éxito en el CRM`);
+      showToast(`Paciente ${nombre} registrado con éxito en el CRM`);
     });
   }
 
@@ -4532,15 +4532,15 @@ window.openCrmTemplatesModal = function(patientId) {
     const fn = (p.nombre || 'estimado(a) paciente').split(' ')[0];
     switch (key) {
       case 'listo':
-        return `¡Hola ${fn}! Te saludamos de Lens Group Trujillo. 👓\nTe informamos que tus lentes con montura *${p.montura}* y lunas *${p.lunas}* ya se encuentran calibrados y listos en nuestra sede de Jr. Gamarra 778 (Galería San Antonio, Trujillo).\n¡Puedes pasar a recogerlos cuando gustes! Quedamos atentos para atenderte.`;
+        return `¡Hola ${fn}! Te saludamos de Lens Group Trujillo.\nTe informamos que tus lentes con montura *${p.montura}* y lunas *${p.lunas}* ya se encuentran calibrados y listos en nuestra sede de Jr. Gamarra 778 (Galería San Antonio, Trujillo).\n¡Puedes pasar a recogerlos cuando gustes! Quedamos atentos para atenderte.`;
       case 'adaptacion':
-        return `¡Hola ${fn}! Te saluda el equipo de Lens Group Trujillo. 👁️\nQueremos saber cómo te has sentido con tus nuevas lunas *${p.lunas}*. Recuerda que si necesitas algún ajuste en las plaquetas o calibración de la montura, puedes visitarnos en Jr. Gamarra 778 sin costo alguno. ¡Tu confort visual es nuestra prioridad!`;
+        return `¡Hola ${fn}! Te saluda el equipo de Lens Group Trujillo.\nQueremos saber cómo te has sentido con tus nuevas lunas *${p.lunas}*. Recuerda que si necesitas algún ajuste en las plaquetas o calibración de la montura, puedes visitarnos en Jr. Gamarra 778 sin costo alguno. ¡Tu confort visual es nuestra prioridad!`;
       case 'control':
-        return `¡Hola ${fn}! Esperamos que te encuentres muy bien. Te escribimos de Lens Group Trujillo. 📅\nRevisando tu historial óptico, ha transcurrido un año desde tu última graduación. Te invitamos a una reevaluación optométrica preventiva gratuita en nuestra sede de Jr. Gamarra 778 para verificar tu agudeza visual. ¿Te gustaría agendar tu cita esta semana?`;
+        return `¡Hola ${fn}! Esperamos que te encuentres muy bien. Te escribimos de Lens Group Trujillo.\nRevisando tu historial óptico, ha transcurrido un año desde tu última graduación. Te invitamos a una reevaluación optométrica preventiva gratuita en nuestra sede de Jr. Gamarra 778 para verificar tu agudeza visual. ¿Te gustaría agendar tu cita esta semana?`;
       case 'garantia':
-        return `¡Hola ${fn}! En Lens Group Trujillo te recordamos que tu montura *${p.montura}* cuenta con garantía activa hasta el *${p.fechaGarantia || '2027'}*. 🛡️\nPuedes visitarnos cuando desees para tu servicio gratuito de limpieza ultrasónica y ajuste de tornillos. ¡Te esperamos en Jr. Gamarra 778!`;
+        return `¡Hola ${fn}! En Lens Group Trujillo te recordamos que tu montura *${p.montura}* cuenta con garantía activa hasta el *${p.fechaGarantia || '2027'}*.\nPuedes visitarnos cuando desees para tu servicio gratuito de limpieza ultrasónica y ajuste de tornillos. ¡Te esperamos en Jr. Gamarra 778!`;
       case 'fidelizado':
-        return `¡Hola ${fn}! Gracias por confiar tu salud visual en Lens Group Trujillo. ⭐\nPor ser un paciente preferencial, este mes cuentas con un beneficio exclusivo del 20% de descuento en gafas de sol polarizadas o para un familiar directo. ¡Pregúntanos por los nuevos modelos de catálogo!`;
+        return `¡Hola ${fn}! Gracias por confiar tu salud visual en Lens Group Trujillo.\nPor ser un paciente preferencial, este mes cuentas con un beneficio exclusivo del 20% de descuento en gafas de sol polarizadas o para un familiar directo. ¡Pregúntanos por los nuevos modelos de catálogo!`;
       default:
         return '';
     }
@@ -4549,8 +4549,8 @@ window.openCrmTemplatesModal = function(patientId) {
   modal.innerHTML = `
     <div class="modal-card" style="max-width: 620px;">
       <div class="modal-header">
-        <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--admin-text-main);">💬 Plantillas Oficiales de WhatsApp CRM</h3>
-        <button type="button" class="modal-close-btn" onclick="document.getElementById('modalCrmTemplates').classList.remove('active')">✕</button>
+        <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--admin-text-main);">Plantillas Oficiales de WhatsApp CRM</h3>
+        <button type="button" class="modal-close-btn" onclick="document.getElementById('modalCrmTemplates').classList.remove('active')">&times;</button>
       </div>
 
       <div style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
@@ -4564,10 +4564,10 @@ window.openCrmTemplatesModal = function(patientId) {
         <div class="form-group">
           <label class="form-label">Tipo de Notificación:</label>
           <select id="tplTypeSelect" class="form-input">
-            <option value="listo">📦 1. Notificación de Entrega / Lentes Listos en Tienda</option>
-            <option value="adaptacion">👓 2. Seguimiento Postventa / Adaptación y Confort Visual</option>
-            <option value="control">📅 3. Recordatorio de Examen Preventivo Anual (1 Año)</option>
-            <option value="garantia">🛡️ 4. Garantía Activa / Limpieza Ultrasónica Gratuita</option>
+            <option value="listo">1. Notificación de Entrega / Lentes Listos en Tienda</option>
+            <option value="adaptacion">2. Seguimiento Postventa / Adaptación y Confort Visual</option>
+            <option value="control">3. Recordatorio de Examen Preventivo Anual (1 Año)</option>
+            <option value="garantia">4. Garantía Activa / Limpieza Ultrasónica Gratuita</option>
             <option value="fidelizado">⭐ 5. Promoción de Fidelización / Beneficio VIP</option>
           </select>
         </div>
@@ -4609,7 +4609,7 @@ window.openCrmTemplatesModal = function(patientId) {
 
   document.getElementById('btnCopyTpl').addEventListener('click', () => {
     navigator.clipboard.writeText(prevText.textContent).then(() => {
-      showToast('📋 Mensaje copiado al portapapeles');
+      showToast('Mensaje copiado al portapapeles');
     });
   });
 
@@ -4663,6 +4663,6 @@ window.exportCrmCsv = function() {
   a.download = `crm_pacientes_lens_group_${new Date().toISOString().split('T')[0]}.csv`;
   a.click();
   URL.revokeObjectURL(url);
-  showToast('📊 Cartera de pacientes exportada como CSV');
+  showToast('Cartera de pacientes exportada como CSV');
 };
 

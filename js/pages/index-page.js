@@ -1,9 +1,3 @@
-/* ==========================================================================
-   LENS GROUP TRUJILLO — PÁGINA DE INICIO (INDEX)
-   --------------------------------------------------------------------------
-   Monta dinámicamente toda la interfaz del sitio público a partir
-   de componentes JavaScript.
-   ========================================================================== */
 (function () {
   'use strict';
 

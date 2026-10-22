@@ -48,7 +48,6 @@ export async function POST(request) {
         });
         patientId = createdPatient?.[0]?.id;
       }
-
       const sale = await supabaseAdminRequest("ventas", {
         method: "POST",
         body: {

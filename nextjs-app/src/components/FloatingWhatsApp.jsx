@@ -2,7 +2,7 @@ export default function FloatingWhatsApp() {
   return (
     <div className="floating-whatsapp" id="floatingWhatsApp">
       <div className="whatsapp-bubble">
-        ¡Hola! 👋 ¿Necesitas asesoría con tus lentes en Trujillo? Chatea con nosotros
+        ¡Hola! ¿Necesitas asesoría con tus lentes en Trujillo? Chatea con nosotros
       </div>
       <a
         href="https://wa.me/51958169535?text=Hola%20Lens%20Group%20Trujillo,%20deseo%20asesor%C3%ADa%20para%20elegir%20mis%20lentes."

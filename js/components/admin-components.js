@@ -1,9 +1,3 @@
-/* ==========================================================================
-   LENS GROUP TRUJILLO — COMPONENTES DEL PANEL ADMINISTRATIVO (ADMIN)
-   --------------------------------------------------------------------------
-   Renderiza en JavaScript la pantalla de login, el sidebar, las vistas
-   de métricas/órdenes/catálogos, los modales y el chatbot de IA.
-   ========================================================================== */
 (function () {
   'use strict';
 
@@ -223,14 +217,14 @@
 
         <div class="topbar-right">
           <select class="filter-select" id="branchSelect">
-            <option value="gamarra" selected>📍 Sede Jr. Gamarra 778</option>
-            <option value="all">📍 Todas las Sedes Trujillo</option>
+            <option value="gamarra" selected>Sede Jr. Gamarra 778</option>
+            <option value="all">Todas las Sedes Trujillo</option>
           </select>
 
           <select class="filter-select" id="periodSelect">
-            <option value="month" selected>📅 Marzo 2026</option>
-            <option value="week">📅 Últimos 7 Días</option>
-            <option value="quarter">📅 Trimestre I - 2026</option>
+            <option value="month" selected>Marzo 2026</option>
+            <option value="week">Últimos 7 Días</option>
+            <option value="quarter">Trimestre I - 2026</option>
           </select>
 
           <a href="index.html" class="btn-web-link" target="_blank" title="Abrir tienda en nueva pestaña">
@@ -276,7 +270,7 @@
             <div class="kpi-card" style="--kpi-color: #3b82f6;">
               <div class="kpi-header">
                 <span class="kpi-label">Monturas Vendidas (Hoy)</span>
-                <span class="kpi-icon" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6;">👓</span>
+                <span class="kpi-icon" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6;">${LG.icon('box3d', { size: 16, sw: 2 })}</span>
               </div>
               <div class="kpi-value" id="salesFramesDay">7</div>
               <div class="kpi-footer"><span class="kpi-trend">En promedio</span></div>
@@ -284,7 +278,7 @@
             <div class="kpi-card" style="--kpi-color: #8b5cf6;">
               <div class="kpi-header">
                 <span class="kpi-label">Mejor Vendedor (Semana)</span>
-                <span class="kpi-icon" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">⭐</span>
+                <span class="kpi-icon" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">${LG.icon('star', { size: 16, sw: 2 })}</span>
               </div>
               <div class="kpi-value" id="salesTopSeller">Dr. Miranda</div>
               <div class="kpi-footer"><span class="kpi-trend">22 Ventas cerradas</span></div>
@@ -298,7 +292,7 @@
                 <h3 style="margin: 0;">Top Productos Más Vendidos</h3>
                 <p style="margin: 0.2rem 0 0 0; font-size: 0.8rem; color: var(--admin-text-muted);">Ranking de monturas y tratamientos con mayor rotación comercial en Trujillo.</p>
               </div>
-              <span class="nav-badge-pill" style="background: rgba(14, 165, 233, 0.15); color: #0ea5e9; font-weight: 700;">📊 Demanda Semanal</span>
+              <span class="nav-badge-pill" style="background: rgba(14, 165, 233, 0.15); color: #0ea5e9; font-weight: 700;">Demanda Semanal</span>
             </div>
             <div class="chart-container-inner" style="height: 250px; padding: 1rem 1.25rem;">
               <canvas id="salesProductsChart"></canvas>
@@ -321,7 +315,7 @@
               </div>
             </div>
             <div class="mobile-table-hint" style="display: none; font-size: 0.72rem; color: var(--admin-text-dim); margin-top: 0.5rem; margin-bottom: 0.2rem; align-items: center; gap: 0.35rem;">
-              <span>👉</span><span>Desliza horizontalmente para ver todos los comprobantes y acciones</span>
+              <span>Desliza horizontalmente para ver todos los comprobantes y acciones</span>
             </div>
             <div class="table-responsive" style="margin-top: 0.5rem;">
               <table class="admin-table">
@@ -498,7 +492,7 @@
                   <div style="display: flex; align-items: center; gap: 0.55rem; flex-wrap: wrap;">
                     <h3 class="analytics-section-title">Estadísticas del Mes Actual (Marzo 2026)</h3>
                     <span class="analytics-badge badge-active"><span class="live-pulse-dot"></span> En Curso &bull; Día 26 de 31</span>
-                    <span class="analytics-badge badge-target">🎯 Meta: S/ 60,000</span>
+                    <span class="analytics-badge badge-target">Meta: S/ 60,000</span>
                   </div>
                   <p class="analytics-section-sub">Seguimiento en tiempo real de facturación acumulada, ritmo de órdenes y cumplimiento presupuestario de tienda.</p>
                 </div>
@@ -599,28 +593,28 @@
                 <div class="category-breakdown-list">
                   <div class="category-item">
                     <div class="cat-info">
-                      <span class="cat-name">👓 Monturas Oftálmicas</span>
+                      <span class="cat-name">Monturas Oftálmicas</span>
                       <span class="cat-amount">S/ 24,120.00 (44%)</span>
                     </div>
                     <div class="cat-bar"><div class="cat-fill" style="width: 44%; background: #0ea5e9;"></div></div>
                   </div>
                   <div class="category-item">
                     <div class="cat-info">
-                      <span class="cat-name">🔬 Lunas &amp; Tratamientos</span>
+                      <span class="cat-name">Lunas &amp; Tratamientos</span>
                       <span class="cat-amount">S/ 21,930.00 (40%)</span>
                     </div>
                     <div class="cat-bar"><div class="cat-fill" style="width: 40%; background: #10b981;"></div></div>
                   </div>
                   <div class="category-item">
                     <div class="cat-info">
-                      <span class="cat-name">☀️ Gafas de Sol Polarizadas</span>
+                      <span class="cat-name">Gafas de Sol Polarizadas</span>
                       <span class="cat-amount">S/ 6,030.00 (11%)</span>
                     </div>
                     <div class="cat-bar"><div class="cat-fill" style="width: 11%; background: #f59e0b;"></div></div>
                   </div>
                   <div class="category-item">
                     <div class="cat-info">
-                      <span class="cat-name">🧴 Accesorios &amp; Consultas</span>
+                      <span class="cat-name">Accesorios &amp; Consultas</span>
                       <span class="cat-amount">S/ 2,740.00 (5%)</span>
                     </div>
                     <div class="cat-bar"><div class="cat-fill" style="width: 5%; background: #a855f7;"></div></div>
@@ -648,9 +642,9 @@
                 <div>
                   <div style="display: flex; align-items: center; gap: 0.55rem; flex-wrap: wrap;">
                     <h3 class="analytics-section-title">Estadísticas de los Últimos 3 Meses (Enero – Marzo 2026)</h3>
-                    <span class="analytics-badge badge-quarter">📅 Trimestre I - 2026</span>
-                    <span class="analytics-badge badge-growth">📈 Crecimiento +13.7%</span>
-                    <span class="analytics-badge badge-target">⭐ 96.5% Meta Trimestral</span>
+                    <span class="analytics-badge badge-quarter">Trimestre I - 2026</span>
+                    <span class="analytics-badge badge-growth">Crecimiento +13.7%</span>
+                    <span class="analytics-badge badge-target">96.5% Meta Trimestral</span>
                   </div>
                   <p class="analytics-section-sub">Consolidado trimestral de ventas, órdenes despachadas, comparativa mes a mes y tasa de retención de pacientes.</p>
                 </div>
@@ -756,8 +750,8 @@
                       <span class="month-row-total">S/ 48,200.00</span>
                     </div>
                     <div class="month-row-metrics">
-                      <span>📦 110 órdenes</span>
-                      <span>🎟️ Ticket: S/ 438.18</span>
+                      <span>110 órdenes</span>
+                      <span>Ticket: S/ 438.18</span>
                       <span class="badge-mini-neutral">Base Q1</span>
                     </div>
                     <div class="month-row-progress"><div class="fill" style="width: 87.9%; background: #64748b;"></div></div>
@@ -770,8 +764,8 @@
                       <span class="month-row-total">S/ 51,400.00</span>
                     </div>
                     <div class="month-row-metrics">
-                      <span>📦 118 órdenes</span>
-                      <span>🎟️ Ticket: S/ 435.59</span>
+                      <span>118 órdenes</span>
+                      <span>Ticket: S/ 435.59</span>
                       <span class="badge-mini-up">▲ +6.6%</span>
                     </div>
                     <div class="month-row-progress"><div class="fill" style="width: 93.8%; background: #0ea5e9;"></div></div>
@@ -784,8 +778,8 @@
                       <span class="month-row-total" style="color: #34d399;">S/ 54,820.00</span>
                     </div>
                     <div class="month-row-metrics">
-                      <span>📦 130 órdenes</span>
-                      <span>🎟️ Ticket: S/ 421.70</span>
+                      <span>130 órdenes</span>
+                      <span>Ticket: S/ 421.70</span>
                       <span class="badge-mini-up">▲ +6.7%</span>
                     </div>
                     <div class="month-row-progress"><div class="fill" style="width: 100%; background: #10b981;"></div></div>
@@ -838,24 +832,24 @@
             <div class="simulator-grid">
               <div class="simulator-controls">
                 <div class="sim-section-title">
-                  <span class="sim-section-icon">🎛️</span>
+                  
                   <div><h3>Variables del Escenario</h3><p>Mueve los controles y observa el impacto en tiempo real.</p></div>
                 </div>
 
                 <div class="sim-slider-group">
-                  <div class="sim-slider-labels"><span>🏷️ Descuento Promocional en Monturas</span><strong class="sim-chip" id="lblSimDiscount">0%</strong></div>
+                  <div class="sim-slider-labels"><span>Descuento Promocional en Monturas</span><strong class="sim-chip" id="lblSimDiscount">0%</strong></div>
                   <input type="range" class="sim-slider" id="simDiscount" min="0" max="25" step="5" value="0">
                   <div class="sim-slider-scale"><span>0%</span><span>25%</span></div>
                 </div>
 
                 <div class="sim-slider-group">
-                  <div class="sim-slider-labels"><span>👥 Incremento de Pacientes (Campaña)</span><strong class="sim-chip" id="lblSimPatients">+0%</strong></div>
+                  <div class="sim-slider-labels"><span>Incremento de Pacientes (Campaña)</span><strong class="sim-chip" id="lblSimPatients">+0%</strong></div>
                   <input type="range" class="sim-slider" id="simPatients" min="0" max="60" step="10" value="0">
                   <div class="sim-slider-scale"><span>+0%</span><span>+60%</span></div>
                 </div>
 
                 <div class="sim-slider-group">
-                  <div class="sim-slider-labels"><span>💎 Adopción de Lunas Premium</span><strong class="sim-chip" id="lblSimPremium">40%</strong></div>
+                  <div class="sim-slider-labels"><span>Adopción de Lunas Premium</span><strong class="sim-chip" id="lblSimPremium">40%</strong></div>
                   <input type="range" class="sim-slider" id="simPremium" min="20" max="80" step="5" value="40">
                   <div class="sim-slider-scale"><span>20%</span><span>80%</span></div>
                 </div>
@@ -866,12 +860,12 @@
               </div>
 
               <div class="simulator-results">
-                <div class="sim-section-title"><span class="sim-section-icon">📊</span><div><h3>Proyección Mensual</h3><p>Comparado con el escenario base actual.</p></div></div>
+                <div class="sim-section-title"><div><h3>Proyección Mensual</h3><p>Comparado con el escenario base actual.</p></div></div>
                 <div class="sim-result-metrics">
-                  <div class="sim-metric-box sim-tone-neutral"><span class="sim-metric-label">💵 Ingreso Estimado</span><div class="sim-metric-val" id="simResultRevenue">S/ 63,000</div><span class="sim-delta" id="simDeltaRevenue">— sin cambios</span></div>
-                  <div class="sim-metric-box sim-tone-success"><span class="sim-metric-label">💰 Utilidad Neta</span><div class="sim-metric-val" id="simResultProfit">S/ 36,540</div><span class="sim-delta" id="simDeltaProfit">— sin cambios</span></div>
-                  <div class="sim-metric-box sim-tone-info"><span class="sim-metric-label">📈 Margen Neto</span><div class="sim-metric-val" id="simResultMargin">58.0%</div><div class="sim-progress"><div class="sim-progress-fill" id="simMarginBar" style="width: 58%;"></div></div></div>
-                  <div class="sim-metric-box" id="simStatusBox"><span class="sim-metric-label">🧭 Estado de Decisión</span><div class="sim-metric-val sim-status-val" id="simResultStatus">Equilibrado</div><span class="sim-delta" id="simStatusHint">Escenario base</span></div>
+                  <div class="sim-metric-box sim-tone-neutral"><span class="sim-metric-label">Ingreso Estimado</span><div class="sim-metric-val" id="simResultRevenue">S/ 63,000</div><span class="sim-delta" id="simDeltaRevenue">— sin cambios</span></div>
+                  <div class="sim-metric-box sim-tone-success"><span class="sim-metric-label">Utilidad Neta</span><div class="sim-metric-val" id="simResultProfit">S/ 36,540</div><span class="sim-delta" id="simDeltaProfit">— sin cambios</span></div>
+                  <div class="sim-metric-box sim-tone-info"><span class="sim-metric-label">Margen Neto</span><div class="sim-metric-val" id="simResultMargin">58.0%</div><div class="sim-progress"><div class="sim-progress-fill" id="simMarginBar" style="width: 58%;"></div></div></div>
+                  <div class="sim-metric-box" id="simStatusBox"><span class="sim-metric-label">Estado de Decisión</span><div class="sim-metric-val sim-status-val" id="simResultStatus">Equilibrado</div><span class="sim-delta" id="simStatusHint">Escenario base</span></div>
                 </div>
                 <div class="sim-verdict-box sim-verdict-info" id="simVerdictBox">
                   ${LG.icon('info', { size: 20, sw: 2.5 })}
@@ -903,13 +897,13 @@
 
           <div class="orders-table-panel">
             <div class="table-toolbar">
-              <input type="text" class="table-search-input" id="orderSearchInput" placeholder="🔍 Buscar código, paciente, DNI...">
+              <input type="text" class="table-search-input" id="orderSearchInput" placeholder="Buscar código, paciente, DNI...">
               <div class="table-status-tabs">
                 <button type="button" class="tab-btn active" data-filter="all">Todas (<span id="tabCountAll">0</span>)</button>
                 <button type="button" class="tab-btn" data-filter="cola">Cola (<span id="tabCountCola">0</span>)</button>
                 <button type="button" class="tab-btn" data-filter="proceso">Proceso (<span id="tabCountProceso">0</span>)</button>
                 <button type="button" class="tab-btn" data-filter="listo">Listas (<span id="tabCountListo">0</span>)</button>
-                <button type="button" class="tab-btn" data-filter="urgente">⚠️ Urgentes (<span id="tabCountUrgente">0</span>)</button>
+                <button type="button" class="tab-btn" data-filter="urgente">Urgentes (<span id="tabCountUrgente">0</span>)</button>
               </div>
             </div>
             <div class="table-responsive">
@@ -1058,60 +1052,60 @@
             <div class="kpi-card" style="--kpi-color: #0d9488;">
               <div class="kpi-header">
                 <span class="kpi-label">Pacientes en Cartera</span>
-                <span class="kpi-icon" style="background: rgba(13, 148, 136, 0.1); color: #0d9488;">👥</span>
+                <span class="kpi-icon" style="background: rgba(13, 148, 136, 0.1); color: #0d9488;">${LG.icon('users', { size: 16, sw: 2 })}</span>
               </div>
               <div class="kpi-value" id="crmKpiTotal">10</div>
-              <div class="kpi-footer"><span class="kpi-trend trend-up">✓ Base de datos activa</span></div>
+              <div class="kpi-footer"><span class="kpi-trend trend-up">Base de datos activa</span></div>
             </div>
 
             <div class="kpi-card" style="--kpi-color: #10b981;">
               <div class="kpi-header">
                 <span class="kpi-label">Listos p/ Retiro</span>
-                <span class="kpi-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">📦</span>
+                <span class="kpi-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">${LG.icon('box3d', { size: 16, sw: 2 })}</span>
               </div>
               <div class="kpi-value" id="crmKpiListo">2</div>
-              <div class="kpi-footer"><span class="kpi-trend" style="color: #10b981;">💬 Por notificar recojo</span></div>
+              <div class="kpi-footer"><span class="kpi-trend" style="color: #10b981;">Por notificar recojo</span></div>
             </div>
 
             <div class="kpi-card" style="--kpi-color: #0284c7;">
               <div class="kpi-header">
                 <span class="kpi-label">En Adaptación (1-15d)</span>
-                <span class="kpi-icon" style="background: rgba(2, 132, 199, 0.1); color: #0284c7;">👓</span>
+                <span class="kpi-icon" style="background: rgba(2, 132, 199, 0.1); color: #0284c7;">${LG.icon('sparkle', { size: 16, sw: 2 })}</span>
               </div>
               <div class="kpi-value" id="crmKpiAdaptacion">2</div>
-              <div class="kpi-footer"><span class="kpi-trend" style="color: #0284c7;">🔍 Control de confort</span></div>
+              <div class="kpi-footer"><span class="kpi-trend" style="color: #0284c7;">Control de confort</span></div>
             </div>
 
             <div class="kpi-card" style="--kpi-color: #d97706;">
               <div class="kpi-header">
                 <span class="kpi-label">Control Visual Anual</span>
-                <span class="kpi-icon" style="background: rgba(217, 119, 6, 0.1); color: #d97706;">📅</span>
+                <span class="kpi-icon" style="background: rgba(217, 119, 6, 0.1); color: #d97706;">${LG.icon('calendar', { size: 16, sw: 2 })}</span>
               </div>
               <div class="kpi-value" id="crmKpiControl">2</div>
-              <div class="kpi-footer"><span class="kpi-trend" style="color: #d97706;">⚠️ Cita preventiva</span></div>
+              <div class="kpi-footer"><span class="kpi-trend" style="color: #d97706;">Cita preventiva</span></div>
             </div>
 
             <div class="kpi-card" style="--kpi-color: #8b5cf6;">
               <div class="kpi-header">
                 <span class="kpi-label">Garantías Vigentes</span>
-                <span class="kpi-icon" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">🛡️</span>
+                <span class="kpi-icon" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">${LG.icon('shield', { size: 16, sw: 2 })}</span>
               </div>
               <div class="kpi-value" id="crmKpiGarantia">2</div>
-              <div class="kpi-footer"><span class="kpi-trend" style="color: #8b5cf6;">✨ Calibración gratuita</span></div>
+              <div class="kpi-footer"><span class="kpi-trend" style="color: #8b5cf6;">Calibración gratuita</span></div>
             </div>
           </div>
 
           <!-- TABLA CRM -->
           <div class="orders-table-panel">
             <div class="table-toolbar">
-              <input type="text" class="table-search-input" id="crmSearchInput" placeholder="🔍 Buscar paciente por nombre, DNI, teléfono, ticket..." style="width: 320px;">
+              <input type="text" class="table-search-input" id="crmSearchInput" placeholder="Buscar paciente por nombre, DNI, teléfono, ticket..." style="width: 320px;">
               <div class="table-status-tabs" id="crmStatusTabs">
                 <button type="button" class="tab-btn active" data-filter="all">Todos (<span id="crmTabCountAll">10</span>)</button>
-                <button type="button" class="tab-btn" data-filter="listo">📦 Listos (<span id="crmTabCountListo">2</span>)</button>
-                <button type="button" class="tab-btn" data-filter="adaptacion">👓 Adaptación (<span id="crmTabCountAdaptacion">2</span>)</button>
-                <button type="button" class="tab-btn" data-filter="control">📅 Control Anual (<span id="crmTabCountControl">2</span>)</button>
-                <button type="button" class="tab-btn" data-filter="garantia">🛡️ Garantía (<span id="crmTabCountGarantia">2</span>)</button>
-                <button type="button" class="tab-btn" data-filter="fidelizado">⭐ Fidelizados (<span id="crmTabCountFidelizado">2</span>)</button>
+                <button type="button" class="tab-btn" data-filter="listo">Listos (<span id="crmTabCountListo">2</span>)</button>
+                <button type="button" class="tab-btn" data-filter="adaptacion">Adaptación (<span id="crmTabCountAdaptacion">2</span>)</button>
+                <button type="button" class="tab-btn" data-filter="control">Control Anual (<span id="crmTabCountControl">2</span>)</button>
+                <button type="button" class="tab-btn" data-filter="garantia">Garantía (<span id="crmTabCountGarantia">2</span>)</button>
+                <button type="button" class="tab-btn" data-filter="fidelizado">Fidelizados (<span id="crmTabCountFidelizado">2</span>)</button>
               </div>
             </div>
 
@@ -1177,7 +1171,7 @@
             <div class="kpi-card" style="--kpi-color: #10b981;">
               <div class="kpi-header">
                 <span class="kpi-label">Entradas del Mes</span>
-                <span class="kpi-icon" style="background: rgba(16,185,129,0.1); color: #10b981;">📥</span>
+                <span class="kpi-icon" style="background: rgba(16,185,129,0.1); color: #10b981;">${LG.icon('download', { size: 16, sw: 2 })}</span>
               </div>
               <div class="kpi-value" id="cardexInCount">—</div>
               <div class="kpi-footer"><span class="kpi-trend trend-up">Unidades ingresadas</span></div>
@@ -1185,7 +1179,7 @@
             <div class="kpi-card" style="--kpi-color: #ef4444;">
               <div class="kpi-header">
                 <span class="kpi-label">Salidas del Mes</span>
-                <span class="kpi-icon" style="background: rgba(239,68,68,0.1); color: #ef4444;">📤</span>
+                <span class="kpi-icon" style="background: rgba(239,68,68,0.1); color: #ef4444;">${LG.icon('arrowRight', { size: 16, sw: 2 })}</span>
               </div>
               <div class="kpi-value" id="cardexOutCount">—</div>
               <div class="kpi-footer"><span class="kpi-trend trend-alert">Unidades despachadas</span></div>
@@ -1193,7 +1187,7 @@
             <div class="kpi-card" style="--kpi-color: #f59e0b;">
               <div class="kpi-header">
                 <span class="kpi-label">Ajustes / Mermas</span>
-                <span class="kpi-icon" style="background: rgba(245,158,11,0.1); color: #f59e0b;">⚖️</span>
+                <span class="kpi-icon" style="background: rgba(245,158,11,0.1); color: #f59e0b;">${LG.icon('refresh', { size: 16, sw: 2 })}</span>
               </div>
               <div class="kpi-value" id="cardexAdjCount">—</div>
               <div class="kpi-footer"><span class="kpi-trend">Correcciones de stock</span></div>
@@ -1201,7 +1195,7 @@
             <div class="kpi-card" style="--kpi-color: #8b5cf6;">
               <div class="kpi-header">
                 <span class="kpi-label">Saldo Neto Período</span>
-                <span class="kpi-icon" style="background: rgba(139,92,246,0.1); color: #8b5cf6;">🔢</span>
+                <span class="kpi-icon" style="background: rgba(139,92,246,0.1); color: #8b5cf6;">${LG.icon('barChart', { size: 16, sw: 2 })}</span>
               </div>
               <div class="kpi-value" id="cardexNetBalance">—</div>
               <div class="kpi-footer"><span class="kpi-trend">Entradas − Salidas</span></div>
@@ -1211,13 +1205,13 @@
           <!-- Filtros Cardex -->
           <div class="chart-card" style="margin-bottom: 1.25rem;">
             <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; padding: 1rem 1.25rem;">
-              <input type="text" id="cardexSearch" class="form-input" placeholder="🔍 Buscar por producto, referencia..." style="flex: 1; min-width: 220px; font-size: 0.85rem;" oninput="filterCardex()">
+              <input type="text" id="cardexSearch" class="form-input" placeholder="Buscar por producto, referencia..." style="flex: 1; min-width: 220px; font-size: 0.85rem;" oninput="filterCardex()">
               <select id="cardexFilterType" class="form-input" style="max-width: 180px;" onchange="filterCardex()">
                 <option value="all">Todos los tipos</option>
-                <option value="entrada">📥 Entradas</option>
-                <option value="salida">📤 Salidas</option>
-                <option value="ajuste">⚖️ Ajustes</option>
-                <option value="merma">🗑️ Mermas</option>
+                <option value="entrada">Entradas</option>
+                <option value="salida">Salidas</option>
+                <option value="ajuste">Ajustes</option>
+                <option value="merma">Mermas</option>
               </select>
               <select id="cardexFilterProduct" class="form-input" style="max-width: 220px;" onchange="filterCardex()">
                 <option value="all">Todos los productos</option>
@@ -1228,7 +1222,7 @@
           <!-- Tabla de Movimientos -->
           <div class="orders-table-panel">
             <div class="mobile-table-hint" style="display: none; font-size: 0.72rem; color: var(--admin-text-dim); margin: 0 0 0.4rem 0; align-items: center; gap: 0.35rem;">
-              <span>👉</span><span>Desliza horizontalmente para ver todos los movimientos</span>
+              <span>Desliza horizontalmente para ver todos los movimientos</span>
             </div>
             <div class="table-responsive">
               <table class="admin-table" id="cardexTable">
@@ -1265,7 +1259,7 @@
         <div class="modal-card">
           <div class="modal-header">
             <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--admin-text-main);">Registrar Nueva Orden de Laboratorio</h3>
-            <button type="button" class="modal-close-btn" id="btnCloseModal">✕</button>
+            <button type="button" class="modal-close-btn" id="btnCloseModal">&times;</button>
           </div>
           <form id="formNewOrder" style="display: flex; flex-direction: column; gap: 1rem;">
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
@@ -1307,7 +1301,7 @@
               </div>
               <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 1.25rem;">
                 <input type="checkbox" id="newOrderUrgent" style="width: 18px; height: 18px; accent-color: var(--admin-accent-rose); cursor: pointer;">
-                <label for="newOrderUrgent" style="font-size: 0.85rem; font-weight: 700; color: var(--admin-accent-rose); cursor: pointer;">⚠️ Marcar como Orden URGENTE</label>
+                <label for="newOrderUrgent" style="font-size: 0.85rem; font-weight: 700; color: var(--admin-accent-rose); cursor: pointer;">Marcar como Orden URGENTE</label>
               </div>
             </div>
             <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1rem;">
@@ -1323,7 +1317,7 @@
         <div class="modal-card">
           <div class="modal-header">
             <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--admin-text-main);" id="modalInventoryTitle">Registrar Producto</h3>
-            <button type="button" class="modal-close-btn" onclick="document.getElementById('modalInventory').classList.remove('active')">✕</button>
+            <button type="button" class="modal-close-btn" onclick="document.getElementById('modalInventory').classList.remove('active')">&times;</button>
           </div>
           <form id="formInventory" style="display: flex; flex-direction: column; gap: 1rem;">
             <input type="hidden" id="invItemId">
@@ -1350,7 +1344,7 @@
         <div class="modal-card" style="max-width: 400px;">
           <div class="modal-header">
             <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--admin-text-main);">Recuperar Contraseña</h3>
-            <button type="button" class="modal-close-btn" id="btnCloseRecoveryModal">✕</button>
+            <button type="button" class="modal-close-btn" id="btnCloseRecoveryModal">&times;</button>
           </div>
           <form id="formRecovery" style="display: flex; flex-direction: column; gap: 1rem;">
             <p style="font-size: 0.9rem; color: var(--admin-text-muted);">
@@ -1382,7 +1376,7 @@
         <div class="modal-card" style="max-width: 480px;">
           <div class="modal-header">
             <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--admin-text-main);">Crear Nuevo Usuario</h3>
-            <button type="button" class="modal-close-btn" onclick="closeUserModal()">✕</button>
+            <button type="button" class="modal-close-btn" onclick="closeUserModal()">&times;</button>
           </div>
           <form id="formNewUser" style="display: flex; flex-direction: column; gap: 1rem;">
             <div class="form-group"><label class="form-label" for="newUserName">Nombres y Apellidos</label><input type="text" id="newUserName" class="form-input" style="padding-left: 0.9rem;" placeholder="Ej. Juan Pérez" required></div>
@@ -1418,7 +1412,7 @@
               <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--admin-text-main); margin: 0;">Nueva Venta &amp; Facturación Electrónica</h3>
               <p style="font-size: 0.8rem; color: var(--admin-text-muted); margin: 0.2rem 0 0 0;">Lens Group Trujillo S.A.C. • RUC 20609502623 • Jr. Gamarra 778</p>
             </div>
-            <button type="button" class="modal-close-btn" onclick="closeNewSaleModal()">✕</button>
+            <button type="button" class="modal-close-btn" onclick="closeNewSaleModal()">&times;</button>
           </div>
 
           <form id="formNewSale" style="display: flex; flex-direction: column; gap: 1.2rem; margin-top: 0.5rem;">
@@ -1429,13 +1423,13 @@
               <label class="form-label">Tipo de Comprobante de Pago</label>
               <div class="fiscal-type-selector">
                 <button type="button" class="fiscal-type-btn active" id="btnTypeBoleta" onclick="setSaleDocType('boleta')">
-                  📄 Boleta Electrónica (B001)
+                  Boleta Electrónica (B001)
                 </button>
                 <button type="button" class="fiscal-type-btn" id="btnTypeFactura" onclick="setSaleDocType('factura')">
-                  🏢 Factura Electrónica (F001)
+                  Factura Electrónica (F001)
                 </button>
                 <button type="button" class="fiscal-type-btn" id="btnTypeNota" onclick="setSaleDocType('nota')">
-                  📋 Nota de Venta (NV01)
+                  Nota de Venta (NV01)
                 </button>
               </div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.4rem; font-size: 0.78rem; color: var(--admin-text-muted);">
@@ -1524,7 +1518,7 @@
                       <option value="frm-a3" data-price="350" data-name="Vogue Cat-Eye Elegance">Vogue Cat-Eye Elegance (S/ 350.00)</option>
                       <option value="frm-a4" data-price="550" data-name="Carrera Titanium Aviator">Carrera Titanium Aviator (S/ 550.00)</option>
                     </optgroup>
-                    <option value="custom" data-price="180" data-name="Montura Personalizada">➕ Otra Montura / Montura del Cliente</option>
+                    <option value="custom" data-price="180" data-name="Montura Personalizada">Otra Montura / Montura del Cliente</option>
                   </select>
                 </div>
 
@@ -1580,7 +1574,7 @@
                 </label>
                 <select id="saleWorkshopUrgency" class="form-input" style="width: 110px; padding: 0.2rem 0.5rem; font-size: 0.78rem;">
                   <option value="normal">Normal</option>
-                  <option value="urgente">⚡ Urgente</option>
+                  <option value="urgente">Urgente</option>
                 </select>
               </div>
             </div>
@@ -1591,11 +1585,11 @@
                 <div class="form-group">
                   <label class="form-label" for="salePaymentMethod">Método de Pago</label>
                   <select id="salePaymentMethod" class="form-input" style="padding-left: 0.6rem;">
-                    <option value="Efectivo" selected>💵 Efectivo Soles</option>
-                    <option value="Yape">📱 Yape (Trujillo)</option>
-                    <option value="Plin">📱 Plin</option>
-                    <option value="Tarjeta">💳 Tarjeta Débito / Crédito (POS)</option>
-                    <option value="Transferencia BCP">🏦 Transferencia BCP / BBVA</option>
+                    <option value="Efectivo" selected>Efectivo Soles</option>
+                    <option value="Yape">Yape (Trujillo)</option>
+                    <option value="Plin">Plin</option>
+                    <option value="Tarjeta">Tarjeta Débito / Crédito (POS)</option>
+                    <option value="Transferencia BCP">Transferencia BCP / BBVA</option>
                   </select>
                 </div>
 
@@ -1654,7 +1648,7 @@
               <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--admin-text-main); margin: 0;">Comprobante Electrónico Emitido</h3>
               <p style="font-size: 0.78rem; color: var(--admin-text-muted); margin: 0.2rem 0 0 0;">Listo para imprimir en ticketera térmica (80mm) o enviar por WhatsApp</p>
             </div>
-            <button type="button" class="modal-close-btn" onclick="closeInvoiceModal()">✕</button>
+            <button type="button" class="modal-close-btn" onclick="closeInvoiceModal()">&times;</button>
           </div>
 
           <!-- Barra de Acciones del Comprobante -->
@@ -1692,7 +1686,7 @@
             ${LG.icon('bot', { size: 20, stroke: 'var(--admin-primary)', sw: 2 })}
             <strong style="color: var(--admin-text-main);">Asistente LensBot</strong>
           </div>
-          <button onclick="toggleChatbot()" style="background: none; border: none; color: var(--admin-text-muted); cursor: pointer; font-size: 1.2rem;">✕</button>
+          <button onclick="toggleChatbot()" style="background: none; border: none; color: var(--admin-text-muted); cursor: pointer; font-size: 1.2rem;">&times;</button>
         </div>
         <div id="chatbotMessages" style="flex: 1; padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; font-size: 0.9rem;">
           <div style="align-self: flex-start; background: var(--admin-bg-alt); padding: 0.75rem; border-radius: 8px 8px 8px 0; border: 1px solid var(--admin-card-border); color: var(--admin-text-main); max-width: 85%;">

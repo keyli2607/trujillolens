@@ -1,10 +1,3 @@
-/* ==========================================================================
-   LENS GROUP TRUJILLO — DATOS DEL SITIO PÚBLICO
-   --------------------------------------------------------------------------
-   Todo el contenido editable del sitio vive aquí. Para agregar una marca,
-   un testimonio o una pregunta frecuente basta con añadir un objeto al
-   arreglo correspondiente: los componentes generan el HTML automáticamente.
-   ========================================================================== */
 (function () {
   'use strict';
 
@@ -12,9 +5,7 @@
   window.LG.data = window.LG.data || {};
 
   window.LG.data.site = {
-    // ------------------------------------------------------------------
-    // Información de contacto (usada en top bar, contacto, footer, etc.)
-    // ------------------------------------------------------------------
+
     contact: {
       brand: 'Lens Group Trujillo',
       address: 'Galeria San Antonio, Jr. Gamarra N° 778, Trujillo 13001',
@@ -31,10 +22,6 @@
       badge: 'Distribuidor Autorizado Oficial • Trujillo, La Libertad'
     },
 
-    // ------------------------------------------------------------------
-    // Navegación principal. `href` es relativo a index.html; en otras
-    // páginas el Header antepone "index.html" automáticamente.
-    // ------------------------------------------------------------------
     nav: {
       home: [
         { label: 'Inicio', href: '#inicio' },
@@ -56,9 +43,9 @@
       ]
     },
 
-    // ------------------------------------------------------------------
+    
     // Hero
-    // ------------------------------------------------------------------
+  
     hero: {
       badge: 'Distribuidor Autorizado',
       titleTop: 'Visión clara,',
@@ -77,9 +64,8 @@
       ]
     },
 
-    // ------------------------------------------------------------------
     // Marcas del carrusel (se duplican automáticamente para el loop)
-    // ------------------------------------------------------------------
+  
     brands: [
       { title: 'TROPIC Sunglasses', alt: 'TROPIC Sunglasses', logo: 'brands/tropic.png' },
       { title: 'SYLVANE Sunglasses', alt: 'SYLVANE Sunglasses', logo: 'brands/sylvane.png' },
@@ -103,9 +89,8 @@
       { icon: 'truck', title: 'Entrega Rápida en Trujillo', desc: 'Retira en nuestra tienda del Centro Histórico o solicita envío seguro a domicilio en toda la provincia de Trujillo.' }
     ],
 
-    // ------------------------------------------------------------------
     // Catálogos
-    // ------------------------------------------------------------------
+    
     catalogFilters: [
       { value: 'todos', label: 'Todos' },
       { value: 'monturas', label: 'Monturas' },
@@ -149,9 +134,8 @@
       }
     ],
 
-    // ------------------------------------------------------------------
     // Simulador de lunas (títulos largos/descripciones en lens-simulator.js)
-    // ------------------------------------------------------------------
+
     treatments: [
       { key: 'blue', icon: 'monitor', title: 'Filtro Blue Defense', short: 'Blue Defense', desc: 'Protege tus ojos de monitores y celulares' },
       { key: 'antireflective', icon: 'sun', title: 'Antirreflejo Crizal', short: 'Antirreflejo', desc: 'Máxima transparencia sin reflejos nocturnos' },
@@ -159,9 +143,9 @@
       { key: 'transitions', icon: 'moon', title: 'Fotocromático Transitions', short: 'Transitions', desc: 'Se adapta a la luz: claro en interiores, oscuro afuera' }
     ],
 
-    // ------------------------------------------------------------------
+    
     // Nosotros
-    // ------------------------------------------------------------------
+    
     about: {
       tag: 'Conoce Lens Group Trujillo',
       title: 'Pasión por la salud visual y la elegancia en cada mirada',
@@ -176,9 +160,8 @@
       ]
     },
 
-    // ------------------------------------------------------------------
     // Testimonios
-    // ------------------------------------------------------------------
+    
     testimonials: [
       {
         initials: 'CA', name: 'Carlos Alva Ramos', location: 'Trujillo • Local Guide',
@@ -194,9 +177,8 @@
       }
     ],
 
-    // ------------------------------------------------------------------
     // Formulario de citas
-    // ------------------------------------------------------------------
+    
     appointment: {
       services: [
         'Examen de Vista Computarizado',
@@ -212,9 +194,8 @@
       ]
     },
 
-    // ------------------------------------------------------------------
     // Seguimiento de pedidos
-    // ------------------------------------------------------------------
+    
     trackingChips: [
       { code: 'LGT-2025-0450', tag: 'Cola' },
       { code: 'LGT-2025-0105', tag: 'Proceso' },
@@ -264,9 +245,8 @@
       }
     ],
 
-    // ------------------------------------------------------------------
     // Footer
-    // ------------------------------------------------------------------
+  
     socials: [
       { icon: 'facebook', url: 'https://facebook.com', label: 'Facebook Lens Group Trujillo' },
       { icon: 'instagram', url: 'https://instagram.com', label: 'Instagram Lens Group Trujillo' },

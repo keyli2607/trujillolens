@@ -1,6 +1,3 @@
-/* ==========================================================================
-   LENS GROUP TRUJILLO — COMPONENTES DE LA PÁGINA DE SEGUIMIENTO
-   ========================================================================== */
 (function () {
   'use strict';
 
@@ -10,8 +7,7 @@
   C.TrackingHero = function () {
     return LG.html`
       <section class="tracking-hero">
-        <div class="container">
-          <div class="tracking-hero-content">
+        <div class="container">          <div class="tracking-hero-content">
             <div class="tracking-badge">
               ${LG.icon('search', { size: 15, sw: 2.2 })}
               Seguimiento en Tiempo Real

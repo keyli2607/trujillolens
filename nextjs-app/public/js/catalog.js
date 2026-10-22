@@ -188,7 +188,7 @@ const PRODUCTS = [
 const WHATSAPP_NUMBER = '51958169535';
 
 function buildWhatsAppProductLink(product) {
-  const text = `¡Hola Lens Group Trujillo! Me interesa consultar por este modelo:\n\n👓 *${product.name}*\n🏷️ Marca: ${product.brand}\n💰 Precio: S/ ${product.price}\n\n¿Tienen disponibilidad en su tienda de Trujillo o envíos? ¡Muchas gracias!`;
+  const text = `¡Hola Lens Group Trujillo! Me interesa consultar por este modelo:\n\n*${product.name}*\nMarca: ${product.brand}\nPrecio: S/ ${product.price}\n\n¿Tienen disponibilidad en su tienda de Trujillo o envíos? ¡Muchas gracias!`;
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
 }
 
@@ -202,7 +202,7 @@ function renderProducts(productList) {
   if (productList.length === 0) {
     container.innerHTML = `
       <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: var(--color-dark-400);">
-        <div style="font-size: 3rem; margin-bottom: 1rem;">🔍</div>
+        <div style="display: flex; justify-content: center; margin-bottom: 1rem; color: var(--color-dark-400);">${window.LG?.icon ? window.LG.icon('search', { size: 48 }) : ''}</div>
         <h3 style="margin-bottom: 0.5rem;">No encontramos modelos que coincidan</h3>
         <p>Prueba buscando con otro término o selecciona la categoría "Todos".</p>
       </div>

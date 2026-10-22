@@ -1,79 +1,59 @@
-/* ==========================================================================
-   LENS GROUP TRUJILLO — RESPONSIVE DESIGN (MOBILE-FIRST)
-   ========================================================================== */
+/* LENS GROUP TRUJILLO — RESPONSIVE DESIGN (MOBILE-FIRST) */
 
-/* --------------------------------------------------------------------------
-   MEDIUM DEVICES — Tablets (max 1024px)
-   -------------------------------------------------------------------------- */
 @media (max-width: 1024px) {
   .hero-grid {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
-
   .hero-content {
     text-align: center;
     max-width: 680px;
     margin: 0 auto;
   }
-
   .hero-description {
     margin-left: auto;
     margin-right: auto;
   }
-
   .hero-cta-group {
     justify-content: center;
   }
-
   .hero-metrics {
     max-width: 500px;
     margin: 0 auto;
   }
-
   .trust-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
   .simulator-card {
     grid-template-columns: 1fr;
   }
-
   .simulator-viewer {
     height: 340px;
   }
-
   .about-grid {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
-
   .about-images-col {
     order: -1;
     max-width: 600px;
     margin: 0 auto;
   }
-
   .about-main-img {
     height: 420px;
   }
-
   .testimonials-grid {
     grid-template-columns: 1fr;
   }
-
   .contact-grid {
     grid-template-columns: 1fr;
   }
-
   .footer-grid {
     grid-template-columns: 1fr 1fr;
   }
 }
 
-/* --------------------------------------------------------------------------
-   SMALL DEVICES — Phones & Small Tablets (max 768px)
-   -------------------------------------------------------------------------- */
+/*SMALL DEVICES — Phones & Small Tablets (max 768px) */
 @media (max-width: 768px) {
 
   /* === GENERAL SPACING & LAYOUT === */
@@ -81,91 +61,73 @@
     padding-left: 1.1rem;
     padding-right: 1.1rem;
   }
-
   section {
     padding-top: 3.5rem !important;
     padding-bottom: 3.5rem !important;
   }
-
   h2,
   .section-title {
     font-size: 1.75rem !important;
     line-height: 1.2 !important;
   }
-
   /* === TOP BAR === */
   .top-bar {
     display: none;
   }
-
   /* === NAVBAR === */
   .navbar {
     height: 66px;
   }
-
   .brand-logo-img {
     height: 40px;
   }
-
   .mobile-toggle {
     display: block;
   }
-
   .nav-actions .btn-contact {
     display: none !important;
   }
-
   .product-body .btn-sm {
     padding: 0.5rem 0.4rem;
     font-size: 0.8rem;
     gap: 0.25rem;
   }
-
   /* === HERO SECTION === */
   .hero-section {
     padding: 2rem 0 3.5rem 0;
   }
-
   .hero-badge {
     font-size: 0.8rem;
   }
-
   .hero-title {
     font-size: 2.1rem !important;
     line-height: 1.15 !important;
   }
-
   .hero-description {
     font-size: 1rem;
     margin-bottom: 1.5rem;
   }
-
   .hero-cta-group {
     flex-direction: column;
     gap: 0.75rem;
   }
-
   .hero-cta-group .btn {
     width: 100%;
     justify-content: center;
     padding: 1rem 1.5rem;
     font-size: 1rem;
   }
-
   .hero-metrics {
     grid-template-columns: repeat(3, 1fr);
     gap: 0.75rem;
     padding-top: 1.5rem;
   }
-
   .metric-number {
     font-size: 1.55rem;
-  }
-
+  } 
   .metric-label {
     font-size: 0.75rem;
   }
-
   .floating-card {
     display: none;
   }
@@ -175,12 +137,10 @@
     gap: 2.5rem;
     animation-duration: 22s;
   }
-
   .brand-item {
     height: 42px;
     min-width: 110px;
   }
-
   /* === TRUST CARDS === */
   .trust-grid {
     grid-template-columns: 1fr 1fr;

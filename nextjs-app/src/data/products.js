@@ -1,7 +1,3 @@
-/* ==========================================================================
-   LENS GROUP TRUJILLO — PRODUCT DATA MODULE
-   ========================================================================== */
-
 export const WHATSAPP_NUMBER = '51958169535';
 
 export const PRODUCTS = [
@@ -168,6 +164,6 @@ export const PRODUCTS = [
 ];
 
 export function buildWhatsAppProductLink(product) {
-  const text = `¡Hola Lens Group Trujillo! Me interesa consultar por este modelo:\n\n👓 *${product.name}*\n🏷️ Marca: ${product.brand}\n💰 Precio: S/ ${product.price}\n\n¿Tienen disponibilidad en su tienda de Trujillo o envíos? ¡Muchas gracias!`;
+  const text = `¡Hola Lens Group Trujillo! Me interesa consultar por este modelo:\n\n*${product.name}*\nMarca: ${product.brand}\nPrecio: S/ ${product.price}\n\n¿Tienen disponibilidad en su tienda de Trujillo o envíos? ¡Muchas gracias!`;
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
 }

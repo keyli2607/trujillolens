@@ -829,23 +829,23 @@ function renderOrderResult(order) {
       <!-- Datos Principales de la Orden -->
       <div class="tracking-meta-grid">
         <div class="meta-item">
-          <span class="meta-label">👤 Cliente Titular</span>
+          <span class="meta-label">Cliente Titular</span>
           <span class="meta-value">${order.customer}</span>
         </div>
         <div class="meta-item">
-          <span class="meta-label">📅 Fecha de Recepción</span>
+          <span class="meta-label">Fecha de Recepción</span>
           <span class="meta-value">${order.receivedDate}</span>
         </div>
         <div class="meta-item">
-          <span class="meta-label">⏱️ Entrega Estimada</span>
+          <span class="meta-label">Entrega Estimada</span>
           <span class="meta-value meta-value-highlight">${order.estimatedDate}</span>
         </div>
         <div class="meta-item" style="grid-column: 1 / -1;">
-          <span class="meta-label">👓 Tipo de Servicio / Producto</span>
+          <span class="meta-label">Tipo de Servicio / Producto</span>
           <span class="meta-value" style="font-size: 1rem; color: var(--color-dark-800);">${order.service}</span>
         </div>
         <div class="meta-item" style="grid-column: 1 / -1;">
-          <span class="meta-label">📍 Sede de Entrega en Trujillo</span>
+          <span class="meta-label">Sede de Entrega en Trujillo</span>
           <span class="meta-value" style="font-size: 0.95rem; font-weight: 600; color: var(--color-dark-700);">
             ${order.branch} (Horario: Lun-Sáb 9am–9pm / Dom 9:30am–2pm)
           </span>

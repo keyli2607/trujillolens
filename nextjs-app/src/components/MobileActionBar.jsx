@@ -68,7 +68,6 @@ export default function MobileActionBar() {
         </svg>
         WhatsApp
       </a>
-
       <Link
         href="/#testimonios"
         className={`mobile-action-btn ${activeSection === "testimonios" ? "active" : ""}`}
@@ -79,7 +78,6 @@ export default function MobileActionBar() {
         </svg>
         Reseñas
       </Link>
-
       <Link
         href="/#contacto"
         className={`mobile-action-btn ${activeSection === "contacto" ? "active" : ""}`}

@@ -72,7 +72,7 @@ export default function AdminDashboard() {
       <main className="admin-shell">
         <section className="admin-login">
           <span className="section-tag">Acceso privado</span>
-          <h1>Panel Lens Group</h1>
+          <h1> Lens Group</h1>
           <p>Ingresa con tu DNI y PIN institucional.</p>
           <form onSubmit={login} className="admin-form">
             <input inputMode="numeric" maxLength={8} placeholder="DNI" value={credentials.dni} onChange={(event) => setCredentials({ ...credentials, dni: event.target.value })} required />

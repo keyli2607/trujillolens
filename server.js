@@ -5,8 +5,8 @@ import path from 'node:path';
 const PORT = 8080;
 const ENV_FILE = path.join(process.cwd(), 'nextjs-app', '.env.local');
 
-let SUPABASE_URL = 'https://tyzxjrtekbpwkfshvnua.supabase.co';
-let SUPABASE_KEY = 'sb_publishable_0FE-anyjwe14BQ7WoGsU6Q_C08cnpFE';
+let SUPABASE_URL = 'https://rsjondlejagmnjrmbolf.supabase.co';
+let SUPABASE_KEY = 'sb_publishable_A86Q2r3lrF6z14HunWuuwQ_Y-G8ziVV';
 
 try {
   const envContent = fs.readFileSync(ENV_FILE, 'utf8');
@@ -199,7 +199,10 @@ const server = http.createServer((req, res) => {
         res.writeHead(200, {
           'Content-Type': contentType,
           'Cache-Control': 'no-cache',
-          'Access-Control-Allow-Origin': '*'
+          'Access-Control-Allow-Origin': '*',
+          'X-Frame-Options': 'SAMEORIGIN',
+          'X-Content-Type-Options': 'nosniff',
+          'Referrer-Policy': 'strict-origin-when-cross-origin'
         });
 
         fs.createReadStream(fallbackPath).pipe(res);
@@ -213,7 +216,10 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, {
       'Content-Type': contentType,
       'Cache-Control': 'no-cache',
-      'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Origin': '*',
+      'X-Frame-Options': 'SAMEORIGIN',
+      'X-Content-Type-Options': 'nosniff',
+      'Referrer-Policy': 'strict-origin-when-cross-origin'
     });
 
     fs.createReadStream(filePath).pipe(res);

@@ -2,8 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const ENV_FILE = path.join(process.cwd(), 'nextjs-app', '.env.local');
 
-let SUPABASE_URL = 'https://tyzxjrtekbpwkfshvnua.supabase.co';
-let SUPABASE_KEY = 'sb_publishable_0FE-anyjwe14BQ7WoGsU6Q_C08cnpFE';
+let SUPABASE_URL = 'https://rsjondlejagmnjrmbolf.supabase.co';
+let SUPABASE_KEY = 'sb_publishable_A86Q2r3lrF6z14HunWuuwQ_Y-G8ziVV';
 
 try {
   const envContent = fs.readFileSync(ENV_FILE, 'utf8');

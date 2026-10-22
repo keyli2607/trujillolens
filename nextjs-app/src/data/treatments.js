@@ -1,7 +1,3 @@
-/* ==========================================================================
-   LENS GROUP TRUJILLO — LENS TREATMENTS DATA
-   ========================================================================== */
-
 export const TREATMENTS_DATA = {
   blue: {
     title: 'Filtro Blue Defense (Luz Azul Digital)',
