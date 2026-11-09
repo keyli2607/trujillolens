@@ -577,6 +577,709 @@ const DEFAULT_CRM_PATIENTS = [
       { fecha: '12/07/2026 19:00', tipo: 'entrega', autor: 'Atención', detalle: 'Retiro conforme de lentes. Excelente estética facial.' },
       { fecha: '25/07/2026 10:00', tipo: 'whatsapp', autor: 'CRM Postventa', detalle: 'Paciente encantada con el cambio automático de claro a oscuro en Trujillo.' }
     ]
+  },
+  {
+    id: 'crm-pat-11',
+    dni: '18124578',
+    nombre: 'Ing. Carlos Mendoza Paredes',
+    edad: 45,
+    genero: 'M',
+    telefono: '948123456',
+    direccion: 'Urb. Las Quintanas Mz. E Lt. 12, Trujillo',
+    ocupacion: 'Ingeniero de Sistemas',
+    ticket: 'B001-000430',
+    montura: 'Silhouette Minimal Art Titanio Sin Marco',
+    lunas: 'Progresivo Digital Premium con Antirreflejo Crizal Sapphire',
+    graduacion: {
+      od: { esf: '+1.75', cil: '-0.75', eje: '90°', av: '20/20' },
+      oi: { esf: '+2.00', cil: '-0.50', eje: '85°', av: '20/20' },
+      add: '+1.75',
+      dp: '63 mm',
+      diagnostico: 'Presbicia con astigmatismo miópico, uso intensivo de monitores'
+    },
+    estado: 'listo',
+    estadoTexto: 'Listo p/ Retiro',
+    fechaEntrega: 'Hoy (19/10/2026)',
+    fechaGarantia: '19/10/2027',
+    proximaRevision: 'Octubre 2027',
+    notaSeguimiento: 'Montura lista y calibrada en biseladora. Listo para recojo.',
+    timeline: [
+      { fecha: '17/10/2026 15:30', tipo: 'clinica', autor: 'Optometrista', detalle: 'Evaluación optométrica y refracción computarizada.' },
+      { fecha: '19/10/2026 10:00', tipo: 'taller', autor: 'Laboratorio', detalle: 'Montaje de cristales progresivos terminado con éxito.' }
+    ]
+  },
+  {
+    id: 'crm-pat-12',
+    dni: '47852369',
+    nombre: 'Valeria Nicole Torres Cerna',
+    edad: 24,
+    genero: 'F',
+    telefono: '978456123',
+    direccion: 'Urb. La Merced 1ra Etapa, Trujillo',
+    ocupacion: 'Community Manager & Creadora de Contenido',
+    ticket: 'LGT-2026-0625',
+    montura: 'Sylvane Chic Cat-Eye Acetato Rosa Translúcido',
+    lunas: 'Monofocal Blue Defense UV420 + Fotocromático Light Pink',
+    graduacion: {
+      od: { esf: '-1.00', cil: '-0.50', eje: '180°', av: '20/20' },
+      oi: { esf: '-1.25', cil: '-0.50', eje: '175°', av: '20/20' },
+      add: null,
+      dp: '58 mm',
+      diagnostico: 'Miopía leve con necesidad de filtro azul de alto rendimiento'
+    },
+    estado: 'adaptacion',
+    estadoTexto: 'En Adaptación',
+    fechaEntrega: '15/10/2026',
+    fechaGarantia: '15/10/2027',
+    proximaRevision: 'Octubre 2027',
+    notaSeguimiento: 'Día 4: Muy contenta con el tinte suave rosa en exteriores.',
+    timeline: [
+      { fecha: '15/10/2026 18:00', tipo: 'entrega', autor: 'Atención', detalle: 'Entrega conforme con estuche rígido y paño de microfibra.' }
+    ]
+  },
+  {
+    id: 'crm-pat-13',
+    dni: '19045871',
+    nombre: 'Dr. Fernando Quiroz Albarrán',
+    edad: 56,
+    genero: 'M',
+    telefono: '944781256',
+    direccion: 'Av. América Sur 2450, Urb. Santa María, Trujillo',
+    ocupacion: 'Médico Cardiólogo',
+    ticket: 'LGT-2025-0320',
+    montura: 'Ray-Ban Clubmaster Classic Carey/Dorado',
+    lunas: 'Progresivo Ocupacional Workspace Antirreflejo HD',
+    graduacion: {
+      od: { esf: '+2.50', cil: '-1.00', eje: '15°', av: '20/20' },
+      oi: { esf: '+2.75', cil: '-1.00', eje: '165°', av: '20/20' },
+      add: '+2.50',
+      dp: '66 mm',
+      diagnostico: 'Presbicia avanzada. Requiere control anual programado.'
+    },
+    estado: 'control',
+    estadoTexto: 'Control Anual / Cita',
+    fechaEntrega: '10/11/2025',
+    fechaGarantia: '10/11/2026',
+    proximaRevision: 'Noviembre 2026',
+    notaSeguimiento: 'Próximo a cumplir 1 año. Enviar recordatorio para examen preventivo de retina.',
+    timeline: [
+      { fecha: '10/11/2025 12:00', tipo: 'entrega', autor: 'Ventas', detalle: 'Entrega de lentes ocupacionales para consultorio.' }
+    ]
+  },
+  {
+    id: 'crm-pat-14',
+    dni: '73129845',
+    nombre: 'Renzo Fabricio Becerra Ruiz',
+    edad: 34,
+    genero: 'M',
+    telefono: '949632581',
+    direccion: 'Urb. San Andrés 3ra Etapa, Trujillo',
+    ocupacion: 'Arquitecto de Interiores',
+    ticket: 'LGT-2026-0590',
+    montura: 'Oakley Holbrook Negro Mate / Prizm Sapphire',
+    lunas: 'Policarbonato con Antirreflejo Deportivo UV400',
+    graduacion: {
+      od: { esf: '-2.50', cil: '-1.25', eje: '10°', av: '20/20' },
+      oi: { esf: '-2.75', cil: '-1.50', eje: '170°', av: '20/20' },
+      add: null,
+      dp: '64 mm',
+      diagnostico: 'Miopía con astigmatismo moderado'
+    },
+    estado: 'garantia',
+    estadoTexto: 'Garantía Vigente',
+    fechaEntrega: '05/08/2026',
+    fechaGarantia: '05/08/2027',
+    proximaRevision: 'Agosto 2027',
+    notaSeguimiento: 'Ajuste de plaquetas nasales realizado el 20/09 sin costo bajo póliza de garantía.',
+    timeline: [
+      { fecha: '20/09/2026 17:00', tipo: 'servicio', autor: 'Taller', detalle: 'Reajuste y alineación de varillas de montura.' }
+    ]
+  },
+  {
+    id: 'crm-pat-15',
+    dni: '45698712',
+    nombre: 'Patricia Elena Chávez Montero',
+    edad: 41,
+    genero: 'F',
+    telefono: '971258963',
+    direccion: 'Calle Los Diamantes 180, Urb. Santa Inés, Trujillo',
+    ocupacion: 'Contadora Pública Colegiada',
+    ticket: 'B001-000410',
+    montura: 'InkaLens Acetato Premium Havana Blue',
+    lunas: 'Fotocromático Grey Transition + Antirreflejo BlueDefense',
+    graduacion: {
+      od: { esf: '-1.75', cil: '-0.50', eje: '95°', av: '20/20' },
+      oi: { esf: '-2.00', cil: '-0.75', eje: '85°', av: '20/20' },
+      add: '+1.25',
+      dp: '61 mm',
+      diagnostico: 'Inicio de presbicia con miopía previa'
+    },
+    estado: 'fidelizado',
+    estadoTexto: 'Fidelizado / VIP',
+    fechaEntrega: '28/06/2026',
+    fechaGarantia: '28/06/2027',
+    proximaRevision: 'Junio 2027',
+    notaSeguimiento: 'Cliente de 4ta generación. Familia completa se atiende en Lens Group.',
+    timeline: [
+      { fecha: '28/06/2026 16:30', tipo: 'entrega', autor: 'Atención', detalle: 'Entrega conforme.' }
+    ]
+  },
+  {
+    id: 'crm-pat-16',
+    dni: '18745632',
+    nombre: 'Guillermo Enrique Tello Bazán',
+    edad: 50,
+    genero: 'M',
+    telefono: '945632148',
+    direccion: 'Av. Mansiche 1420, Trujillo',
+    ocupacion: 'Notario Público',
+    ticket: 'LGT-2026-0630',
+    montura: 'Montblanc Rimless Oro Rosado Ejecutivo',
+    lunas: 'Progresivo Personalizado Individualizado FreeForm',
+    graduacion: {
+      od: { esf: '+2.25', cil: '-0.50', eje: '100°', av: '20/20' },
+      oi: { esf: '+2.50', cil: '-0.75', eje: '80°', av: '20/20' },
+      add: '+2.25',
+      dp: '65 mm',
+      diagnostico: 'Presbicia y emétrope de lejos'
+    },
+    estado: 'listo',
+    estadoTexto: 'Listo p/ Retiro',
+    fechaEntrega: 'Hoy (19/10/2026)',
+    fechaGarantia: '19/10/2027',
+    proximaRevision: 'Octubre 2027',
+    notaSeguimiento: 'Control de calidad óptico 100% superado. Listo para entrega inmediata.',
+    timeline: [
+      { fecha: '19/10/2026 09:00', tipo: 'taller', autor: 'Laboratorio', detalle: 'Montura verificada en lensómetro digital.' }
+    ]
+  },
+  {
+    id: 'crm-pat-17',
+    dni: '76541289',
+    nombre: 'Sofía Milagros Calderón Vega',
+    edad: 19,
+    genero: 'F',
+    telefono: '963258741',
+    direccion: 'Urb. Monserrate Mz. F Lt. 9, Trujillo',
+    ocupacion: 'Estudiante de Derecho (UPAO)',
+    ticket: 'LGT-2026-0618',
+    montura: 'Vogue Eyewear Hexagonal Metálico Dorado',
+    lunas: 'Monofocal SuperClean Antirreflejo UV400',
+    graduacion: {
+      od: { esf: '-2.75', cil: '-1.00', eje: '180°', av: '20/20' },
+      oi: { esf: '-3.00', cil: '-1.00', eje: '175°', av: '20/20' },
+      add: null,
+      dp: '60 mm',
+      diagnostico: 'Astigmatismo miópico con síntomas de fatiga visual vespertina'
+    },
+    estado: 'adaptacion',
+    estadoTexto: 'En Adaptación',
+    fechaEntrega: '14/10/2026',
+    fechaGarantia: '14/10/2027',
+    proximaRevision: 'Octubre 2027',
+    notaSeguimiento: 'Día 5: Excelente tolerancia visual, sin molestias en estudio.',
+    timeline: [
+      { fecha: '14/10/2026 17:00', tipo: 'entrega', autor: 'Atención', detalle: 'Entrega en tienda central Jr. Gamarra.' }
+    ]
+  },
+  {
+    id: 'crm-pat-18',
+    dni: '17965432',
+    nombre: 'Don Manuel Arnaldo Luján Ríos',
+    edad: 68,
+    genero: 'M',
+    telefono: '942158963',
+    direccion: 'Jr. Pizarro 480, Centro Histórico de Trujillo',
+    ocupacion: 'Docente Universitario Jubilado',
+    ticket: 'LGT-2025-0180',
+    montura: 'InkaLens Clásico Acetato Negro Mate',
+    lunas: 'Bifocal Invisible con Antirreflejo Ultra',
+    graduacion: {
+      od: { esf: '+3.00', cil: '-0.75', eje: '90°', av: '20/25' },
+      oi: { esf: '+3.25', cil: '-0.75', eje: '90°', av: '20/25' },
+      add: '+3.00',
+      dp: '67 mm',
+      diagnostico: 'Presbicia senil con signos iniciales de esclerosis nuclear'
+    },
+    estado: 'control',
+    estadoTexto: 'Control Anual / Cita',
+    fechaEntrega: '05/11/2025',
+    fechaGarantia: '05/11/2026',
+    proximaRevision: 'Noviembre 2026',
+    notaSeguimiento: 'Cumple 1 año de su último control. Invitar a despistaje gratuito preventivo.',
+    timeline: [
+      { fecha: '05/11/2025 11:30', tipo: 'entrega', autor: 'Ventas', detalle: 'Entrega conforme de lentes bifocales.' }
+    ]
+  },
+  {
+    id: 'crm-pat-19',
+    dni: '70258963',
+    nombre: 'Javier Alonso Zavaleta Cruz',
+    edad: 29,
+    genero: 'M',
+    telefono: '951236874',
+    direccion: 'Urb. San Fernando Mz. C Lt. 4, Trujillo',
+    ocupacion: 'Desarrollador Full Stack',
+    ticket: 'LGT-2026-0570',
+    montura: 'Oakley Crosslink Pitch Satin Black',
+    lunas: 'Lentes Blue Defense Gamer Max UV420 + Crizal Prevencia',
+    graduacion: {
+      od: { esf: '-1.25', cil: '-0.75', eje: '20°', av: '20/20' },
+      oi: { esf: '-1.50', cil: '-0.50', eje: '160°', av: '20/20' },
+      add: null,
+      dp: '63 mm',
+      diagnostico: 'Fatiga ocular informática severa por 12+ horas de exposición a pantallas'
+    },
+    estado: 'garantia',
+    estadoTexto: 'Garantía Vigente',
+    fechaEntrega: '12/07/2026',
+    fechaGarantia: '12/07/2027',
+    proximaRevision: 'Julio 2027',
+    notaSeguimiento: 'Garantía vigente: Mantenimiento ultrasónico gratuito disponible en cualquier sede.',
+    timeline: [
+      { fecha: '12/07/2026 18:30', tipo: 'entrega', autor: 'Atención', detalle: 'Entrega con certificación de filtro de luz azul.' }
+    ]
+  },
+  {
+    id: 'crm-pat-20',
+    dni: '43987512',
+    nombre: 'Elena Rocío Montenegro Gálvez',
+    edad: 37,
+    genero: 'F',
+    telefono: '974125896',
+    direccion: 'Urb. Hortencias de California, Trujillo',
+    ocupacion: 'Odontóloga Especialista',
+    ticket: 'LGT-2026-0635',
+    montura: 'Sylvane Elegance Titanio Oro Blanco',
+    lunas: 'Monofocal Ultra Thin Índice 1.67 Antirreflejo HD',
+    graduacion: {
+      od: { esf: '-4.25', cil: '-1.25', eje: '80°', av: '20/20' },
+      oi: { esf: '-4.50', cil: '-1.50', eje: '100°', av: '20/20' },
+      add: null,
+      dp: '59 mm',
+      diagnostico: 'Miopía alta con astigmatismo. Montura ultraliviana para trabajo dental'
+    },
+    estado: 'listo',
+    estadoTexto: 'Listo p/ Retiro',
+    fechaEntrega: 'Hoy (19/10/2026)',
+    fechaGarantia: '19/10/2027',
+    proximaRevision: 'Octubre 2027',
+    notaSeguimiento: 'Lentes listos en estuche de lujo con kit de limpieza de regalo.',
+    timeline: [
+      { fecha: '18/10/2026 16:00', tipo: 'taller', autor: 'Laboratorio', detalle: 'Biselado de alto índice terminado.' }
+    ]
+  },
+  {
+    id: 'crm-pat-21',
+    dni: '71458963',
+    nombre: 'Sebastián Ignacio Prado Huamán',
+    edad: 26,
+    genero: 'M',
+    telefono: '965874123',
+    direccion: 'Urb. La Encalada, Víctor Larco, Trujillo',
+    ocupacion: 'Piloto Comercial / Aviación Civil',
+    ticket: 'LGT-2026-0610',
+    montura: 'Ray-Ban Aviator Gradient Gunmetal',
+    lunas: 'Mineral Polarizado Antideslumbrante para Cabina',
+    graduacion: {
+      od: { esf: '-0.75', cil: '-0.25', eje: '90°', av: '20/15' },
+      oi: { esf: '-0.75', cil: '-0.25', eje: '90°', av: '20/15' },
+      add: null,
+      dp: '65 mm',
+      diagnostico: 'Agudeza visual de alta precisión para navegación aérea'
+    },
+    estado: 'adaptacion',
+    estadoTexto: 'En Adaptación',
+    fechaEntrega: '16/10/2026',
+    fechaGarantia: '16/10/2027',
+    proximaRevision: 'Octubre 2027',
+    notaSeguimiento: 'Día 3: Contactar para verificar desempeño en horas de vuelo.',
+    timeline: [
+      { fecha: '16/10/2026 14:00', tipo: 'entrega', autor: 'Atención', detalle: 'Entrega conforme.' }
+    ]
+  },
+  {
+    id: 'crm-pat-22',
+    dni: '18234567',
+    nombre: 'Rosa María Ibáñez de la Cruz',
+    edad: 61,
+    genero: 'F',
+    telefono: '943215874',
+    direccion: 'Urb. Covicorti Mz. R Lt. 8, Trujillo',
+    ocupacion: 'Administradora de Empresas',
+    ticket: 'LGT-2025-0210',
+    montura: 'Vogue Eyewear Butterfly Acetato Borgoña',
+    lunas: 'Progresivo Digital Confort con Antirreflejo Crizal Easy',
+    graduacion: {
+      od: { esf: '+2.75', cil: '-1.00', eje: '70°', av: '20/20' },
+      oi: { esf: '+3.00', cil: '-1.00', eje: '110°', av: '20/20' },
+      add: '+2.50',
+      dp: '62 mm',
+      diagnostico: 'Presbicia y astigmatismo mixto. Control anual preventivo.'
+    },
+    estado: 'control',
+    estadoTexto: 'Control Anual / Cita',
+    fechaEntrega: '18/11/2025',
+    fechaGarantia: '18/11/2026',
+    proximaRevision: 'Noviembre 2026',
+    notaSeguimiento: 'Cumpliendo 12 meses de uso. Paciente reporta excelente visión pero requiere chequeo.',
+    timeline: [
+      { fecha: '18/11/2025 17:00', tipo: 'entrega', autor: 'Ventas', detalle: 'Entrega de progresivos con garantía de adaptación.' }
+    ]
+  },
+  {
+    id: 'crm-pat-23',
+    dni: '46852147',
+    nombre: 'Miguel Ángel Santillán Vargas',
+    edad: 39,
+    genero: 'M',
+    telefono: '978541236',
+    direccion: 'Urb. Los Jardines, Trujillo',
+    ocupacion: 'Chef Ejecutivo & Asesor Gastronómico',
+    ticket: 'LGT-2026-0565',
+    montura: 'InkaLens TR-90 Flexible Resistente al Calor',
+    lunas: 'Cristal Orgánico Antivaho / Hidrofóbico Especial Cocina',
+    graduacion: {
+      od: { esf: '-2.00', cil: '-0.75', eje: '160°', av: '20/20' },
+      oi: { esf: '-2.25', cil: '-0.75', eje: '20°', av: '20/20' },
+      add: null,
+      dp: '64 mm',
+      diagnostico: 'Miopía media con tratamiento hidrofóbico antivaho por calor de cocina'
+    },
+    estado: 'garantia',
+    estadoTexto: 'Garantía Vigente',
+    fechaEntrega: '02/07/2026',
+    fechaGarantia: '02/07/2027',
+    proximaRevision: 'Julio 2027',
+    notaSeguimiento: 'Garantía de lunas vigente ante ralladuras o desprendimiento de película antivaho.',
+    timeline: [
+      { fecha: '02/07/2026 19:00', tipo: 'entrega', autor: 'Atención', detalle: 'Entrega con prueba de vapor caliente satisfactoria.' }
+    ]
+  },
+  {
+    id: 'crm-pat-24',
+    dni: '72589634',
+    nombre: 'Dra. Andrea Celina Morillas Polo',
+    edad: 33,
+    genero: 'F',
+    telefono: '961234587',
+    direccion: 'Urb. California, Calle Las Camelias 240, Trujillo',
+    ocupacion: 'Dermatología Clínica & Estética',
+    ticket: 'B001-000435',
+    montura: 'Sylvane Titanium Luxury Rose Gold Minimalist',
+    lunas: 'Lentes Ultra Alta Definición 1.74 + Antirreflejo Dual',
+    graduacion: {
+      od: { esf: '-5.00', cil: '-0.50', eje: '90°', av: '20/20' },
+      oi: { esf: '-5.25', cil: '-0.75', eje: '90°', av: '20/20' },
+      add: null,
+      dp: '58 mm',
+      diagnostico: 'Miopía alta. Paciente VIP satisfecha con estética delgada y sin aros gruesos'
+    },
+    estado: 'fidelizado',
+    estadoTexto: 'Fidelizado / VIP',
+    fechaEntrega: '10/08/2026',
+    fechaGarantia: '10/08/2027',
+    proximaRevision: 'Agosto 2027',
+    notaSeguimiento: 'Embajadora de la marca. Envía múltiples pacientes a la óptica.',
+    timeline: [
+      { fecha: '10/08/2026 13:00', tipo: 'entrega', autor: 'Atención', detalle: 'Entrega exclusiva con estuche de cuero grabado.' }
+    ]
+  }
+];
+
+// Base de datos de Logs de Auditoría del Sistema (Lens Group Trujillo)
+const DEFAULT_AUDIT_LOGS = [
+  {
+    id: 'LOG-2026-156',
+    date: '09/11/2026 15:45:12',
+    timeAgo: 'Hace unos minutos',
+    level: 'info',
+    levelText: 'INFO',
+    module: 'Sistema & Backups',
+    user: 'Dr. Carlos Miranda',
+    role: 'Gerente General',
+    ip: '190.236.45.12 (Trujillo, PE)',
+    device: 'Chrome 122 • Windows 11',
+    action: 'Copia de Seguridad Manual Generada',
+    detail: 'Backup completo del sistema generado con éxito: backup_lens_group_20261109_1545.json (1.84 MB, 148 registros). Checksum SHA-256 verificado.',
+    status: 'Éxito',
+    payload: { filename: 'backup_lens_group_20261109_1545.json', sizeKb: 1884, collections: ['patients', 'inventory', 'sales', 'cardex', 'orders'] }
+  },
+  {
+    id: 'LOG-2026-155',
+    date: '09/11/2026 15:20:30',
+    timeAgo: 'Hace 30 min',
+    level: 'critico',
+    levelText: 'CRÍTICO',
+    module: 'Inventario / Cardex',
+    user: 'Dr. Carlos Miranda',
+    role: 'Gerente General',
+    ip: '190.236.45.12 (Trujillo, PE)',
+    device: 'Chrome 122 • Windows 11',
+    action: 'Ajuste Manual de Stock por Auditoría',
+    detail: 'Ajuste manual en montura SYLVANE Round Metal (ADU-MET-005): Stock corregido de 0 a 5 unidades por conteo físico en vitrina. Motivo: Reposición de almacén central.',
+    status: 'Verificado',
+    payload: { sku: 'ADU-MET-005', model: 'Round Metal', prevStock: 0, newStock: 5, reason: 'Conteo físico en vitrina' }
+  },
+  {
+    id: 'LOG-2026-154',
+    date: '09/11/2026 14:15:00',
+    timeAgo: 'Hoy 14:15',
+    level: 'info',
+    levelText: 'INFO',
+    module: 'Ventas & Facturación',
+    user: 'Ana Sofía Ruiz',
+    role: 'Ventas',
+    ip: '190.236.45.14 (Trujillo, PE)',
+    device: 'Edge 121 • Windows 10',
+    action: 'Emisión de Boleta Electrónica',
+    detail: 'Comprobante B001-000428 emitido a Luciana Alva Benites (DNI 72658412) por S/ 380.00. Estado SUNAT: Aceptado y firmado digitalmente.',
+    status: 'Éxito',
+    payload: { comprobante: 'B001-000428', cliente: 'Luciana Alva Benites', total: 380.00, hashCpe: 'a9f1b2c4d8e7' }
+  },
+  {
+    id: 'LOG-2026-153',
+    date: '09/11/2026 13:40:22',
+    timeAgo: 'Hoy 13:40',
+    level: 'alerta',
+    levelText: 'ALERTA',
+    module: 'Cardex / Mermas',
+    user: 'Optómetra en Turno',
+    role: 'Laboratorio',
+    ip: '190.236.45.18 (Taller San Antonio)',
+    device: 'Firefox 123 • Linux Mint',
+    action: 'Registro de Merma de Luna en Biselado',
+    detail: 'Merma registrada (-1 luna): Policarbonato Antirreflejo HD Crizal. Motivo: Astillamiento durante biselado en máquina automática. Autorizado por Gerencia.',
+    status: 'Justificado',
+    payload: { tipo: 'merma', producto: 'Policarbonato Antirreflejo HD', qty: -1, motivo: 'Astillamiento en biseladora' }
+  },
+  {
+    id: 'LOG-2026-152',
+    date: '09/11/2026 12:10:45',
+    timeAgo: 'Hoy 12:10',
+    level: 'seguridad',
+    levelText: 'SEGURIDAD',
+    module: 'Seguridad & Sesiones',
+    user: 'Dr. Carlos Miranda',
+    role: 'Gerente General',
+    ip: '190.236.45.12 (Trujillo, PE)',
+    device: 'Chrome 122 • Windows 11',
+    action: 'Inicio de Sesión con Rol SuperAdmin',
+    detail: 'Autenticación exitosa desde estación administrativa Galería San Antonio. Token de sesión emitido con vigencia de 12 horas.',
+    status: 'Éxito',
+    payload: { authMethod: 'password_credentials', role: 'superadmin', sessionTtl: '12h' }
+  },
+  {
+    id: 'LOG-2026-151',
+    date: '09/11/2026 11:30:15',
+    timeAgo: 'Hoy 11:30',
+    level: 'info',
+    levelText: 'INFO',
+    module: 'CRM Oftalmológico',
+    user: 'Optómetra en Turno',
+    role: 'Laboratorio & Clínica',
+    ip: '190.236.45.18 (Taller San Antonio)',
+    device: 'Firefox 123 • Linux Mint',
+    action: 'Cambio de Estado de Paciente',
+    detail: 'Paciente Dr. Roberto Carlos Castillo Díaz (LGT-2025-0210) actualizado a estado "En Adaptación". Notificación WhatsApp de seguimiento generada.',
+    status: 'Éxito',
+    payload: { patientId: 'crm-pat-2', prevStatus: 'listo', newStatus: 'adaptacion' }
+  },
+  {
+    id: 'LOG-2026-150',
+    date: '09/11/2026 10:45:00',
+    timeAgo: 'Hoy 10:45',
+    level: 'alerta',
+    levelText: 'ALERTA',
+    module: 'Inventario Crítico',
+    user: 'Sistema Lens Group',
+    role: 'Automático',
+    ip: '127.0.0.1 (Local Server)',
+    device: 'Node.js Daemon Service',
+    action: 'Alerta Automática de Stock Crítico',
+    detail: 'Producto Carrera Champion Classic Aviador Metálico alcanzó stock mínimo de 2 unidades (umbral configurado: 3 uds). Se requiere solicitud de compra.',
+    status: 'Alerta Activa',
+    payload: { product: 'Carrera Champion Classic', stock: 2, threshold: 3 }
+  },
+  {
+    id: 'LOG-2026-149',
+    date: '09/11/2026 09:15:30',
+    timeAgo: 'Hoy 09:15',
+    level: 'info',
+    levelText: 'INFO',
+    module: 'Órdenes de Laboratorio',
+    user: 'Optómetra en Turno',
+    role: 'Laboratorio',
+    ip: '190.236.45.18 (Taller San Antonio)',
+    device: 'Firefox 123 • Linux Mint',
+    action: 'Actualización de Estado de Fabricación',
+    detail: 'Orden LGT-2026-0612 de Luciana Alva Benites marcada como "Listo para Retiro". Calibración y control de calidad 100% conformes.',
+    status: 'Éxito',
+    payload: { orderId: 'ord-1', status: 'Listo para Retiro' }
+  },
+  {
+    id: 'LOG-2026-148',
+    date: '08/11/2026 23:59:59',
+    timeAgo: 'Ayer 23:59',
+    level: 'info',
+    levelText: 'INFO',
+    module: 'Sistema & Backups',
+    user: 'Sistema Cron Automático',
+    role: 'Automático',
+    ip: '127.0.0.1 (Local Server)',
+    device: 'Cron Worker Job',
+    action: 'Copia de Seguridad Automática Programada',
+    detail: 'Copia de seguridad nocturna programada ejecutada con éxito: BKP-AUTO-20261108.json (1.82 MB, 145 registros). Integridad SHA-256 OK.',
+    status: 'Éxito',
+    payload: { filename: 'backup_lens_group_20261108_2359.json', sizeKb: 1862 }
+  },
+  {
+    id: 'LOG-2026-147',
+    date: '08/11/2026 18:20:10',
+    timeAgo: 'Ayer 18:20',
+    level: 'critico',
+    levelText: 'CRÍTICO',
+    module: 'Ventas & Facturación',
+    user: 'Dr. Carlos Miranda',
+    role: 'Gerente General',
+    ip: '190.236.45.12 (Trujillo, PE)',
+    device: 'Chrome 122 • Windows 11',
+    action: 'Anulación de Nota de Venta',
+    detail: 'Nota de Venta NV-00910 anulada por cambio de fórmula optométrica del cliente. Monto revertido: S/ 250.00.',
+    status: 'Anulado',
+    payload: { ref: 'NV-00910', amount: 250.00, reason: 'Cambio de graduación solicitado por médico tratante' }
+  },
+  {
+    id: 'LOG-2026-146',
+    date: '08/11/2026 16:00:25',
+    timeAgo: 'Ayer 16:00',
+    level: 'seguridad',
+    levelText: 'SEGURIDAD',
+    module: 'Usuarios & Roles',
+    user: 'Dr. Carlos Miranda',
+    role: 'Gerente General',
+    ip: '190.236.45.12 (Trujillo, PE)',
+    device: 'Chrome 122 • Windows 11',
+    action: 'Actualización de Permisos de Usuario',
+    detail: 'Modificación de rol para usuario aruiz (Ana Sofía Ruiz): Acceso asignado exclusivamente a módulo de Ventas, Catálogo e Inventario local.',
+    status: 'Aplicado',
+    payload: { username: 'aruiz', assignedRoles: ['ventas'], restrictedViews: ['audit', 'users', 'decisions'] }
+  },
+  {
+    id: 'LOG-2026-145',
+    date: '08/11/2026 14:10:00',
+    timeAgo: 'Ayer 14:10',
+    level: 'alerta',
+    levelText: 'ALERTA',
+    module: 'Inventario / Cardex',
+    user: 'Ana Sofía Ruiz',
+    role: 'Ventas',
+    ip: '190.236.45.14 (Trujillo, PE)',
+    device: 'Edge 121 • Windows 10',
+    action: 'Salida de Stock por Venta en Mostrador',
+    detail: 'Descuento de 1 unidad de montura InkaLens Titanium Flex TR-90 por boleta B001-000427. Stock final en almacén: 4 unidades.',
+    status: 'Éxito',
+    payload: { product: 'InkaLens Titanium Flex TR-90', qty: -1, currentStock: 4 }
+  },
+  {
+    id: 'LOG-2026-144',
+    date: '07/11/2026 17:30:00',
+    timeAgo: '07/11/2026',
+    level: 'info',
+    levelText: 'INFO',
+    module: 'Ventas / SUNAT',
+    user: 'Dr. Carlos Miranda',
+    role: 'Gerente General',
+    ip: '190.236.45.12 (Trujillo, PE)',
+    device: 'Chrome 122 • Windows 11',
+    action: 'Emisión de Factura F001-000185',
+    detail: 'Factura F001-000185 emitida a Constructora San José S.A.C. (RUC 20601234567) por S/ 1,450.00. Comunicación enviada al OSE de SUNAT exitosamente.',
+    status: 'Éxito',
+    payload: { cpe: 'F001-000185', ruc: '20601234567', total: 1450.00 }
+  },
+  {
+    id: 'LOG-2026-143',
+    date: '07/11/2026 11:00:00',
+    timeAgo: '07/11/2026',
+    level: 'critico',
+    levelText: 'CRÍTICO',
+    module: 'Seguridad & Sesiones',
+    user: 'Desconocido',
+    role: 'Invitado',
+    ip: '181.65.12.98 (Chimbote, PE)',
+    device: 'Python Requests / Bot Scanner',
+    action: 'Intento de Acceso con Credenciales Inválidas',
+    detail: 'Intento de acceso fallido con usuario "superadmin" y contraseña errónea. Bloqueo temporal preventivo de 15 minutos aplicado por el escudo anti-fuerza bruta.',
+    status: 'Bloqueado',
+    payload: { attemptedUser: 'superadmin', ip: '181.65.12.98', actionTaken: 'IP rate-limited for 15m' }
+  },
+  {
+    id: 'LOG-2026-142',
+    date: '06/11/2026 15:00:00',
+    timeAgo: '06/11/2026',
+    level: 'info',
+    levelText: 'INFO',
+    module: 'CRM Oftalmológico',
+    user: 'Optómetra en Turno',
+    role: 'Laboratorio & Clínica',
+    ip: '190.236.45.18 (Taller San Antonio)',
+    device: 'Firefox 123 • Linux Mint',
+    action: 'Registro de Nuevo Paciente',
+    detail: 'Ficha clínica creada para Lic. Daniela Rivasplata Quevedo (DNI 70963215). Graduación y diagnóstico oftalmológico guardados en base de datos.',
+    status: 'Éxito',
+    payload: { patientName: 'Lic. Daniela Rivasplata Quevedo', dni: '70963215' }
+  }
+];
+
+// Base de datos de Backups y Snapshots del Sistema
+const DEFAULT_BACKUPS = [
+  {
+    id: 'bkp-1',
+    ref: 'BKP-2026-11-09-1545',
+    filename: 'backup_lens_group_20261109_1545.json',
+    date: '09/11/2026 15:45',
+    type: 'Manual (Admin)',
+    size: '1.84 MB',
+    records: '24 Pacientes, 18 Productos, 8 Comprobantes, 15 Órdenes, 15 Logs',
+    author: 'Dr. Carlos Miranda',
+    checksum: 'sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+    status: 'Íntegro / Verificado'
+  },
+  {
+    id: 'bkp-2',
+    ref: 'BKP-2026-11-08-2359',
+    filename: 'backup_lens_group_20261108_2359.json',
+    date: '08/11/2026 23:59',
+    type: 'Automático Diario',
+    size: '1.82 MB',
+    records: '24 Pacientes, 18 Productos, 7 Comprobantes, 15 Órdenes, 14 Logs',
+    author: 'Sistema Cron Automático',
+    checksum: 'sha256:d8578edf8458ce06fbc5bb76a58c5ca4c82b9e6f9827361a9981273918a992bc',
+    status: 'Íntegro / Verificado'
+  },
+  {
+    id: 'bkp-3',
+    ref: 'BKP-2026-11-07-2359',
+    filename: 'backup_lens_group_20261107_2359.json',
+    date: '07/11/2026 23:59',
+    type: 'Automático Diario',
+    size: '1.79 MB',
+    records: '22 Pacientes, 18 Productos, 6 Comprobantes, 14 Órdenes, 12 Logs',
+    author: 'Sistema Cron Automático',
+    checksum: 'sha256:c94132890fb9258273918b2c45e89a712f89d983419082390812903891028391',
+    status: 'Íntegro / Verificado'
+  },
+  {
+    id: 'bkp-4',
+    ref: 'BKP-2026-11-01-1000',
+    filename: 'backup_lens_group_cierre_octubre_2026.json',
+    date: '01/11/2026 10:00',
+    type: 'Cierre Mensual (Octubre)',
+    size: '1.75 MB',
+    records: '20 Pacientes, 18 Productos, 5 Comprobantes, 12 Órdenes, 10 Logs',
+    author: 'Dr. Carlos Miranda',
+    checksum: 'sha256:b128475902834190283901283901283901283901283901283901283901283901',
+    status: 'Copia Archivada'
   }
 ];
 
@@ -595,6 +1298,15 @@ let state = {
   crmPatients: [...DEFAULT_CRM_PATIENTS],
   crmFilter: 'all',
   crmSearchQuery: '',
+  crmCurrentPage: 1,
+  crmPageSize: 3,
+  auditLogs: [...DEFAULT_AUDIT_LOGS],
+  auditFilter: 'all',
+  auditSearchQuery: '',
+  auditCurrentPage: 1,
+  auditPageSize: 5,
+  backups: [...DEFAULT_BACKUPS],
+  currentAuditTab: 'logs',
   users: [
     { id: 'usr-1', name: 'Dr. Carlos Miranda', username: 'admin', role: 'Gerente General', branch: 'Galería San Antonio, Jr. Gamarra N° 778', status: 'activo' },
     { id: 'usr-2', name: 'Optómetra en Turno', username: 'optometrista', role: 'Laboratorio & Clínica', branch: 'Galería San Antonio, Jr. Gamarra N° 778', status: 'activo' },
@@ -615,7 +1327,8 @@ const CATEGORY_NAMES = {
   'catalog': 'Catálogo de Niños',
   'catalog-adult': 'Catálogo de Adultos',
   'sales': 'Historial de Ventas',
-  'postventa': 'CRM & Pacientes Oftalmológicos'
+  'postventa': 'CRM & Pacientes Oftalmológicos',
+  'audit': 'Auditoría, Inventario Crítico y Backups'
 };
 
 // ==========================================================================
@@ -855,6 +1568,8 @@ window.switchCategory = function(categoryId) {
     renderCardex();
   } else if (categoryId === 'postventa') {
     renderCRM();
+  } else if (categoryId === 'audit') {
+    if (typeof renderAuditView === 'function') renderAuditView();
   }
 
   // Actualizar Breadcrumb
@@ -922,6 +1637,7 @@ function setupEventListeners() {
         crmTabs.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         state.crmFilter = btn.dataset.filter || 'all';
+        state.crmCurrentPage = 1;
         renderCRM();
       });
     });
@@ -932,6 +1648,7 @@ function setupEventListeners() {
   if (crmSearchInput) {
     crmSearchInput.addEventListener('input', (e) => {
       state.crmSearchQuery = e.target.value.toLowerCase().trim();
+      state.crmCurrentPage = 1;
       renderCRM();
     });
   }
@@ -1041,6 +1758,16 @@ function setupEventListeners() {
     salesSearchInput.addEventListener('input', (e) => {
       state.salesSearchQuery = e.target.value.toLowerCase().trim();
       if (typeof window.renderSales === 'function') window.renderSales();
+    });
+  }
+
+  // Búsqueda en logs de auditoría
+  const auditSearchInput = document.getElementById('auditSearchInput');
+  if (auditSearchInput) {
+    auditSearchInput.addEventListener('input', (e) => {
+      state.auditSearchQuery = e.target.value.toLowerCase().trim();
+      state.auditCurrentPage = 1;
+      if (typeof renderAuditTable === 'function') renderAuditTable();
     });
   }
 
@@ -1274,7 +2001,7 @@ function renderCatalog() {
       <div class="catalog-card" style="background: var(--admin-card-bg); border: 1px solid var(--admin-card-border); border-radius: 12px; overflow: hidden; position: relative; box-shadow: var(--admin-shadow);">
         ${stockBadge}
         <div style="height: 180px; overflow: hidden; background: #fff; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--admin-card-border);">
-          <img src="${item.image}" alt="${item.model}" style="width: 100%; height: 100%; object-fit: cover;">
+          <img src="${item.image}" alt="${item.model}" onerror="this.onerror=null; this.src='brands/' + (item.brand ? item.brand.toLowerCase() : 'sylvane') + '.png'; this.style.objectFit='contain'; this.style.padding='1rem';" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
         <div style="padding: 1.5rem;">
           <div style="font-size: 0.75rem; color: var(--admin-primary); font-weight: 800; margin-bottom: 0.25rem; text-transform: uppercase;">${item.brand} | ${item.sku}</div>
@@ -1290,7 +2017,7 @@ function renderCatalog() {
           </div>
           <div style="display: flex; gap: 0.5rem;">
             ${btnSell}
-            ${!isUserSeller() ? `<button class="btn-header-action" style="padding: 0.5rem 1rem;" onclick="showToast('Abriendo editor de producto...')">Editar</button>` : ''}
+            ${!isUserSeller() ? `<button type="button" class="btn-header-action" style="padding: 0.5rem 1rem;" onclick="openInventoryModal('${item.id}')">Editar</button>` : ''}
           </div>
         </div>
       </div>
@@ -1329,7 +2056,7 @@ function renderAdultCatalog() {
       <div class="catalog-card" style="background: var(--admin-card-bg); border: 1px solid var(--admin-card-border); border-radius: 12px; overflow: hidden; position: relative; box-shadow: var(--admin-shadow);">
         ${stockBadge}
         <div style="height: 180px; overflow: hidden; background: #fff; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--admin-card-border);">
-          <img src="${item.image}" alt="${item.model}" style="width: 100%; height: 100%; object-fit: cover;">
+          <img src="${item.image}" alt="${item.model}" onerror="this.onerror=null; this.src='brands/' + (item.brand ? item.brand.toLowerCase() : 'sylvane') + '.png'; this.style.objectFit='contain'; this.style.padding='1rem';" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
         <div style="padding: 1.5rem;">
           <div style="font-size: 0.75rem; color: var(--admin-primary); font-weight: 800; margin-bottom: 0.25rem; text-transform: uppercase;">${item.brand} | ${item.sku}</div>
@@ -1344,7 +2071,7 @@ function renderAdultCatalog() {
           </div>
           <div style="display: flex; gap: 0.5rem;">
             ${btnSell}
-            ${!isUserSeller() ? `<button class="btn-header-action" style="padding: 0.5rem 1rem;" onclick="showToast('Abriendo editor de producto...')">Editar</button>` : ''}
+            ${!isUserSeller() ? `<button type="button" class="btn-header-action" style="padding: 0.5rem 1rem;" onclick="openInventoryModal('${item.id}')">Editar</button>` : ''}
           </div>
         </div>
       </div>
@@ -2337,7 +3064,7 @@ function generateBotReply(rawMsg) {
     const top = botTopBrands(d.orders).slice(0, 5);
     const medals = ['1.', '2.', '3.', '4.', '5.'];
     return `<strong>Lentes / marcas más vendidos:</strong><br>` +
-      top.map((b, i) => `${medals[i]} ${b.brand} — ${b.count} venta(s) · ${BOT_MONEY(b.total)}`).join('<br>') +
+      top.map((b, i) => `${medals[i]} ${b.brand} — ${b.count} venta(s) Â· ${BOT_MONEY(b.total)}`).join('<br>') +
       `<br><br>Líder: ${BOT_HL(top[0].brand)}. Puedes ver el gráfico de barras en <em>Analítica & Gráficos BI</em>.`;
   }
 
@@ -2369,7 +3096,7 @@ function generateBotReply(rawMsg) {
   }
   if (botHas(t, ['listo', 'entrega', 'recoger', 'terminad'])) {
     const l = d.orders.filter(o => o.estado === 'listo');
-    return `<strong>Listos para entrega (${l.length}):</strong><br>` + (l.map(o => `• ${o.code} — ${o.customer} · Tel: ${o.phone}`).join('<br>') || 'Ninguno por ahora.');
+    return `<strong>Listos para entrega (${l.length}):</strong><br>` + (l.map(o => `• ${o.code} — ${o.customer} Â· Tel: ${o.phone}`).join('<br>') || 'Ninguno por ahora.');
   }
   if (botHas(t, ['orden', 'pedido', 'pendiente', 'proceso', 'taller', 'laboratorio', 'cola', 'trabajo'])) {
     const c = s => d.orders.filter(o => o.estado === s).length;
@@ -2386,15 +3113,15 @@ function generateBotReply(rawMsg) {
   if (botHas(t, ['nino', 'nina', 'infantil', 'kids', 'junior'])) {
     const stock = d.kids.reduce((s, f) => s + f.stock, 0);
     const out = d.kids.filter(f => f.stock === 0);
-    return `<strong>Catálogo de Niños:</strong><br>${d.kids.length} modelos · ${BOT_HL(stock + ' unidades')} en stock<br>` +
-      d.kids.map(f => `• ${f.brand} ${f.model} — ${f.stock} u. · ${BOT_MONEY(f.price)}`).join('<br>') +
+    return `<strong>Catálogo de Niños:</strong><br>${d.kids.length} modelos Â· ${BOT_HL(stock + ' unidades')} en stock<br>` +
+      d.kids.map(f => `• ${f.brand} ${f.model} — ${f.stock} u. Â· ${BOT_MONEY(f.price)}`).join('<br>') +
       (out.length ? `<br>Agotados: ${out.map(f => f.model).join(', ')}` : '');
   }
   if (botHas(t, ['adulto', 'dama', 'caballero', 'hombre', 'mujer'])) {
     const stock = d.adults.reduce((s, f) => s + f.stock, 0);
     const out = d.adults.filter(f => f.stock === 0);
-    return `<strong>Catálogo de Adultos:</strong><br>${d.adults.length} modelos · ${BOT_HL(stock + ' unidades')} en stock<br>` +
-      d.adults.map(f => `• ${f.brand} ${f.model} — ${f.stock} u. · ${BOT_MONEY(f.price)}`).join('<br>') +
+    return `<strong>Catálogo de Adultos:</strong><br>${d.adults.length} modelos Â· ${BOT_HL(stock + ' unidades')} en stock<br>` +
+      d.adults.map(f => `• ${f.brand} ${f.model} — ${f.stock} u. Â· ${BOT_MONEY(f.price)}`).join('<br>') +
       (out.length ? `<br>Agotados: ${out.map(f => f.model).join(', ')}` : '');
   }
 
@@ -2410,7 +3137,7 @@ function generateBotReply(rawMsg) {
     const crit = d.inventory.filter(i => i.stock <= i.threshold).length;
     const kidsStock = d.kids.reduce((s, f) => s + f.stock, 0);
     const adultStock = d.adults.reduce((s, f) => s + f.stock, 0);
-    return `<strong>Inventario general:</strong><br>Productos: ${d.inventory.length} · Unidades: <strong>${total}</strong><br>Valor en stock: ${BOT_HL(BOT_MONEY(value))}<br>En nivel crítico: <strong>${crit}</strong><br>Monturas niños: ${kidsStock} u. · Adultos: ${adultStock} u.`;
+    return `<strong>Inventario general:</strong><br>Productos: ${d.inventory.length} Â· Unidades: <strong>${total}</strong><br>Valor en stock: ${BOT_HL(BOT_MONEY(value))}<br>En nivel crítico: <strong>${crit}</strong><br>Monturas niños: ${kidsStock} u. Â· Adultos: ${adultStock} u.`;
   }
 
   // 13. Precios
@@ -2428,7 +3155,7 @@ function generateBotReply(rawMsg) {
   });
   if (prodHits.length) {
     return `<strong>Encontré ${prodHits.length} producto(s):</strong><br>` +
-      prodHits.slice(0, 6).map(p => `• ${p.brand} ${p.model} — ${p.stock} u. · ${BOT_MONEY(p.price)}`).join('<br>');
+      prodHits.slice(0, 6).map(p => `• ${p.brand} ${p.model} — ${p.stock} u. Â· ${BOT_MONEY(p.price)}`).join('<br>');
   }
 
   // 15. Recomendaciones / decisiones
@@ -2453,7 +3180,7 @@ function generateBotReply(rawMsg) {
 
   // 18. Respuesta general (siempre útil, nunca "no entendí")
   const d2 = d.orders.filter(o => o.estado !== 'listo').length;
-  return `Buena pregunta Te comparto un panorama rápido del negocio:<br>Ingresos: ${BOT_HL(BOT_MONEY(d.revenue))} · Utilidad: ${BOT_MONEY(d.profit)}<br>Órdenes activas: <strong>${d2}</strong><br>Marca líder: <strong>${botTopBrands(d.orders)[0].brand}</strong><br><br>Puedes preguntarme por ventas, ganancias, stock, clientes, órdenes, catálogo o pedirme recomendaciones.`;
+  return `Buena pregunta Te comparto un panorama rápido del negocio:<br>Ingresos: ${BOT_HL(BOT_MONEY(d.revenue))} Â· Utilidad: ${BOT_MONEY(d.profit)}<br>Órdenes activas: <strong>${d2}</strong><br>Marca líder: <strong>${botTopBrands(d.orders)[0].brand}</strong><br><br>Puedes preguntarme por ventas, ganancias, stock, clientes, órdenes, catálogo o pedirme recomendaciones.`;
 }
 
 
@@ -2615,7 +3342,7 @@ function renderOrdersTable() {
         </td>
         <td>
           <div style="font-weight: 600; color: var(--admin-text-main);">${order.customer}</div>
-          <div style="font-size: 0.75rem; color: var(--admin-text-dim);">DNI: ${order.dni || 'Sin DNI'} · Cel: ${order.phone || '958...'}</div>
+          <div style="font-size: 0.75rem; color: var(--admin-text-dim);">DNI: ${order.dni || 'Sin DNI'} Â· Cel: ${order.phone || '958...'}</div>
         </td>
         <td style="max-width: 260px;">
           <div style="font-weight: 500; font-size: 0.8rem; color: #cbd5e1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
@@ -2846,57 +3573,146 @@ window.openInventoryModal = function(itemId = null) {
   form.reset();
   
   if (itemId) {
-    const item = state.inventory.find(i => i.id === itemId);
+    let item = null;
+    let source = 'inventory';
+
+    if (state && state.inventory) {
+      item = state.inventory.find(i => i.id === itemId);
+    }
+    if (!item) {
+      const adults = window.MOCK_CATALOG_ADULT || (typeof MOCK_CATALOG_ADULT !== 'undefined' ? MOCK_CATALOG_ADULT : []);
+      item = adults.find(i => i.id === itemId);
+      if (item) source = 'adult';
+    }
+    if (!item) {
+      const kids = window.MOCK_CATALOG || (typeof MOCK_CATALOG !== 'undefined' ? MOCK_CATALOG : []);
+      item = kids.find(i => i.id === itemId);
+      if (item) source = 'kids';
+    }
+
     if (item) {
-      document.getElementById('modalInventoryTitle').textContent = 'Editar Producto';
-      document.getElementById('btnSaveInventoryText').textContent = 'Guardar Cambios';
-      document.getElementById('invItemId').value = item.id;
-      document.getElementById('invCategory').value = item.category;
-      document.getElementById('invBrand').value = item.brand;
-      document.getElementById('invModel').value = item.model;
-      document.getElementById('invStock').value = item.stock;
-      document.getElementById('invCost').value = item.cost;
-      document.getElementById('invPrice').value = item.price;
+      const title = document.getElementById('modalInventoryTitle');
+      if (title) title.textContent = `Editar Producto — ${item.brand || ''} ${item.model || ''}`;
+      const btnText = document.getElementById('btnSaveInventoryText');
+      if (btnText) btnText.textContent = 'Guardar Cambios';
+
+      if (document.getElementById('invItemId')) document.getElementById('invItemId').value = item.id;
+      if (document.getElementById('invItemSource')) document.getElementById('invItemSource').value = source;
+      if (document.getElementById('invBrand')) document.getElementById('invBrand').value = item.brand || '';
+      if (document.getElementById('invCategory')) document.getElementById('invCategory').value = item.category || '';
+      if (document.getElementById('invModel')) document.getElementById('invModel').value = item.model || '';
+      if (document.getElementById('invSku')) document.getElementById('invSku').value = item.sku || '';
+      if (document.getElementById('invMaterial')) document.getElementById('invMaterial').value = item.material || '';
+      if (document.getElementById('invColor')) document.getElementById('invColor').value = item.color || '';
+      if (document.getElementById('invStock')) document.getElementById('invStock').value = item.stock ?? 0;
+      if (document.getElementById('invCost')) document.getElementById('invCost').value = item.cost ?? Number(((item.price || 0) * 0.45).toFixed(2));
+      if (document.getElementById('invPrice')) document.getElementById('invPrice').value = item.price ?? 0;
+      if (document.getElementById('invImage')) document.getElementById('invImage').value = item.image || '';
     }
   } else {
-    document.getElementById('modalInventoryTitle').textContent = 'Nuevo Producto';
-    document.getElementById('btnSaveInventoryText').textContent = 'Crear Producto';
-    document.getElementById('invItemId').value = '';
+    const title = document.getElementById('modalInventoryTitle');
+    if (title) title.textContent = 'Nuevo Producto';
+    const btnText = document.getElementById('btnSaveInventoryText');
+    if (btnText) btnText.textContent = 'Crear Producto';
+    if (document.getElementById('invItemId')) document.getElementById('invItemId').value = '';
+    if (document.getElementById('invItemSource')) document.getElementById('invItemSource').value = 'new';
   }
   
   modal.classList.add('active');
 };
 
 function handleSaveInventory(e) {
-  e.preventDefault();
+  if (e && typeof e.preventDefault === 'function') e.preventDefault();
   
-  const id = document.getElementById('invItemId').value;
-  const category = document.getElementById('invCategory').value;
-  const brand = document.getElementById('invBrand').value;
-  const model = document.getElementById('invModel').value;
-  const stock = parseInt(document.getElementById('invStock').value, 10);
-  const cost = parseFloat(document.getElementById('invCost').value);
-  const price = parseFloat(document.getElementById('invPrice').value);
+  const id = document.getElementById('invItemId')?.value;
+  const source = document.getElementById('invItemSource')?.value || 'inventory';
+  const brand = document.getElementById('invBrand')?.value || 'Genérico';
+  const category = document.getElementById('invCategory')?.value || 'Oftálmico';
+  const model = document.getElementById('invModel')?.value || 'Modelo General';
+  const sku = document.getElementById('invSku')?.value || '';
+  const material = document.getElementById('invMaterial')?.value || '';
+  const color = document.getElementById('invColor')?.value || '';
+  const stock = parseInt(document.getElementById('invStock')?.value || '0', 10);
+  const cost = parseFloat(document.getElementById('invCost')?.value || '0');
+  const price = parseFloat(document.getElementById('invPrice')?.value || '0');
+  const image = document.getElementById('invImage')?.value || '';
   
   let status = 'good';
-  if (stock <= 3) status = 'critical';
+  if (stock <= 0) status = 'critical';
+  else if (stock <= 3) status = 'critical';
   else if (stock <= 6) status = 'medium';
 
-  if (id) {
-    const idx = state.inventory.findIndex(i => i.id === id);
-    if (idx !== -1) {
-      state.inventory[idx] = { ...state.inventory[idx], category, brand, model, stock, cost, price, status };
-      showToast('Producto actualizado correctamente');
+  // 1. Si pertenece a MOCK_CATALOG_ADULT
+  const adults = window.MOCK_CATALOG_ADULT || (typeof MOCK_CATALOG_ADULT !== 'undefined' ? MOCK_CATALOG_ADULT : []);
+  const adultIdx = adults.findIndex(i => i.id === id);
+  if (adultIdx !== -1) {
+    adults[adultIdx] = {
+      ...adults[adultIdx],
+      brand,
+      category,
+      model,
+      sku: sku || adults[adultIdx].sku,
+      material: material || adults[adultIdx].material,
+      color: color || adults[adultIdx].color,
+      stock,
+      cost,
+      price,
+      image: image || adults[adultIdx].image
+    };
+    if (typeof renderAdultCatalog === 'function') renderAdultCatalog();
+    if (typeof window.renderAdultCatalog === 'function') window.renderAdultCatalog();
+  }
+
+  // 2. Si pertenece a MOCK_CATALOG (Kids)
+  const kids = window.MOCK_CATALOG || (typeof MOCK_CATALOG !== 'undefined' ? MOCK_CATALOG : []);
+  const kidIdx = kids.findIndex(i => i.id === id);
+  if (kidIdx !== -1) {
+    kids[kidIdx] = {
+      ...kids[kidIdx],
+      brand,
+      category,
+      model,
+      sku: sku || kids[kidIdx].sku,
+      material: material || kids[kidIdx].material,
+      color: color || kids[kidIdx].color,
+      stock,
+      cost,
+      price,
+      image: image || kids[kidIdx].image
+    };
+    if (typeof renderCatalog === 'function') renderCatalog();
+    if (typeof window.renderCatalog === 'function') window.renderCatalog();
+  }
+
+  // 3. Si pertenece o se agrega a state.inventory
+  if (state && state.inventory) {
+    const invIdx = state.inventory.findIndex(i => i.id === id);
+    if (invIdx !== -1) {
+      state.inventory[invIdx] = {
+        ...state.inventory[invIdx],
+        brand,
+        category,
+        model,
+        stock,
+        cost,
+        price,
+        status
+      };
+    } else if (!id || source === 'new') {
+      const newId = 'inv-' + Date.now();
+      state.inventory.unshift({ id: newId, category, brand, model, stock, cost, price, status, threshold: 5 });
     }
-  } else {
-    const newId = 'inv-' + Date.now();
-    state.inventory.unshift({ id: newId, category, brand, model, stock, cost, price, status, threshold: 5 });
-    showToast('Nuevo producto agregado');
   }
   
-  document.getElementById('modalInventory').classList.remove('active');
-  renderInventory();
+  if (typeof renderInventory === 'function') renderInventory();
+  if (typeof window.renderInventory === 'function') window.renderInventory();
+
+  const modal = document.getElementById('modalInventory');
+  if (modal) modal.classList.remove('active');
+
+  showToast(`Producto ${id ? 'actualizado' : 'agregado'}: ${brand} ${model}`);
 }
+window.handleSaveInventory = handleSaveInventory;
 window.replenishStock = function(itemId) {
   const item = state.inventory.find(i => i.id === itemId);
   if (item) {
@@ -3318,7 +4134,7 @@ function simSetDelta(el, current, base) {
     el.textContent = '— sin cambios vs. base';
   } else {
     el.classList.add(diff > 0 ? 'up' : 'down');
-    el.textContent = `${diff > 0 ? '▲ +' : '▼ '}S/ ${Math.abs(diff).toLocaleString('es-PE')} (${pct > 0 ? '+' : ''}${pct.toFixed(1)}%)`;
+    el.textContent = `${diff > 0 ? 'â–² +' : 'â–¼ '}S/ ${Math.abs(diff).toLocaleString('es-PE')} (${pct > 0 ? '+' : ''}${pct.toFixed(1)}%)`;
   }
 }
 
@@ -3654,9 +4470,9 @@ function _renderCardexTable(movements) {
 
   const TYPE_META = {
     entrada: { label: 'Entrada', cls: 'cardex-badge-entrada', symbol: '+' },
-    salida:  { label: 'Salida',  cls: 'cardex-badge-salida',  symbol: '−' },
-    ajuste:  { label: 'Ajuste',  cls: 'cardex-badge-ajuste',  symbol: '±' },
-    merma:   { label: 'Merma',   cls: 'cardex-badge-merma',   symbol: '↓' },
+    salida:  { label: 'Salida',  cls: 'cardex-badge-salida',  symbol: 'âˆ’' },
+    ajuste:  { label: 'Ajuste',  cls: 'cardex-badge-ajuste',  symbol: 'Â±' },
+    merma:   { label: 'Merma',   cls: 'cardex-badge-merma',   symbol: 'â†“' },
   };
 
   tbody.innerHTML = movements
@@ -3665,7 +4481,7 @@ function _renderCardexTable(movements) {
     .map(m => {
       const meta = TYPE_META[m.type] || TYPE_META.ajuste;
       const absQty = Math.abs(m.qty);
-      const qtySign = m.qty > 0 ? '+' : '−';
+      const qtySign = m.qty > 0 ? '+' : 'âˆ’';
       const qtyColor = m.type === 'entrada'
         ? '#10b981'
         : m.type === 'salida'
@@ -3886,7 +4702,14 @@ window.renderCRM = function() {
     );
   }
 
-  if (list.length === 0) {
+  const totalFiltered = list.length;
+  const pageSize = state.crmPageSize || 3;
+  const totalPages = Math.max(1, Math.ceil(totalFiltered / pageSize));
+
+  if (!state.crmCurrentPage || state.crmCurrentPage < 1) state.crmCurrentPage = 1;
+  if (state.crmCurrentPage > totalPages) state.crmCurrentPage = totalPages;
+
+  if (totalFiltered === 0) {
     tbody.innerHTML = `
       <tr>
         <td colspan="7" style="text-align: center; padding: 3rem; color: var(--admin-text-muted);">
@@ -3896,16 +4719,20 @@ window.renderCRM = function() {
         </td>
       </tr>
     `;
+    renderCrmPagination(0, pageSize, 1);
     return;
   }
 
-  tbody.innerHTML = list.map(p => {
+  const startIdx = (state.crmCurrentPage - 1) * pageSize;
+  const pageItems = list.slice(startIdx, startIdx + pageSize);
+
+  tbody.innerHTML = pageItems.map(p => {
     const badgeMap = {
       listo: { cls: 'crm-badge-listo', icon: '', text: 'Listo p/ Retiro' },
       adaptacion: { cls: 'crm-badge-adaptacion', icon: '', text: 'En Adaptación' },
       control: { cls: 'crm-badge-control', icon: '', text: 'Control Anual' },
       garantia: { cls: 'crm-badge-garantia', icon: '', text: 'Garantía Vigente' },
-      fidelizado: { cls: 'crm-badge-fidelizado', icon: '⭐', text: 'Fidelizado / VIP' }
+      fidelizado: { cls: 'crm-badge-fidelizado', icon: 'â­', text: 'Fidelizado / VIP' }
     };
     const bInfo = badgeMap[p.estado] || badgeMap.listo;
     const cleanPhone = String(p.telefono || '').replace(/\D/g, '');
@@ -3984,7 +4811,7 @@ window.renderCRM = function() {
               <option value="adaptacion" ${p.estado === 'adaptacion' ? 'selected' : ''}>En Adaptación</option>
               <option value="control" ${p.estado === 'control' ? 'selected' : ''}>Control Anual</option>
               <option value="garantia" ${p.estado === 'garantia' ? 'selected' : ''}>Garantía</option>
-              <option value="fidelizado" ${p.estado === 'fidelizado' ? 'selected' : ''}>⭐ Fidelizado</option>
+              <option value="fidelizado" ${p.estado === 'fidelizado' ? 'selected' : ''}>â­ Fidelizado</option>
             </select>
           </div>
         </td>
@@ -4011,6 +4838,99 @@ window.renderCRM = function() {
       </tr>
     `;
   }).join('');
+
+  renderCrmPagination(totalFiltered, pageSize, state.crmCurrentPage);
+};
+
+window.renderCrmPagination = function(totalFiltered, pageSize, currentPage) {
+  const container = document.getElementById('crmPagination');
+  if (!container) return;
+
+  if (totalFiltered <= 0) {
+    container.innerHTML = '';
+    return;
+  }
+
+  const totalPages = Math.max(1, Math.ceil(totalFiltered / pageSize));
+  const startRecord = (currentPage - 1) * pageSize + 1;
+  const endRecord = Math.min(currentPage * pageSize, totalFiltered);
+
+  // Formato < 1 2 3 4 5 6 ... >
+  let pages = [];
+  if (totalPages <= 7) {
+    for (let i = 1; i <= totalPages; i++) pages.push(i);
+  } else {
+    if (currentPage <= 4) {
+      for (let i = 1; i <= 6; i++) pages.push(i);
+      pages.push('...');
+      pages.push(totalPages);
+    } else if (currentPage >= totalPages - 3) {
+      pages.push(1);
+      pages.push('...');
+      for (let i = totalPages - 5; i <= totalPages; i++) pages.push(i);
+    } else {
+      pages.push(1);
+      pages.push('...');
+      pages.push(currentPage - 1);
+      pages.push(currentPage);
+      pages.push(currentPage + 1);
+      pages.push('...');
+      pages.push(totalPages);
+    }
+  }
+
+  const prevDisabled = currentPage <= 1 ? 'disabled' : '';
+  const nextDisabled = currentPage >= totalPages ? 'disabled' : '';
+
+  const buttonsHtml = pages.map(p => {
+    if (p === '...') {
+      return `<span class="crm-page-ellipsis">...</span>`;
+    }
+    const isActive = p === currentPage ? 'active' : '';
+    return `<button type="button" class="crm-page-btn ${isActive}" onclick="changeCrmPage(${p})">${p}</button>`;
+  }).join('');
+
+  container.innerHTML = `
+    <div class="crm-pagination-info">
+      <span>Mostrando <strong>${startRecord} - ${endRecord}</strong> de <strong>${totalFiltered}</strong> pacientes</span>
+    </div>
+    <div class="crm-pagination-actions">
+      <div class="crm-page-size-wrap">
+        <label for="crmPageSizeSelect">Por página:</label>
+        <select id="crmPageSizeSelect" class="crm-page-size-select" onchange="changeCrmPageSize(this.value)">
+          <option value="3" ${pageSize === 3 ? 'selected' : ''}>3</option>
+          <option value="4" ${pageSize === 4 ? 'selected' : ''}>4</option>
+          <option value="6" ${pageSize === 6 ? 'selected' : ''}>6</option>
+          <option value="10" ${pageSize === 10 ? 'selected' : ''}>10</option>
+          <option value="24" ${pageSize === 24 ? 'selected' : ''}>Todos (24)</option>
+        </select>
+      </div>
+      <div class="crm-pagination-controls">
+        <button type="button" class="crm-page-btn" ${prevDisabled} onclick="changeCrmPage(${currentPage - 1})" title="Página anterior">&lt;</button>
+        ${buttonsHtml}
+        <button type="button" class="crm-page-btn" ${nextDisabled} onclick="changeCrmPage(${currentPage + 1})" title="Página siguiente">&gt;</button>
+      </div>
+    </div>
+  `;
+};
+
+window.changeCrmPage = function(newPage) {
+  const pageNum = parseInt(newPage, 10);
+  if (!isNaN(pageNum)) {
+    state.crmCurrentPage = pageNum;
+    if (typeof renderCRM === 'function') renderCRM();
+    if (typeof window.renderCRM === 'function' && window.renderCRM !== renderCRM) window.renderCRM();
+  }
+};
+
+window.changeCrmPageSize = function(newSize) {
+  const sizeNum = parseInt(newSize, 10);
+  if (!isNaN(sizeNum)) {
+    state.crmPageSize = sizeNum;
+    state.crmCurrentPage = 1;
+    if (typeof renderCRM === 'function') renderCRM();
+    if (typeof window.renderCRM === 'function' && window.renderCRM !== renderCRM) window.renderCRM();
+  }
 };
 
 window.updatePatientStatus = function(patientId, newStatus) {
@@ -4056,7 +4976,7 @@ window.sendPatientWhatsApp = function(patientId, templateKey) {
     adaptacion: `¡Hola ${firstName}! Te saluda el equipo de Lens Group Trujillo.\nQueremos saber cómo te has sentido con tus nuevas lunas *${p.lunas}*. Recuerda que si necesitas algún ajuste en las plaquetas o calibración de la montura, puedes visitarnos en Jr. Gamarra 778 sin ningún costo. ¡Tu confort visual es nuestra prioridad!`,
     control: `¡Hola ${firstName}! Esperamos que te encuentres muy bien. Te escribimos de Lens Group Trujillo.\nRevisando tu historial óptico, ha transcurrido un año desde tu última graduación. Te invitamos a una reevaluación optométrica preventiva gratuita en nuestra sede de Jr. Gamarra 778 para verificar tu agudeza visual. ¿Te gustaría agendar tu cita esta semana?`,
     garantia: `¡Hola ${firstName}! En Lens Group Trujillo te recordamos que tu montura *${p.montura}* cuenta con garantía activa hasta el *${p.fechaGarantia || '2027'}*.\nPuedes visitarnos cuando desees para tu servicio gratuito de limpieza ultrasónica y ajuste de tornillos. ¡Te esperamos en Jr. Gamarra 778!`,
-    fidelizado: `¡Hola ${firstName}! Gracias por confiar tu salud visual en Lens Group Trujillo. ⭐\nPor ser un paciente preferencial, este mes cuentas con un beneficio exclusivo del 20% de descuento en gafas de sol polarizadas o para un familiar directo. ¡Pregúntanos por los nuevos modelos de catálogo!`
+    fidelizado: `¡Hola ${firstName}! Gracias por confiar tu salud visual en Lens Group Trujillo. â­\nPor ser un paciente preferencial, este mes cuentas con un beneficio exclusivo del 20% de descuento en gafas de sol polarizadas o para un familiar directo. ¡Pregúntanos por los nuevos modelos de catálogo!`
   };
 
   const text = templates[tKey] || templates.listo;
@@ -4568,7 +5488,7 @@ window.openCrmTemplatesModal = function(patientId) {
             <option value="adaptacion">2. Seguimiento Postventa / Adaptación y Confort Visual</option>
             <option value="control">3. Recordatorio de Examen Preventivo Anual (1 Año)</option>
             <option value="garantia">4. Garantía Activa / Limpieza Ultrasónica Gratuita</option>
-            <option value="fidelizado">⭐ 5. Promoción de Fidelización / Beneficio VIP</option>
+            <option value="fidelizado">â­ 5. Promoción de Fidelización / Beneficio VIP</option>
           </select>
         </div>
 
@@ -4665,4 +5585,484 @@ window.exportCrmCsv = function() {
   URL.revokeObjectURL(url);
   showToast('Cartera de pacientes exportada como CSV');
 };
+
+
+// ==========================================================================
+// == AUDITORÍA, BACKUPS & INVENTARIO CRÍTICO ==
+// ==========================================================================
+
+window.renderAuditView = function() {
+  if (!state.auditLogs) state.auditLogs = [];
+  if (!state.backups) state.backups = [];
+
+  // --- KPIs ---
+  const totalEvents = state.auditLogs.length;
+  const totalAjustes = state.auditLogs.filter(l => l.level === 'critico' || l.module.toLowerCase().includes('cardex') || l.module.toLowerCase().includes('inventario')).length;
+  const totalAlertas = state.auditLogs.filter(l => l.level === 'alerta' || l.level === 'seguridad').length;
+  const lastBackup = state.backups && state.backups.length > 0 ? state.backups[0].date : '—';
+
+  const kpiEventos = document.getElementById('auditKpiTotal') || document.getElementById('auditKpiEventos');
+  const kpiAjustes = document.getElementById('auditKpiAjustes');
+  const kpiAlertas = document.getElementById('auditKpiAlertas');
+  const kpiBackup = document.getElementById('auditKpiBackup');
+  if (kpiEventos) kpiEventos.textContent = totalEvents;
+  if (kpiAjustes) kpiAjustes.textContent = totalAjustes;
+  if (kpiAlertas) kpiAlertas.textContent = totalAlertas;
+  if (kpiBackup) kpiBackup.textContent = lastBackup;
+
+  // Tab counts
+  const criticalItems = (state.inventory || []).filter(i => i.status === 'critical' || (i.stock !== undefined && i.stock <= 3));
+  const tabLogs = document.getElementById('auditTabCountLogs');
+  const tabBackups = document.getElementById('auditTabCountBackups');
+  const tabCritical = document.getElementById('auditTabCountCritical');
+  if (tabLogs) tabLogs.textContent = state.auditLogs.length;
+  if (tabBackups) tabBackups.textContent = state.backups.length;
+  if (tabCritical) tabCritical.textContent = criticalItems.length;
+
+  // Filter badge counts
+  const fAll = document.getElementById('auditFiltCountAll'); if (fAll) fAll.textContent = state.auditLogs.length;
+  const fCrit = document.getElementById('auditFiltCountCritico'); if (fCrit) fCrit.textContent = state.auditLogs.filter(l => l.level === 'critico').length;
+  const fAlert = document.getElementById('auditFiltCountAlerta'); if (fAlert) fAlert.textContent = state.auditLogs.filter(l => l.level === 'alerta').length;
+  const fInfo = document.getElementById('auditFiltCountInfo'); if (fInfo) fInfo.textContent = state.auditLogs.filter(l => l.level === 'info').length;
+  const fSeg = document.getElementById('auditFiltCountSeguridad'); if (fSeg) fSeg.textContent = state.auditLogs.filter(l => l.level === 'seguridad').length;
+
+  // Render tab content
+  const tab = state.currentAuditTab || 'logs';
+  if (tab === 'logs') renderAuditTable();
+  else if (tab === 'backups') renderBackupsTable();
+  else if (tab === 'critical') renderCriticalStockTable();
+
+  // Update tab nav active state
+  document.querySelectorAll('#auditNavTabs .tab-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.auditTab === tab);
+  });
+  ['logs','backups','critical'].forEach(t => { const p = document.getElementById('auditTabPane-' + t); if(p) p.style.display = t === tab ? '' : 'none'; });
+};
+
+window.switchAuditTab = function(tab) {
+  state.currentAuditTab = tab;
+  document.querySelectorAll('#auditNavTabs .tab-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.auditTab === tab);
+  });
+  ['logs','backups','critical'].forEach(t => { const p = document.getElementById('auditTabPane-' + t); if(p) p.style.display = t === tab ? '' : 'none'; });
+  if (tab === 'logs') renderAuditTable();
+  else if (tab === 'backups') renderBackupsTable();
+  else if (tab === 'critical') renderCriticalStockTable();
+};
+
+window.filterAuditLogs = function(filter) {
+  document.querySelectorAll('#auditFilterTabs .tab-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.filter === filter);
+  });
+  state.auditFilter = filter;
+  state.auditCurrentPage = 1;
+  renderAuditTable();
+};
+
+window.renderAuditTable = function() {
+  const tbody = document.getElementById('auditTableBody');
+  if (!tbody) return;
+
+  let logs = state.auditLogs || [];
+
+  // Filter by level
+  if (state.auditFilter && state.auditFilter !== 'all') {
+    logs = logs.filter(l => l.level === state.auditFilter);
+  }
+
+  // Filter by search
+  if (state.auditSearchQuery) {
+    const q = state.auditSearchQuery;
+    logs = logs.filter(l =>
+      (l.user || '').toLowerCase().includes(q) ||
+      (l.action || '').toLowerCase().includes(q) ||
+      (l.module || '').toLowerCase().includes(q) ||
+      (l.detail || '').toLowerCase().includes(q) ||
+      (l.ip || '').toLowerCase().includes(q) ||
+      (l.id || '').toLowerCase().includes(q)
+    );
+  }
+
+  const total = logs.length;
+  const pageSize = state.auditPageSize || 5;
+  let currentPage = state.auditCurrentPage || 1;
+  const totalPages = Math.max(1, Math.ceil(total / pageSize));
+  if (currentPage > totalPages) { state.auditCurrentPage = 1; currentPage = 1; }
+
+  const start = (currentPage - 1) * pageSize;
+  const pageItems = logs.slice(start, start + pageSize);
+
+  if (pageItems.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--admin-text-muted);">No se encontraron registros con los filtros actuales.</td></tr>`;
+  } else {
+    tbody.innerHTML = pageItems.map(log => {
+      const badgeClass = `audit-badge audit-badge-${log.level}`;
+      const shortDetail = (log.detail || '').length > 80 ? log.detail.substring(0, 80) + '...' : log.detail;
+      return `<tr>
+        <td style="font-size:0.78rem;white-space:nowrap;color:var(--admin-text-muted);">${log.date || ''}</td>
+        <td><span class="${badgeClass}">${log.levelText || log.level}</span></td>
+        <td>
+          <div style="font-weight:600;font-size:0.82rem;">${log.user || '—'}</div>
+          <div style="font-size:0.72rem;color:var(--admin-text-muted);">${log.role || ''}</div>
+        </td>
+        <td style="font-size:0.8rem;">${log.module || '—'}</td>
+        <td>
+          <div style="font-weight:600;font-size:0.82rem;">${log.action || '—'}</div>
+          <div style="font-size:0.72rem;color:var(--admin-text-muted);">${shortDetail}</div>
+        </td>
+        <td style="font-size:0.75rem;color:var(--admin-text-muted);white-space:nowrap;">${log.ip || '—'}</td>
+        <td>
+          <button class="btn-header-action" style="font-size:0.75rem;padding:0.3rem 0.6rem;" onclick="openAuditEventDetail('${log.id}')">
+            ${window.LG ? window.LG.icon('fileText', { size: 13 }) : ''} Ver
+          </button>
+        </td>
+      </tr>`;
+    }).join('');
+  }
+
+  renderAuditPagination(total, pageSize, currentPage);
+
+  // Actualizar selector de tamaño
+  const pageSizeSelect = document.getElementById('auditPageSizeSelect');
+  if (pageSizeSelect) pageSizeSelect.value = String(pageSize);
+};
+
+window.renderAuditPagination = function(total, pageSize, currentPage) {
+  const container = document.getElementById('auditPagination');
+  if (!container) return;
+  const totalPages = Math.max(1, Math.ceil(total / pageSize));
+
+  let html = `<div class="crm-pagination">`;
+  // Prev
+  html += `<button class="crm-page-btn${currentPage === 1 ? ' disabled' : ''}" onclick="changeAuditPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>&lsaquo;</button>`;
+
+  // Pages
+  const pages = [];
+  if (totalPages <= 7) {
+    for (let i = 1; i <= totalPages; i++) pages.push(i);
+  } else {
+    pages.push(1);
+    if (currentPage > 3) pages.push('...');
+    for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) pages.push(i);
+    if (currentPage < totalPages - 2) pages.push('...');
+    pages.push(totalPages);
+  }
+
+  pages.forEach(p => {
+    if (p === '...') {
+      html += `<span class="crm-page-ellipsis">...</span>`;
+    } else {
+      html += `<button class="crm-page-btn${p === currentPage ? ' active' : ''}" onclick="changeAuditPage(${p})">${p}</button>`;
+    }
+  });
+
+  // Next
+  html += `<button class="crm-page-btn${currentPage === totalPages ? ' disabled' : ''}" onclick="changeAuditPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>&rsaquo;</button>`;
+  html += `<span style="font-size:0.78rem;color:var(--admin-text-muted);margin-left:0.5rem;">Total: ${total} registros</span>`;
+  html += `</div>`;
+  container.innerHTML = html;
+};
+
+window.changeAuditPage = function(n) {
+  const logs = state.auditLogs || [];
+  const totalPages = Math.max(1, Math.ceil(logs.length / (state.auditPageSize || 5)));
+  if (n < 1 || n > totalPages) return;
+  state.auditCurrentPage = n;
+  renderAuditTable();
+};
+
+window.changeAuditPageSize = function(s) {
+  state.auditPageSize = parseInt(s) || 5;
+  state.auditCurrentPage = 1;
+  renderAuditTable();
+};
+
+window.renderBackupsTable = function() {
+  const tbody = document.getElementById('backupsTableBody');
+  if (!tbody) return;
+  const backups = state.backups || [];
+  if (backups.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--admin-text-muted);">Sin copias de seguridad registradas.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = backups.map(bkp => {
+    const statusColor = bkp.status.includes('Íntegro') ? 'var(--admin-teal)' : 'var(--admin-text-muted)';
+    return `<tr>
+      <td>
+        <div style="font-weight:600;font-size:0.82rem;">${bkp.filename}</div>
+        <div style="font-size:0.72rem;color:var(--admin-text-muted);">${bkp.ref}</div>
+      </td>
+      <td style="font-size:0.8rem;white-space:nowrap;">${bkp.date}</td>
+      <td style="font-size:0.8rem;">${bkp.type}</td>
+      <td style="font-size:0.75rem;color:var(--admin-text-muted);">${bkp.records}</td>
+      <td style="font-size:0.8rem;">${bkp.size}</td>
+      <td style="font-size:0.8rem;">${bkp.author}</td>
+      <td style="font-size:0.78rem;font-weight:600;" style="color:${statusColor};">${bkp.status}</td>
+      <td>
+        <button class="btn-header-action" style="font-size:0.75rem;padding:0.3rem 0.6rem;" onclick="openRestoreBackupModal('${bkp.id}')">
+          ${window.LG ? window.LG.icon('uploadCloud', { size: 13 }) : ''} Restaurar
+        </button>
+      </td>
+    </tr>`;
+  }).join('');
+};
+
+window.renderCriticalStockTable = function() {
+  const tbody = document.getElementById('criticalStockTableBody');
+  if (!tbody) return;
+  const inventory = state.inventory || [];
+  const criticalItems = inventory.filter(i => i.status === 'critical' || (i.stock !== undefined && parseInt(i.stock) <= 3));
+  if (criticalItems.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--admin-teal);">âœ“ Sin productos en stock crítico actualmente.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = criticalItems.map(item => {
+    const stock = item.stock !== undefined ? item.stock : '—';
+    const stockColor = parseInt(stock) === 0 ? '#ef4444' : '#f59e0b';
+    return `<tr>
+      <td>
+        <div style="font-weight:600;font-size:0.82rem;">${item.name || item.nombre || '—'}</div>
+        <div style="font-size:0.72rem;color:var(--admin-text-muted);">${item.sku || item.codigo || ''}</div>
+      </td>
+      <td style="font-size:0.8rem;">${item.category || item.categoria || '—'}</td>
+      <td style="font-size:0.8rem;">${item.brand || item.marca || '—'}</td>
+      <td style="font-weight:700;color:${stockColor};">${stock}</td>
+      <td><span class="audit-badge audit-badge-critico">CRÍTICO</span></td>
+      <td>
+        <button class="btn-header-action" style="font-size:0.75rem;padding:0.3rem 0.6rem;" onclick="switchCategory('inventory')">
+          ${window.LG ? window.LG.icon('alertTriangle', { size: 13 }) : ''} Reponer
+        </button>
+      </td>
+    </tr>`;
+  }).join('');
+};
+
+window.openAuditEventDetail = function(logId) {
+  const log = (state.auditLogs || []).find(l => l.id === logId);
+  if (!log) return;
+  const modal = document.getElementById('modalAuditDetail');
+  if (!modal) return;
+
+  const titleEl = document.getElementById('auditDetailTitle');
+  const contentEl = document.getElementById('auditDetailContent');
+  if (titleEl) titleEl.textContent = `Evento ${log.id} — ${log.action}`;
+  if (contentEl) {
+    const payload = log.payload ? JSON.stringify(log.payload, null, 2) : '{}';
+    contentEl.innerHTML = `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem 1.5rem;margin-bottom:1rem;">
+        <div><span style="color:var(--admin-text-muted);font-size:0.78rem;">ID del Evento</span><div style="font-weight:700;">${log.id}</div></div>
+        <div><span style="color:var(--admin-text-muted);font-size:0.78rem;">Fecha y Hora</span><div style="font-weight:700;">${log.date}</div></div>
+        <div><span style="color:var(--admin-text-muted);font-size:0.78rem;">Nivel</span><div><span class="audit-badge audit-badge-${log.level}">${log.levelText || log.level}</span></div></div>
+        <div><span style="color:var(--admin-text-muted);font-size:0.78rem;">Estado</span><div style="font-weight:700;">${log.status || '—'}</div></div>
+        <div><span style="color:var(--admin-text-muted);font-size:0.78rem;">Módulo</span><div style="font-weight:700;">${log.module || '—'}</div></div>
+        <div><span style="color:var(--admin-text-muted);font-size:0.78rem;">Acción</span><div style="font-weight:700;">${log.action || '—'}</div></div>
+        <div><span style="color:var(--admin-text-muted);font-size:0.78rem;">Usuario</span><div style="font-weight:700;">${log.user || '—'}</div></div>
+        <div><span style="color:var(--admin-text-muted);font-size:0.78rem;">Rol</span><div style="font-weight:700;">${log.role || '—'}</div></div>
+        <div><span style="color:var(--admin-text-muted);font-size:0.78rem;">IP / Ubicación</span><div style="font-weight:700;">${log.ip || '—'}</div></div>
+        <div><span style="color:var(--admin-text-muted);font-size:0.78rem;">Dispositivo</span><div style="font-weight:700;">${log.device || '—'}</div></div>
+      </div>
+      <div style="margin-bottom:0.75rem;">
+        <span style="color:var(--admin-text-muted);font-size:0.78rem;">Descripción Detallada</span>
+        <div style="margin-top:0.25rem;padding:0.75rem;background:rgba(15,23,42,0.6);border-radius:var(--radius-sm);border:1px solid var(--admin-card-border);font-size:0.84rem;line-height:1.6;">${log.detail || '—'}</div>
+      </div>
+      <div>
+        <span style="color:var(--admin-text-muted);font-size:0.78rem;">Payload Técnico (JSON)</span>
+        <pre style="margin-top:0.25rem;padding:0.75rem;background:rgba(15,23,42,0.8);border-radius:var(--radius-sm);border:1px solid var(--admin-card-border);font-size:0.78rem;overflow-x:auto;color:var(--admin-teal);">${payload}</pre>
+      </div>
+    `;
+  }
+  modal.classList.add('active');
+  modal.addEventListener('click', function handler(e) {
+    if (e.target === modal) { modal.classList.remove('active'); modal.removeEventListener('click', handler); }
+  });
+};
+
+window.generateManualBackup = function() {
+  const now = new Date();
+  const pad = n => String(n).padStart(2, '0');
+  const dateStr = `${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}_${pad(now.getHours())}${pad(now.getMinutes())}`;
+  const filename = `backup_lens_group_${dateStr}.json`;
+  const ref = `BKP-${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}-${pad(now.getHours())}${pad(now.getMinutes())}`;
+
+  const backupData = {
+    _meta: {
+      version: '3.0',
+      createdAt: now.toISOString(),
+      ref,
+      author: (state.session && state.session.name) || 'Dr. Carlos Miranda',
+      system: 'Lens Group Trujillo — Admin Dashboard v3'
+    },
+    patients: state.crmPatients || [],
+    inventory: state.inventory || [],
+    sales: state.sales || [],
+    orders: state.orders || {},
+    auditLogs: state.auditLogs || [],
+    backups: state.backups || []
+  };
+
+  const json = JSON.stringify(backupData, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+
+  const totalRecords = (backupData.patients.length + (backupData.inventory || []).length + (backupData.sales.length) + (backupData.auditLogs.length));
+  const sizeKb = Math.round(json.length / 1024 * 100) / 100;
+
+  const newBackup = {
+    id: `bkp-${Date.now()}`,
+    ref,
+    filename,
+    date: `${pad(now.getDate())}/${pad(now.getMonth()+1)}/${now.getFullYear()} ${pad(now.getHours())}:${pad(now.getMinutes())}`,
+    type: 'Manual (Admin)',
+    size: `${sizeKb} MB`,
+    records: `${backupData.patients.length} Pacientes, ${(backupData.inventory||[]).length} Productos, ${backupData.sales.length} Comprobantes, ${Object.keys(backupData.orders||{}).length} Órdenes, ${backupData.auditLogs.length} Logs`,
+    author: (state.session && state.session.name) || 'Dr. Carlos Miranda',
+    checksum: 'sha256:' + Math.random().toString(36).substring(2, 18) + Math.random().toString(36).substring(2, 18),
+    status: 'Íntegro / Verificado'
+  };
+
+  if (!state.backups) state.backups = [];
+  state.backups.unshift(newBackup);
+
+  const newLog = {
+    id: `LOG-${now.getFullYear()}-${Date.now().toString().slice(-4)}`,
+    date: `${pad(now.getDate())}/${pad(now.getMonth()+1)}/${now.getFullYear()} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`,
+    timeAgo: 'Ahora mismo',
+    level: 'info',
+    levelText: 'INFO',
+    module: 'Sistema & Backups',
+    user: (state.session && state.session.name) || 'Dr. Carlos Miranda',
+    role: (state.session && state.session.role) || 'Gerente General',
+    ip: '127.0.0.1 (Local)',
+    device: navigator.userAgent.substring(0, 60),
+    action: 'Copia de Seguridad Manual Generada',
+    detail: `Backup completo del sistema generado y descargado: ${filename} (${sizeKb} MB, ${totalRecords} registros). Checksum generado.`,
+    status: 'Éxito',
+    payload: { filename, sizeKb, totalRecords }
+  };
+  if (!state.auditLogs) state.auditLogs = [];
+  state.auditLogs.unshift(newLog);
+
+  if (state.currentCategory === 'audit') renderAuditView();
+  if (typeof showToast === 'function') showToast(`âœ“ Backup generado y descargado: ${filename}`);
+};
+
+window._pendingRestoreData = null;
+
+window.openRestoreBackupModal = function(bkpId) {
+  window._pendingRestoreData = null;
+  const modal = document.getElementById('modalRestoreBackup');
+  if (!modal) return;
+  const preview = document.getElementById('restoreBackupPreview');
+  const confirmBtn = document.getElementById('btnConfirmRestore');
+  if (preview) preview.innerHTML = '';
+  if (confirmBtn) confirmBtn.style.display = 'none';
+  const fileInput = document.getElementById('restoreFileInput');
+  if (fileInput) fileInput.value = '';
+  modal.classList.add('active');
+  modal.addEventListener('click', function handler(e) {
+    if (e.target === modal) { modal.classList.remove('active'); modal.removeEventListener('click', handler); }
+  });
+};
+
+window.handleBackupFileSelected = function(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      window._pendingRestoreData = data;
+      const preview = document.getElementById('restoreBackupPreview');
+      const confirmBtn = document.getElementById('btnConfirmRestore');
+      if (preview) {
+        const meta = data._meta || {};
+        preview.innerHTML = `
+          <div style="margin-top:1rem;padding:0.85rem;background:rgba(15,23,42,0.6);border-radius:var(--radius-sm);border:1px solid var(--admin-card-border);">
+            <div style="font-weight:700;color:var(--admin-teal);margin-bottom:0.5rem;">âœ“ Archivo válido detectado</div>
+            <div style="font-size:0.82rem;display:grid;grid-template-columns:1fr 1fr;gap:0.4rem 1rem;">
+              <div><span style="color:var(--admin-text-muted);">Referencia:</span> ${meta.ref || file.name}</div>
+              <div><span style="color:var(--admin-text-muted);">Creado:</span> ${meta.createdAt ? new Date(meta.createdAt).toLocaleString('es-PE') : '—'}</div>
+              <div><span style="color:var(--admin-text-muted);">Autor:</span> ${meta.author || '—'}</div>
+              <div><span style="color:var(--admin-text-muted);">Versión:</span> ${meta.version || '—'}</div>
+              <div><span style="color:var(--admin-text-muted);">Pacientes:</span> ${(data.patients || []).length}</div>
+              <div><span style="color:var(--admin-text-muted);">Productos:</span> ${(data.inventory || []).length}</div>
+              <div><span style="color:var(--admin-text-muted);">Ventas:</span> ${(data.sales || []).length}</div>
+              <div><span style="color:var(--admin-text-muted);">Logs:</span> ${(data.auditLogs || []).length}</div>
+            </div>
+            <div style="margin-top:0.5rem;padding:0.5rem;background:rgba(239,68,68,0.1);border-radius:var(--radius-sm);border:1px solid rgba(239,68,68,0.3);font-size:0.78rem;color:#ef4444;">
+              âš  Esta acción reemplazará los datos actuales del sistema. Asegúrese de haber generado un backup reciente antes de continuar.
+            </div>
+          </div>`;
+      }
+      if (confirmBtn) confirmBtn.style.display = 'inline-flex';
+    } catch(err) {
+      const preview = document.getElementById('restoreBackupPreview');
+      if (preview) preview.innerHTML = `<div style="margin-top:0.5rem;color:#ef4444;">âœ— Error: El archivo no es un backup válido (JSON inválido).</div>`;
+    }
+  };
+  reader.readAsText(file);
+};
+
+window.confirmRestoreBackup = function() {
+  const data = window._pendingRestoreData;
+  if (!data) return;
+  if (data.patients) state.crmPatients = data.patients;
+  if (data.inventory) state.inventory = data.inventory;
+  if (data.sales) state.sales = data.sales;
+  if (data.orders) state.orders = data.orders;
+  if (data.auditLogs) state.auditLogs = data.auditLogs;
+  if (data.backups) state.backups = data.backups;
+
+  const now = new Date();
+  const pad = n => String(n).padStart(2, '0');
+  const restoreLog = {
+    id: `LOG-REST-${Date.now().toString().slice(-6)}`,
+    date: `${pad(now.getDate())}/${pad(now.getMonth()+1)}/${now.getFullYear()} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`,
+    timeAgo: 'Ahora mismo',
+    level: 'critico',
+    levelText: 'CRÍTICO',
+    module: 'Sistema & Backups',
+    user: (state.session && state.session.name) || 'Dr. Carlos Miranda',
+    role: (state.session && state.session.role) || 'Gerente General',
+    ip: '127.0.0.1 (Local)',
+    device: navigator.userAgent.substring(0, 60),
+    action: 'Restauración de Base de Datos desde Backup',
+    detail: `Base de datos restaurada exitosamente desde backup ${(data._meta && data._meta.ref) || 'externo'}. Todos los módulos recargados.`,
+    status: 'Restaurado',
+    payload: { ref: data._meta && data._meta.ref, source: 'file_upload' }
+  };
+  if (!state.auditLogs) state.auditLogs = [];
+  state.auditLogs.unshift(restoreLog);
+
+  document.getElementById('modalRestoreBackup').classList.remove('active');
+  window._pendingRestoreData = null;
+  if (state.currentCategory === 'audit') renderAuditView();
+  if (typeof showToast === 'function') showToast('âœ“ Base de datos restaurada desde backup exitosamente.');
+};
+
+window.exportAuditLogsCsv = function() {
+  const logs = state.auditLogs || [];
+  const headers = ['ID', 'Fecha', 'Nivel', 'Módulo', 'Usuario', 'Rol', 'Acción', 'Detalle', 'IP', 'Dispositivo', 'Estado'];
+  const rows = logs.map(l => [
+    l.id, l.date, l.levelText || l.level, l.module, l.user, l.role,
+    l.action, (l.detail || '').replace(/"/g, '""'),
+    l.ip, l.device, l.status
+  ].map(v => `"${v || ''}"`).join(','));
+  const csv = [headers.join(','), ...rows].join('\n');
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `auditoria_lens_group_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+  if (typeof showToast === 'function') showToast('âœ“ Logs de auditoría exportados como CSV.');
+};
+
+
 

@@ -99,6 +99,8 @@
       window.renderCardex();
     } else if (categoryId === 'postventa' && typeof window.renderCRM === 'function') {
       window.renderCRM();
+    } else if (categoryId === 'audit' && typeof window.renderAuditView === 'function') {
+      window.renderAuditView();
     } else if (categoryId === 'orders' && typeof window.renderOrdersTable === 'function') {
       window.renderOrdersTable();
     }

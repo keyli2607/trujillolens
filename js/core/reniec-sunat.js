@@ -1,26 +1,39 @@
+/* ==========================================================================
+   LENS GROUP TRUJILLO — SERVICIO DE CONSULTA RENIEC (DNI) Y SUNAT (RUC)
+   --------------------------------------------------------------------------
+   Permite autocompletar en un clic los datos del cliente al emitir boletas
+   o registrar pacientes:
+   - DNI (8 dígitos) -> Nombres y apellidos completos desde RENIEC.
+   - RUC (11 dígitos) -> Razón social, dirección fiscal y estado desde SUNAT.
+   ========================================================================== */
 (function () {
   'use strict';
 
   const LG = (window.LG = window.LG || {});
 
-  // Base de datos de fallback / caché local para pruebas instantáneas
-  const LOCAL_CACHE_DNI = {
-    '12345678': { dni: '12345678', nombres: 'CARLOS ENRIQUE', apellidoPaterno: 'MENDOZA', apellidoMaterno: 'QUISPE', nombreCompleto: 'CARLOS ENRIQUE MENDOZA QUISPE' },
-    '45892147': { dni: '45892147', nombres: 'ANA LUCIA', apellidoPaterno: 'MORALES', apellidoMaterno: 'CHAVEZ', nombreCompleto: 'ANA LUCIA MORALES CHAVEZ' },
-    '71245890': { dni: '71245890', nombres: 'ROBERTO CARLOS', apellidoPaterno: 'CASTILLO', apellidoMaterno: 'DIAZ', nombreCompleto: 'ROBERTO CARLOS CASTILLO DIAZ' },
-    '40852963': { dni: '40852963', nombres: 'MARIA ELENA', apellidoPaterno: 'GONZALES', apellidoMaterno: 'PAREDES', nombreCompleto: 'MARIA ELENA GONZALES PAREDES' },
-    '72154896': { dni: '72154896', nombres: 'JORGE LUIS', apellidoPaterno: 'TORRES', apellidoMaterno: 'MENDOCILLA', nombreCompleto: 'JORGE LUIS TORRES MENDOCILLA' }
-  };
+  // 1. Caché en memoria + persistencia en localStorage para evitar re-consultar
+  const memoryCacheDni = {};
+  const memoryCacheRuc = {};
 
-  const LOCAL_CACHE_RUC = {
-    '20609502623': { ruc: '20609502623', razonSocial: 'LENS GROUP TRUJILLO S.A.C.', direccion: 'JR. GAMARRA NRO. 778 INT. 12 (GALERIA SAN ANTONIO), TRUJILLO, LA LIBERTAD', estado: 'ACTIVO', condicion: 'HABIDO' },
-    '20100070970': { ruc: '20100070970', razonSocial: 'SUPERMERCADOS PERUANOS SOCIEDAD ANONIMA', direccion: 'CAL. MORELLI NRO. 181 URB. SAN BORJA, LIMA', estado: 'ACTIVO', condicion: 'HABIDO' },
-    '20601234567': { ruc: '20601234567', razonSocial: 'OPTICA Y CLINICA VISUAL DEL NORTE S.A.C.', direccion: 'AV. ESPAÑA NRO. 1420, TRUJILLO, LA LIBERTAD', estado: 'ACTIVO', condicion: 'HABIDO' },
-    '20480392011': { ruc: '20480392011', razonSocial: 'DISTRIBUIDORA OPTICA LA LIBERTAD E.I.R.L.', direccion: 'AV. LARCO NRO. 540, TRUJILLO, LA LIBERTAD', estado: 'ACTIVO', condicion: 'HABIDO' }
-  };
+  function getFromStorage(key) {
+    try {
+      const item = localStorage.getItem(key);
+      return item ? JSON.parse(item) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function saveToStorage(key, data) {
+    try {
+      localStorage.setItem(key, JSON.stringify(data));
+    } catch (e) {}
+  }
 
   /**
-   * Consulta datos de DNI ante RENIEC (con APIs públicas y fallback inteligente)
+   * Consulta datos de DNI ante RENIEC (API gratuita multi-proveedor)
+   * @param {string|number} dni - 8 dígitos numéricos
+   * @returns {Promise<Object>} Datos del ciudadano (nombres, apellidoPaterno, apellidoMaterno, nombreCompleto)
    */
   async function consultarDNI(dni) {
     const clean = String(dni || '').trim().replace(/\D/g, '');
@@ -28,52 +41,119 @@
       throw new Error('El DNI debe contener exactamente 8 dígitos.');
     }
 
-    // 1. Intentar caché local
-    if (LOCAL_CACHE_DNI[clean]) {
-      return LOCAL_CACHE_DNI[clean];
+    // 1. Revisar caché en memoria o localStorage
+    if (memoryCacheDni[clean]) return memoryCacheDni[clean];
+    const cached = getFromStorage('lens_cache_dni_' + clean);
+    if (cached) {
+      memoryCacheDni[clean] = cached;
+      return cached;
     }
 
-    // 2. Intentar consultar APIs públicas peruanas
-    const endpoints = [
-      `https://api.perudevs.com/api/v1/dni/complete?document=${clean}&key=cGVydWRldnMucHJvZHVjdGlvbi5iaXRjb2lucy42ODQyOGM1Y2QzNzI0NGI2ODgxNTRjNmU1MjQ4YjNkNQ==`,
-      `https://api.apisperu.net/v1/dni/${clean}`
+    // 2. Intentar servicio backend interno (sin problemas de CORS)
+    try {
+      const res = await fetch(`/api/consulta-documento?tipo=dni&numero=${clean}`, {
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data && (data.nombreCompleto || data.nombres)) {
+          memoryCacheDni[clean] = data;
+          saveToStorage('lens_cache_dni_' + clean, data);
+          return data;
+        }
+      } else if (res.status === 404) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error || `DNI ${clean} no encontrado en RENIEC.`);
+      }
+    } catch (e) {
+      if (e.message && e.message.includes('no encontrado')) throw e;
+      // Continuar al fallback público si el backend local no responde
+    }
+
+    // 3. Fallback directo desde el navegador a APIs públicas gratuitas con CORS
+    const token = localStorage.getItem('lens_apis_token') || 'apis-token-1.aTSI10NVAlmq0zAcGQ0UsYYYFetGm0Da';
+    const publicEndpoints = [
+      {
+        url: `https://api.apis.net.pe/v2/reniec/dni?numero=${clean}`,
+        headers: { 'Authorization': `Bearer ${token}` },
+        parse: (d) => {
+          if (!d || (!d.nombres && !d.nombreCompleto)) return null;
+          const nombres = (d.nombres || '').trim();
+          const apePat = (d.apellidoPaterno || '').trim();
+          const apeMat = (d.apellidoMaterno || '').trim();
+          return {
+            dni: clean,
+            nombres,
+            apellidoPaterno: apePat,
+            apellidoMaterno: apeMat,
+            nombreCompleto: d.nombreCompleto || `${nombres} ${apePat} ${apeMat}`.trim()
+          };
+        }
+      },
+      {
+        url: `https://dniruc.apisperu.net/api/v1/dni/${clean}`,
+        headers: {},
+        parse: (d) => {
+          const r = d.data || d;
+          if (!r || !r.nombres) return null;
+          const nombres = (r.nombres || '').trim();
+          const apePat = (r.apellidoPaterno || r.apellido_paterno || '').trim();
+          const apeMat = (r.apellidoMaterno || r.apellido_materno || '').trim();
+          return {
+            dni: clean,
+            nombres,
+            apellidoPaterno: apePat,
+            apellidoMaterno: apeMat,
+            nombreCompleto: `${nombres} ${apePat} ${apeMat}`.trim()
+          };
+        }
+      },
+      {
+        url: `https://api.perudevs.com/api/v1/dni/complete?document=${clean}&key=cGVydWRldnMucHJvZHVjdGlvbi5iaXRjb2lucy42ODQyOGM1Y2QzNzI0NGI2ODgxNTRjNmU1MjQ4YjNkNQ==`,
+        headers: {},
+        parse: (d) => {
+          const r = d.resultado || d.data || d;
+          if (!r || (!r.nombres && !r.nombre_completo)) return null;
+          const nombres = (r.nombres || r.name || '').trim();
+          const apePat = (r.apellido_paterno || r.apellidoPaterno || '').trim();
+          const apeMat = (r.apellido_materno || r.apellidoMaterno || '').trim();
+          return {
+            dni: clean,
+            nombres,
+            apellidoPaterno: apePat,
+            apellidoMaterno: apeMat,
+            nombreCompleto: (r.nombre_completo || `${nombres} ${apePat} ${apeMat}`).trim()
+          };
+        }
+      }
     ];
 
-    for (const url of endpoints) {
+    for (const ep of publicEndpoints) {
       try {
-        const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+        const res = await fetch(ep.url, {
+          headers: { 'Accept': 'application/json', ...ep.headers }
+        });
         if (res.ok) {
-          const data = await res.json();
-          const r = data.resultado || data.data || data;
-          const nombres = r.nombres || r.name || '';
-          const apellidoPaterno = r.apellido_paterno || r.apellidoPaterno || r.first_name || '';
-          const apellidoMaterno = r.apellido_materno || r.apellidoMaterno || r.last_name || '';
-          const nombreCompleto = r.nombre_completo || `${nombres} ${apellidoPaterno} ${apellidoMaterno}`.trim();
-
-          if (nombreCompleto) {
-            const result = { dni: clean, nombres, apellidoPaterno, apellidoMaterno, nombreCompleto };
-            LOCAL_CACHE_DNI[clean] = result;
-            return result;
+          const json = await res.json();
+          const parsed = ep.parse(json);
+          if (parsed && parsed.nombreCompleto) {
+            memoryCacheDni[clean] = parsed;
+            saveToStorage('lens_cache_dni_' + clean, parsed);
+            return parsed;
           }
         }
-      } catch (e) {
-        // Continuar al siguiente endpoint o fallback
+      } catch (err) {
+        // Continuar siguiente endpoint
       }
     }
 
-    // 3. Si las APIs externas están bloqueadas por CORS o límites, generar respuesta simulada verosímil
-    const defaultResult = {
-      dni: clean,
-      nombres: 'CLIENTE',
-      apellidoPaterno: 'RENIEC',
-      apellidoMaterno: clean.slice(-4),
-      nombreCompleto: `CIUDADANO DNI ${clean}`
-    };
-    return defaultResult;
+    throw new Error(`No se pudo obtener datos para el DNI ${clean}. Verifique el número o ingréselo manualmente.`);
   }
 
   /**
-   * Consulta datos de RUC ante SUNAT
+   * Consulta datos de RUC ante SUNAT (API gratuita multi-proveedor)
+   * @param {string|number} ruc - 11 dígitos numéricos
+   * @returns {Promise<Object>} Datos de la empresa o contribuyente (razonSocial, direccion, estado, condicion)
    */
   async function consultarRUC(ruc) {
     const clean = String(ruc || '').trim().replace(/\D/g, '');
@@ -81,49 +161,110 @@
       throw new Error('El RUC debe contener exactamente 11 dígitos.');
     }
 
-    // 1. Intentar caché local
-    if (LOCAL_CACHE_RUC[clean]) {
-      return LOCAL_CACHE_RUC[clean];
+    // 1. Revisar caché en memoria o localStorage
+    if (memoryCacheRuc[clean]) return memoryCacheRuc[clean];
+    const cached = getFromStorage('lens_cache_ruc_' + clean);
+    if (cached) {
+      memoryCacheRuc[clean] = cached;
+      return cached;
     }
 
-    // 2. Intentar endpoints públicos
-    const endpoints = [
-      `https://api.perudevs.com/api/v1/ruc?document=${clean}&key=cGVydWRldnMucHJvZHVjdGlvbi5iaXRjb2lucy42ODQyOGM1Y2QzNzI0NGI2ODgxNTRjNmU1MjQ4YjNkNQ==`,
-      `https://api.apisperu.net/v1/ruc/${clean}`
+    // 2. Intentar servicio backend interno (sin problemas de CORS)
+    try {
+      const res = await fetch(`/api/consulta-documento?tipo=ruc&numero=${clean}`, {
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.razonSocial) {
+          memoryCacheRuc[clean] = data;
+          saveToStorage('lens_cache_ruc_' + clean, data);
+          return data;
+        }
+      } else if (res.status === 404) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error || `RUC ${clean} no encontrado en SUNAT.`);
+      }
+    } catch (e) {
+      if (e.message && e.message.includes('no encontrado')) throw e;
+    }
+
+    // 3. Fallback directo desde el navegador a APIs públicas con CORS
+    const token = localStorage.getItem('lens_apis_token') || 'apis-token-1.aTSI10NVAlmq0zAcGQ0UsYYYFetGm0Da';
+    const publicEndpoints = [
+      {
+        url: `https://api.sunat.lat/v1/ruc/${clean}`,
+        headers: {},
+        parse: (d) => {
+          const rz = (d.razon_social || d.razonSocial || d.nombre || '').trim();
+          if (!rz) return null;
+          return {
+            ruc: clean,
+            razonSocial: rz,
+            direccion: (d.direccion || d.domicilio_fiscal || '').trim() || 'TRUJILLO, LA LIBERTAD',
+            estado: (d.estado || 'ACTIVO').trim(),
+            condicion: (d.condicion || 'HABIDO').trim()
+          };
+        }
+      },
+      {
+        url: `https://api.apis.net.pe/v2/sunat/ruc?numero=${clean}`,
+        headers: { 'Authorization': `Bearer ${token}` },
+        parse: (d) => {
+          const rz = (d.razonSocial || d.razon_social || '').trim();
+          if (!rz) return null;
+          return {
+            ruc: clean,
+            razonSocial: rz,
+            direccion: (d.direccion || '').trim() || 'TRUJILLO, LA LIBERTAD',
+            estado: (d.estado || 'ACTIVO').trim(),
+            condicion: (d.condicion || 'HABIDO').trim()
+          };
+        }
+      },
+      {
+        url: `https://dniruc.apisperu.net/api/v1/ruc/${clean}`,
+        headers: {},
+        parse: (d) => {
+          const r = d.data || d;
+          const rz = (r.razonSocial || r.razon_social || '').trim();
+          if (!rz) return null;
+          return {
+            ruc: clean,
+            razonSocial: rz,
+            direccion: (r.direccion || '').trim() || 'TRUJILLO, LA LIBERTAD',
+            estado: (r.estado || 'ACTIVO').trim(),
+            condicion: (r.condicion || 'HABIDO').trim()
+          };
+        }
+      }
     ];
 
-    for (const url of endpoints) {
+    for (const ep of publicEndpoints) {
       try {
-        const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+        const res = await fetch(ep.url, {
+          headers: { 'Accept': 'application/json', ...ep.headers }
+        });
         if (res.ok) {
-          const data = await res.json();
-          const r = data.resultado || data.data || data;
-          const razonSocial = r.razon_social || r.razonSocial || r.nombre_o_razon_social || '';
-          const direccion = r.direccion || r.direccion_completa || 'TRUJILLO, LA LIBERTAD';
-          const estado = r.estado || 'ACTIVO';
-          const condicion = r.condicion || 'HABIDO';
-
-          if (razonSocial) {
-            const result = { ruc: clean, razonSocial, direccion, estado, condicion };
-            LOCAL_CACHE_RUC[clean] = result;
-            return result;
+          const json = await res.json();
+          const parsed = ep.parse(json);
+          if (parsed && parsed.razonSocial) {
+            memoryCacheRuc[clean] = parsed;
+            saveToStorage('lens_cache_ruc_' + clean, parsed);
+            return parsed;
           }
         }
-      } catch (e) {}
+      } catch (err) {}
     }
 
-    // 3. Fallback en caso de bloqueo externo
-    return {
-      ruc: clean,
-      razonSocial: `EMPRESA RUC ${clean} S.A.C.`,
-      direccion: 'JR. INDEPENDENCIA NRO. 450, CENTRO HISTÓRICO, TRUJILLO',
-      estado: 'ACTIVO',
-      condicion: 'HABIDO'
-    };
+    throw new Error(`No se pudo obtener datos para el RUC ${clean}. Ingréselo manualmente.`);
   }
 
+  // Exportar en LG.fiscal y con alias directos en LG
   LG.fiscal = {
     consultarDNI,
     consultarRUC
   };
+  LG.consultarDNI = consultarDNI;
+  LG.consultarRUC = consultarRUC;
 })();

@@ -616,7 +616,8 @@
     'catalog': 'Catálogo de Niños',
     'catalog-adult': 'Catálogo de Adultos',
     'sales': 'Historial de Ventas',
-    'postventa': 'CRM & Pacientes Oftalmológicos'
+    'postventa': 'CRM & Pacientes Oftalmológicos',
+    'audit': 'Auditoría, Inventario Crítico y Backups'
   };
 
   let state = {
@@ -634,6 +635,15 @@
     crmPatients: [...DEFAULT_CRM_PATIENTS],
     crmFilter: 'all',
     crmSearchQuery: '',
+    crmCurrentPage: 1,
+    crmPageSize: 3,
+    auditLogs: typeof DEFAULT_AUDIT_LOGS !== 'undefined' ? [...DEFAULT_AUDIT_LOGS] : [],
+    auditFilter: 'all',
+    auditSearchQuery: '',
+    auditCurrentPage: 1,
+    auditPageSize: 5,
+    backups: typeof DEFAULT_BACKUPS !== 'undefined' ? [...DEFAULT_BACKUPS] : [],
+    currentAuditTab: 'logs',
     cardex: [...CARDEX_DB],
     users: [
       { id: 'usr-1', name: 'Dr. Carlos Miranda', username: 'admin', role: 'Gerente General', branch: 'Galería San Antonio, Jr. Gamarra N° 778', status: 'activo' },

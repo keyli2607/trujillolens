@@ -3,6 +3,7 @@
 
   const LG = window.LG = window.LG || {};
   const C = LG.components = LG.components || {};
+  const STORE_URL = (typeof window !== 'undefined' && window.location.protocol === 'file:') ? 'index.html' : '/';
 
   // 1. PANTALLA DE LOGIN
   C.AdminLoginScreen = function () {
@@ -52,7 +53,7 @@
           </form>
 
           <div style="text-align: center; margin-top: 1.25rem;">
-            <a href="index.html" class="back-to-web">
+            <a href="${STORE_URL}" class="back-to-web">
               ${LG.icon('arrowLeft', { size: 15, sw: 2 })}
               Volver a la tienda pública
             </a>
@@ -67,7 +68,7 @@
     return LG.html`
       <aside class="admin-sidebar" id="adminSidebar">
         <div class="sidebar-brand">
-          <a href="index.html" title="Lens Group Trujillo">
+          <a href="${STORE_URL}" title="Lens Group Trujillo">
             <img src="assets/images/logo.svg" alt="Lens Group" class="sidebar-logo">
           </a>
           <div class="sidebar-brand-text">
@@ -227,7 +228,7 @@
             <option value="quarter">Trimestre I - 2026</option>
           </select>
 
-          <a href="index.html" class="btn-web-link" target="_blank" title="Abrir tienda en nueva pestaña">
+          <a href="${STORE_URL}" class="btn-web-link" target="_blank" title="Abrir tienda en nueva pestaña">
             ${LG.icon('external', { size: 14, sw: 2 })}
             <span>Ver Tienda</span>
           </a>
@@ -308,10 +309,6 @@
               </div>
               <div style="display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap;">
                 <input type="text" id="salesSearchInput" class="form-input" placeholder="Buscar por comprobante, cliente o doc..." style="font-size: 0.85rem; padding: 0.5rem 0.9rem; min-width: 280px;">
-                <button type="button" class="btn-primary-action" style="padding: 0.5rem 1rem; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem; white-space: nowrap;" onclick="openNewSaleModal()">
-                  ${LG.icon('plus', { size: 15, sw: 2.5 })}
-                  <span>+ Nueva Venta</span>
-                </button>
               </div>
             </div>
             <div class="mobile-table-hint" style="display: none; font-size: 0.72rem; color: var(--admin-text-dim); margin-top: 0.5rem; margin-bottom: 0.2rem; align-items: center; gap: 0.35rem;">
@@ -1127,23 +1124,223 @@
                 </tbody>
               </table>
             </div>
+
+            <!-- PAGINACIÓN CRM < 1 2 3 4 5 6 ... > -->
+            <div id="crmPagination" class="crm-pagination"></div>
           </div>
         </section>
 
-        <!-- VISTA: AUDITORIA -->
+        <!-- VISTA: AUDITORIA, INVENTARIO CRÍTICO Y BACKUPS -->
         <section class="dash-view" id="view-audit">
-          <div class="view-header">
+          <div class="view-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
             <div class="view-title-group">
               <h2>Auditoría, Inventario Crítico y Backups</h2>
               <p>Historial de cambios, ajustes manuales de stock, mermas y copias de seguridad de la base de datos.</p>
             </div>
-            <button type="button" class="btn-primary-action" onclick="showToast('Iniciando copia de seguridad manual...')">
-              ${LG.icon('download', { size: 16, sw: 2 })}
-              <span>Generar Backup Manual</span>
+            <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
+              <button type="button" class="btn-primary-action" onclick="generateManualBackup()">
+                ${LG.icon('download', { size: 16, sw: 2 })}
+                <span>Generar Backup Manual</span>
+              </button>
+              <button type="button" class="btn-header-action" onclick="openRestoreBackupModal()">
+                ${LG.icon('uploadCloud', { size: 15, sw: 2 })}
+                <span>Restaurar Copia</span>
+              </button>
+              <button type="button" class="btn-header-action" onclick="exportAuditLogsCsv()">
+                ${LG.icon('fileText', { size: 14, sw: 2 })}
+                <span>Exportar Logs CSV</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- KPIS DE AUDITORIA Y SEGURIDAD -->
+          <div class="kpi-grid" style="grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); margin-bottom: 1.5rem;">
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Eventos Registrados</span>
+                <div class="kpi-icon-wrap" style="background: rgba(14, 165, 233, 0.15); color: #0ea5e9;">
+                  ${LG.icon('activity', { size: 18, sw: 2 })}
+                </div>
+              </div>
+              <div class="kpi-value" id="auditKpiTotal">156</div>
+              <div class="kpi-footer">
+                <span class="badge-status badge-listo" style="font-size: 0.72rem; padding: 0.15rem 0.5rem;">Trazabilidad 100%</span>
+                <span style="font-size: 0.75rem; color: var(--admin-text-muted);">Últimos 30 días</span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Ajustes &amp; Mermas</span>
+                <div class="kpi-icon-wrap" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;">
+                  ${LG.icon('alertTriangle', { size: 18, sw: 2 })}
+                </div>
+              </div>
+              <div class="kpi-value" id="auditKpiAjustes" style="color: #f59e0b;">8</div>
+              <div class="kpi-footer">
+                <span class="badge-status" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b; font-size: 0.72rem; padding: 0.15rem 0.5rem;">Control Físico</span>
+                <span style="font-size: 0.75rem; color: var(--admin-text-muted);">Justificados en Cardex</span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Alertas de Seguridad</span>
+                <div class="kpi-icon-wrap" style="background: rgba(239, 68, 68, 0.15); color: #ef4444;">
+                  ${LG.icon('shield', { size: 18, sw: 2 })}
+                </div>
+              </div>
+              <div class="kpi-value" id="auditKpiAlertas" style="color: #10b981;">0</div>
+              <div class="kpi-footer">
+                <span class="badge-status badge-listo" style="font-size: 0.72rem; padding: 0.15rem 0.5rem;">Sistema Seguro</span>
+                <span style="font-size: 0.75rem; color: var(--admin-text-muted);">Sin accesos sospechosos</span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Último Backup Cifrado</span>
+                <div class="kpi-icon-wrap" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">
+                  ${LG.icon('database', { size: 18, sw: 2 })}
+                </div>
+              </div>
+              <div class="kpi-value" id="auditKpiBackup" style="font-size: 1.35rem;">Hoy 15:45</div>
+              <div class="kpi-footer">
+                <span class="badge-status badge-listo" style="font-size: 0.72rem; padding: 0.15rem 0.5rem;">Íntegro (SHA-256)</span>
+                <span style="font-size: 0.75rem; color: var(--admin-text-muted);" id="auditKpiBackupSize">1.84 MB</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- NAVEGACIÓN POR SUB-PESTAÑAS DE AUDITORIA -->
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--admin-card-border); padding-bottom: 0.75rem; flex-wrap: wrap;" id="auditNavTabs">
+            <button type="button" class="tab-btn active" data-audit-tab="logs" onclick="switchAuditTab('logs')">
+              ${LG.icon('fileText', { size: 14, sw: 2 })}
+              <span>Logs de Auditoría en Vivo (<span id="auditTabCountLogs">15</span>)</span>
+            </button>
+            <button type="button" class="tab-btn" data-audit-tab="backups" onclick="switchAuditTab('backups')">
+              ${LG.icon('database', { size: 14, sw: 2 })}
+              <span>Copias de Seguridad &amp; Snapshots (<span id="auditTabCountBackups">4</span>)</span>
+            </button>
+            <button type="button" class="tab-btn" data-audit-tab="critical" onclick="switchAuditTab('critical')">
+              ${LG.icon('alertCircle', { size: 14, sw: 2 })}
+              <span>Inventario Crítico &amp; Mermas (<span id="auditTabCountCritical">3</span>)</span>
             </button>
           </div>
-          <div style="background: rgba(15, 23, 42, 0.4); border: 1px dashed rgba(255,255,255,0.1); border-radius: 8px; padding: 4rem; text-align: center; color: var(--admin-text-muted);">
-            Visor de logs de auditoría del sistema en construcción.
+
+          <!-- SUB-TAB 1: LOGS DE AUDITORIA -->
+          <div id="auditTabPane-logs" class="audit-tab-pane">
+            <div class="orders-table-panel">
+              <div class="table-toolbar" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+                <input type="text" class="table-search-input" id="auditSearchInput" placeholder="Buscar por usuario, acción, IP, módulo..." style="width: 320px;">
+                <div class="table-status-tabs" id="auditFilterTabs">
+                  <button type="button" class="tab-btn active" data-filter="all" onclick="filterAuditLogs('all')">Todos (<span id="auditFiltCountAll">15</span>)</button>
+                  <button type="button" class="tab-btn" data-filter="critico" onclick="filterAuditLogs('critico')">Críticos (<span id="auditFiltCountCritico">3</span>)</button>
+                  <button type="button" class="tab-btn" data-filter="alerta" onclick="filterAuditLogs('alerta')">Alertas / Stock (<span id="auditFiltCountAlerta">4</span>)</button>
+                  <button type="button" class="tab-btn" data-filter="info" onclick="filterAuditLogs('info')">Operaciones (<span id="auditFiltCountInfo">6</span>)</button>
+                  <button type="button" class="tab-btn" data-filter="seguridad" onclick="filterAuditLogs('seguridad')">Seguridad (<span id="auditFiltCountSeguridad">2</span>)</button>
+                </div>
+              </div>
+
+              <div class="table-responsive">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th style="min-width: 140px;">Fecha / Hora</th>
+                      <th style="min-width: 110px;">Nivel</th>
+                      <th style="min-width: 180px;">Usuario / Rol</th>
+                      <th style="min-width: 140px;">Módulo</th>
+                      <th style="min-width: 280px;">Acción &amp; Detalle del Evento</th>
+                      <th style="min-width: 150px;">IP / Estación</th>
+                      <th style="min-width: 90px; text-align: right;">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="auditTableBody">
+                    <!-- Inyectado dinámicamente -->
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- PAGINACIÓN DE AUDITORIA < 1 2 3 ... > -->
+              <div id="auditPagination" class="crm-pagination"></div>
+            </div>
+          </div>
+
+          <!-- SUB-TAB 2: COPIAS DE SEGURIDAD (BACKUPS) -->
+          <div id="auditTabPane-backups" class="audit-tab-pane" style="display: none;">
+            <div class="chart-card" style="margin-bottom: 1.5rem; background: linear-gradient(135deg, rgba(13, 148, 136, 0.12), rgba(15, 23, 42, 0.8)); border: 1px solid rgba(13, 148, 136, 0.3);">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding: 0.5rem;">
+                <div>
+                  <h3 style="margin: 0; font-size: 1.15rem; color: var(--admin-text-main); display: flex; align-items: center; gap: 0.5rem;">
+                    ${LG.icon('shield', { size: 20, stroke: 'var(--admin-primary)', sw: 2.2 })}
+                    Copias de Seguridad Automatizadas y Manuales
+                  </h3>
+                  <p style="margin: 0.35rem 0 0 0; font-size: 0.82rem; color: var(--admin-text-muted); max-width: 680px;">
+                    Cada snapshot incluye la totalidad de pacientes CRM, historial de órdenes, catálogo de productos, inventario físico, cardex de movimientos y comprobantes emitidos con hash de integridad SHA-256.
+                  </p>
+                </div>
+                <button type="button" class="btn-primary-action" onclick="generateManualBackup()" style="padding: 0.65rem 1.25rem;">
+                  ${LG.icon('download', { size: 16, sw: 2.5 })}
+                  <span>Descargar Backup Ahora (.json)</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="orders-table-panel">
+              <div class="table-responsive">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Archivo / Referencia</th>
+                      <th>Fecha de Creación</th>
+                      <th>Tipo de Backup</th>
+                      <th>Contenido &amp; Registros</th>
+                      <th>Tamaño</th>
+                      <th>Responsable</th>
+                      <th>Estado de Integridad</th>
+                      <th style="text-align: right;">Descarga / Acción</th>
+                    </tr>
+                  </thead>
+                  <tbody id="backupsTableBody">
+                    <!-- Inyectado dinámicamente -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUB-TAB 3: INVENTARIO CRÍTICO & MERMAS -->
+          <div id="auditTabPane-critical" class="audit-tab-pane" style="display: none;">
+            <div class="orders-table-panel">
+              <div style="padding: 1.25rem 1.25rem 0.5rem 1.25rem;">
+                <h3 style="margin: 0; font-size: 1.05rem; color: #f59e0b; display: flex; align-items: center; gap: 0.5rem;">
+                  ${LG.icon('alertTriangle', { size: 18, stroke: '#f59e0b', sw: 2 })}
+                  Monturas y Cristales en Nivel Crítico o Agotados
+                </h3>
+                <p style="margin: 0.25rem 0 0 0; font-size: 0.8rem; color: var(--admin-text-muted);">
+                  Productos que requieren reposición urgente antes del próximo turno de ventas.
+                </p>
+              </div>
+              <div class="table-responsive" style="margin-top: 0.5rem;">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Código / SKU</th>
+                      <th>Marca &amp; Modelo</th>
+                      <th>Categoría</th>
+                      <th style="text-align: center;">Stock Actual</th>
+                      <th style="text-align: center;">Umbral Mínimo</th>
+                      <th>Estado</th>
+                      <th>Precio Venta</th>
+                      <th style="text-align: right;">Acción Inmediata</th>
+                    </tr>
+                  </thead>
+                  <tbody id="criticalStockTableBody">
+                    <!-- Inyectado dinámicamente -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -1312,26 +1509,65 @@
         </div>
       </div>
 
-      <!-- MODAL INVENTARIO -->
+      <!-- MODAL INVENTARIO / EDITOR DE PRODUCTOS -->
       <div class="modal-overlay" id="modalInventory">
-        <div class="modal-card">
+        <div class="modal-card" style="max-width: 580px;">
           <div class="modal-header">
             <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--admin-text-main);" id="modalInventoryTitle">Registrar Producto</h3>
             <button type="button" class="modal-close-btn" onclick="document.getElementById('modalInventory').classList.remove('active')">&times;</button>
           </div>
-          <form id="formInventory" style="display: flex; flex-direction: column; gap: 1rem;">
+          <form id="formInventory" style="display: flex; flex-direction: column; gap: 0.85rem;" onsubmit="typeof handleSaveInventory === 'function' ? handleSaveInventory(event) : (typeof window.handleSaveInventory === 'function' && window.handleSaveInventory(event))">
             <input type="hidden" id="invItemId">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-              <div class="form-group"><label class="form-label" for="invCategory">Categoría</label><input type="text" id="invCategory" class="form-input" style="padding-left: 0.9rem;" placeholder="Ej. Sol Polarizado" required></div>
-              <div class="form-group"><label class="form-label" for="invBrand">Marca</label><input type="text" id="invBrand" class="form-input" style="padding-left: 0.9rem;" placeholder="Ej. Ray-Ban" required></div>
+            <input type="hidden" id="invItemSource">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+              <div class="form-group">
+                <label class="form-label" for="invBrand">Marca</label>
+                <input type="text" id="invBrand" class="form-input" style="padding-left: 0.9rem;" placeholder="Ej. Sylvane, Ray-Ban" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="invCategory">Categoría</label>
+                <input type="text" id="invCategory" class="form-input" style="padding-left: 0.9rem;" placeholder="Ej. Damas, Caballeros, Unisex, Niñas" required>
+              </div>
             </div>
-            <div class="form-group"><label class="form-label" for="invModel">Modelo / Descripción</label><input type="text" id="invModel" class="form-input" style="padding-left: 0.9rem;" placeholder="Ej. Aviator Classic Dorado (RB3025)" required></div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
-              <div class="form-group"><label class="form-label" for="invStock">Stock Actual</label><input type="number" id="invStock" class="form-input" style="padding-left: 0.9rem;" value="0" required></div>
-              <div class="form-group"><label class="form-label" for="invCost">Costo (S/)</label><input type="number" id="invCost" class="form-input" style="padding-left: 0.9rem;" value="0" required></div>
-              <div class="form-group"><label class="form-label" for="invPrice">Precio Venta (S/)</label><input type="number" id="invPrice" class="form-input" style="padding-left: 0.9rem;" value="0" required></div>
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 0.75rem;">
+              <div class="form-group">
+                <label class="form-label" for="invModel">Modelo / Descripción</label>
+                <input type="text" id="invModel" class="form-input" style="padding-left: 0.9rem;" placeholder="Ej. Round Metal" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="invSku">Código / SKU</label>
+                <input type="text" id="invSku" class="form-input" style="padding-left: 0.9rem;" placeholder="ADU-MET-005">
+              </div>
             </div>
-            <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1rem;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+              <div class="form-group">
+                <label class="form-label" for="invMaterial">Material</label>
+                <input type="text" id="invMaterial" class="form-input" style="padding-left: 0.9rem;" placeholder="Ej. Metal, Acetato, Titanio">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="invColor">Color</label>
+                <input type="text" id="invColor" class="form-input" style="padding-left: 0.9rem;" placeholder="Ej. Rose Gold, Negro, Dorado">
+              </div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem;">
+              <div class="form-group">
+                <label class="form-label" for="invStock">Stock Actual</label>
+                <input type="number" id="invStock" class="form-input" style="padding-left: 0.9rem; font-weight: 700;" value="0" min="0" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="invCost">Costo S/</label>
+                <input type="number" id="invCost" step="0.01" class="form-input" style="padding-left: 0.9rem;" value="0">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="invPrice">Precio Venta S/</label>
+                <input type="number" id="invPrice" step="0.01" class="form-input" style="padding-left: 0.9rem; font-weight: 700; color: #34d399;" value="0" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="invImage">URL de Imagen</label>
+              <input type="text" id="invImage" class="form-input" style="padding-left: 0.9rem;" placeholder="https://... o brands/sylvane.png">
+            </div>
+            <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 0.5rem;">
               <button type="button" class="btn-header-action" onclick="document.getElementById('modalInventory').classList.remove('active')">Cancelar</button>
               <button type="submit" class="btn-primary-action">${LG.icon('check', { size: 16, sw: 2.5 })} <span id="btnSaveInventoryText">Guardar Producto</span></button>
             </div>
@@ -1670,6 +1906,51 @@
           <div id="printableInvoice">
             <div class="ticket-preview-wrapper" id="ticketContent">
               <!-- Renderizado dinámicamente con los datos de la venta -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODAL DETALLE DE EVENTO DE AUDITORÍA -->
+      <div class="modal-overlay" id="modalAuditDetail">
+        <div class="modal-card" style="max-width: 620px;">
+          <div class="modal-header">
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--admin-text-main); margin: 0;" id="auditDetailTitle">Detalle de Evento de Auditoría</h3>
+            <button type="button" class="modal-close-btn" onclick="document.getElementById('modalAuditDetail').classList.remove('active')">&times;</button>
+          </div>
+          <div id="auditDetailContent" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem;">
+            <!-- Contenido inyectado dinámicamente -->
+          </div>
+          <div style="display: flex; justify-content: flex-end; margin-top: 1.25rem;">
+            <button type="button" class="btn-header-action" onclick="document.getElementById('modalAuditDetail').classList.remove('active')">Cerrar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODAL RESTAURAR COPIA DE SEGURIDAD -->
+      <div class="modal-overlay" id="modalRestoreBackup">
+        <div class="modal-card" style="max-width: 580px;">
+          <div class="modal-header">
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--admin-text-main); margin: 0;">Restaurar Copia de Seguridad</h3>
+            <button type="button" class="modal-close-btn" onclick="document.getElementById('modalRestoreBackup').classList.remove('active')">&times;</button>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem;">
+            <div style="background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 8px; padding: 0.85rem; font-size: 0.82rem; color: #fbbf24;">
+              <strong>⚠️ Advertencia de Seguridad:</strong> Restaurar un archivo de copia de seguridad reemplazará los datos actuales del sistema por los contenidos en el archivo .json. Esta acción quedará registrada en el log de auditoría.
+            </div>
+            <div class="form-group">
+              <label class="form-label">Seleccionar archivo de Backup (.json)</label>
+              <input type="file" id="restoreBackupFileInput" accept=".json,application/json" class="form-input" style="padding: 0.6rem;" onchange="handleBackupFileSelected(event)">
+            </div>
+            <div id="restoreBackupPreview" style="display: none; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--admin-card-border); border-radius: 8px; padding: 1rem; font-size: 0.84rem;">
+              <!-- Resumen del backup -->
+            </div>
+            <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 0.5rem;">
+              <button type="button" class="btn-header-action" onclick="document.getElementById('modalRestoreBackup').classList.remove('active')">Cancelar</button>
+              <button type="button" id="btnConfirmRestore" class="btn-primary-action" style="background: #ef4444; border-color: #ef4444; display: none;" onclick="confirmRestoreBackup()">
+                ${LG.icon('uploadCloud', { size: 16, sw: 2.2 })}
+                <span>Restaurar Base de Datos</span>
+              </button>
             </div>
           </div>
         </div>

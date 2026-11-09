@@ -62,7 +62,14 @@
       );
     }
 
-    if (list.length === 0) {
+    const totalFiltered = list.length;
+    const pageSize = state.crmPageSize || 3;
+    const totalPages = Math.max(1, Math.ceil(totalFiltered / pageSize));
+
+    if (!state.crmCurrentPage || state.crmCurrentPage < 1) state.crmCurrentPage = 1;
+    if (state.crmCurrentPage > totalPages) state.crmCurrentPage = totalPages;
+
+    if (totalFiltered === 0) {
       tbody.innerHTML = `
         <tr>
           <td colspan="7" style="text-align: center; padding: 3rem; color: var(--admin-text-muted);">
@@ -72,10 +79,14 @@
           </td>
         </tr>
       `;
+      renderCrmPagination(0, pageSize, 1);
       return;
     }
 
-    tbody.innerHTML = list.map(p => {
+    const startIdx = (state.crmCurrentPage - 1) * pageSize;
+    const pageItems = list.slice(startIdx, startIdx + pageSize);
+
+    tbody.innerHTML = pageItems.map(p => {
       const badgeMap = {
         listo: { cls: 'crm-badge-listo', icon: '', text: 'Listo p/ Retiro' },
         adaptacion: { cls: 'crm-badge-adaptacion', icon: '', text: 'En Adaptación' },
@@ -187,7 +198,100 @@
         </tr>
       `;
     }).join('');
+
+    renderCrmPagination(totalFiltered, pageSize, state.crmCurrentPage);
   }
+
+  function renderCrmPagination(totalFiltered, pageSize, currentPage) {
+    const container = document.getElementById('crmPagination');
+    if (!container) return;
+
+    if (totalFiltered <= 0) {
+      container.innerHTML = '';
+      return;
+    }
+
+    const totalPages = Math.max(1, Math.ceil(totalFiltered / pageSize));
+    const startRecord = (currentPage - 1) * pageSize + 1;
+    const endRecord = Math.min(currentPage * pageSize, totalFiltered);
+
+    let pages = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      if (currentPage <= 4) {
+        for (let i = 1; i <= 6; i++) pages.push(i);
+        pages.push('...');
+        pages.push(totalPages);
+      } else if (currentPage >= totalPages - 3) {
+        pages.push(1);
+        pages.push('...');
+        for (let i = totalPages - 5; i <= totalPages; i++) pages.push(i);
+      } else {
+        pages.push(1);
+        pages.push('...');
+        pages.push(currentPage - 1);
+        pages.push(currentPage);
+        pages.push(currentPage + 1);
+        pages.push('...');
+        pages.push(totalPages);
+      }
+    }
+
+    const prevDisabled = currentPage <= 1 ? 'disabled' : '';
+    const nextDisabled = currentPage >= totalPages ? 'disabled' : '';
+
+    const buttonsHtml = pages.map(p => {
+      if (p === '...') {
+        return `<span class="crm-page-ellipsis">...</span>`;
+      }
+      const isActive = p === currentPage ? 'active' : '';
+      return `<button type="button" class="crm-page-btn ${isActive}" onclick="changeCrmPage(${p})">${p}</button>`;
+    }).join('');
+
+    container.innerHTML = `
+      <div class="crm-pagination-info">
+        <span>Mostrando <strong>${startRecord} - ${endRecord}</strong> de <strong>${totalFiltered}</strong> pacientes</span>
+      </div>
+      <div class="crm-pagination-actions">
+        <div class="crm-page-size-wrap">
+          <label for="crmPageSizeSelect">Por página:</label>
+          <select id="crmPageSizeSelect" class="crm-page-size-select" onchange="changeCrmPageSize(this.value)">
+            <option value="3" ${pageSize === 3 ? 'selected' : ''}>3</option>
+            <option value="4" ${pageSize === 4 ? 'selected' : ''}>4</option>
+            <option value="6" ${pageSize === 6 ? 'selected' : ''}>6</option>
+            <option value="10" ${pageSize === 10 ? 'selected' : ''}>10</option>
+            <option value="24" ${pageSize === 24 ? 'selected' : ''}>Todos (24)</option>
+          </select>
+        </div>
+        <div class="crm-pagination-controls">
+          <button type="button" class="crm-page-btn" ${prevDisabled} onclick="changeCrmPage(${currentPage - 1})" title="Página anterior">&lt;</button>
+          ${buttonsHtml}
+          <button type="button" class="crm-page-btn" ${nextDisabled} onclick="changeCrmPage(${currentPage + 1})" title="Página siguiente">&gt;</button>
+        </div>
+      </div>
+    `;
+  }
+
+  function changeCrmPage(newPage) {
+    const pageNum = parseInt(newPage, 10);
+    if (!isNaN(pageNum)) {
+      state.crmCurrentPage = pageNum;
+      renderCRM();
+    }
+  }
+
+  function changeCrmPageSize(newSize) {
+    const sizeNum = parseInt(newSize, 10);
+    if (!isNaN(sizeNum)) {
+      state.crmPageSize = sizeNum;
+      state.crmCurrentPage = 1;
+      renderCRM();
+    }
+  }
+
+  window.changeCrmPage = changeCrmPage;
+  window.changeCrmPageSize = changeCrmPageSize;
 
   function updatePatientStatus(patientId, newStatus) {
     const p = (state.crmPatients || []).find(x => x.id === patientId);
