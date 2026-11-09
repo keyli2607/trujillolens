@@ -79,22 +79,49 @@
     form.reset();
     
     if (itemId) {
-      const item = state.inventory.find(i => i.id === itemId);
+      let item = null;
+      let source = 'inventory';
+
+      if (state && state.inventory) {
+        item = state.inventory.find(i => i.id === itemId);
+      }
+      if (!item) {
+        const adults = window.MOCK_CATALOG_ADULT || (typeof MOCK_CATALOG_ADULT !== 'undefined' ? MOCK_CATALOG_ADULT : []);
+        item = adults.find(i => i.id === itemId);
+        if (item) source = 'adult';
+      }
+      if (!item) {
+        const kids = window.MOCK_CATALOG || (typeof MOCK_CATALOG !== 'undefined' ? MOCK_CATALOG : []);
+        item = kids.find(i => i.id === itemId);
+        if (item) source = 'kids';
+      }
+
       if (item) {
-        document.getElementById('modalInventoryTitle').textContent = 'Editar Producto';
-        document.getElementById('btnSaveInventoryText').textContent = 'Guardar Cambios';
-        document.getElementById('invItemId').value = item.id;
-        document.getElementById('invCategory').value = item.category;
-        document.getElementById('invBrand').value = item.brand;
-        document.getElementById('invModel').value = item.model;
-        document.getElementById('invStock').value = item.stock;
-        document.getElementById('invCost').value = item.cost;
-        document.getElementById('invPrice').value = item.price;
+        const title = document.getElementById('modalInventoryTitle');
+        if (title) title.textContent = `Editar Producto — ${item.brand || ''} ${item.model || ''}`;
+        const btnText = document.getElementById('btnSaveInventoryText');
+        if (btnText) btnText.textContent = 'Guardar Cambios';
+
+        if (document.getElementById('invItemId')) document.getElementById('invItemId').value = item.id;
+        if (document.getElementById('invItemSource')) document.getElementById('invItemSource').value = source;
+        if (document.getElementById('invBrand')) document.getElementById('invBrand').value = item.brand || '';
+        if (document.getElementById('invCategory')) document.getElementById('invCategory').value = item.category || '';
+        if (document.getElementById('invModel')) document.getElementById('invModel').value = item.model || '';
+        if (document.getElementById('invSku')) document.getElementById('invSku').value = item.sku || '';
+        if (document.getElementById('invMaterial')) document.getElementById('invMaterial').value = item.material || '';
+        if (document.getElementById('invColor')) document.getElementById('invColor').value = item.color || '';
+        if (document.getElementById('invStock')) document.getElementById('invStock').value = item.stock ?? 0;
+        if (document.getElementById('invCost')) document.getElementById('invCost').value = item.cost ?? Number(((item.price || 0) * 0.45).toFixed(2));
+        if (document.getElementById('invPrice')) document.getElementById('invPrice').value = item.price ?? 0;
+        if (document.getElementById('invImage')) document.getElementById('invImage').value = item.image || '';
       }
     } else {
-      document.getElementById('modalInventoryTitle').textContent = 'Nuevo Producto';
-      document.getElementById('btnSaveInventoryText').textContent = 'Crear Producto';
-      document.getElementById('invItemId').value = '';
+      const title = document.getElementById('modalInventoryTitle');
+      if (title) title.textContent = 'Nuevo Producto';
+      const btnText = document.getElementById('btnSaveInventoryText');
+      if (btnText) btnText.textContent = 'Crear Producto';
+      if (document.getElementById('invItemId')) document.getElementById('invItemId').value = '';
+      if (document.getElementById('invItemSource')) document.getElementById('invItemSource').value = 'new';
     }
     
     modal.classList.add('active');
@@ -104,31 +131,92 @@
     if (e && typeof e.preventDefault === 'function') e.preventDefault();
     
     const id = document.getElementById('invItemId')?.value;
-    const category = document.getElementById('invCategory')?.value || 'Oftálmico';
+    const source = document.getElementById('invItemSource')?.value || 'inventory';
     const brand = document.getElementById('invBrand')?.value || 'Genérico';
+    const category = document.getElementById('invCategory')?.value || 'Oftálmico';
     const model = document.getElementById('invModel')?.value || 'Modelo General';
+    const sku = document.getElementById('invSku')?.value || '';
+    const material = document.getElementById('invMaterial')?.value || '';
+    const color = document.getElementById('invColor')?.value || '';
     const stock = parseInt(document.getElementById('invStock')?.value || '0', 10);
     const cost = parseFloat(document.getElementById('invCost')?.value || '0');
     const price = parseFloat(document.getElementById('invPrice')?.value || '0');
+    const image = document.getElementById('invImage')?.value || '';
     
     let status = 'good';
-    if (stock <= 3) status = 'critical';
+    if (stock <= 0) status = 'critical';
+    else if (stock <= 3) status = 'critical';
     else if (stock <= 6) status = 'medium';
 
-    if (id) {
-      const idx = state.inventory.findIndex(i => i.id === id);
-      if (idx !== -1) {
-        state.inventory[idx] = { ...state.inventory[idx], category, brand, model, stock, cost, price, status };
-        showToast('Producto actualizado correctamente');
+    // 1. Si pertenece a MOCK_CATALOG_ADULT
+    const adults = window.MOCK_CATALOG_ADULT || (typeof MOCK_CATALOG_ADULT !== 'undefined' ? MOCK_CATALOG_ADULT : []);
+    const adultIdx = adults.findIndex(i => i.id === id);
+    if (adultIdx !== -1) {
+      adults[adultIdx] = {
+        ...adults[adultIdx],
+        brand,
+        category,
+        model,
+        sku: sku || adults[adultIdx].sku,
+        material: material || adults[adultIdx].material,
+        color: color || adults[adultIdx].color,
+        stock,
+        cost,
+        price,
+        image: image || adults[adultIdx].image
+      };
+      if (typeof renderAdultCatalog === 'function') renderAdultCatalog();
+      if (typeof window.renderAdultCatalog === 'function') window.renderAdultCatalog();
+    }
+
+    // 2. Si pertenece a MOCK_CATALOG (Kids)
+    const kids = window.MOCK_CATALOG || (typeof MOCK_CATALOG !== 'undefined' ? MOCK_CATALOG : []);
+    const kidIdx = kids.findIndex(i => i.id === id);
+    if (kidIdx !== -1) {
+      kids[kidIdx] = {
+        ...kids[kidIdx],
+        brand,
+        category,
+        model,
+        sku: sku || kids[kidIdx].sku,
+        material: material || kids[kidIdx].material,
+        color: color || kids[kidIdx].color,
+        stock,
+        cost,
+        price,
+        image: image || kids[kidIdx].image
+      };
+      if (typeof renderCatalog === 'function') renderCatalog();
+      if (typeof window.renderCatalog === 'function') window.renderCatalog();
+    }
+
+    // 3. Si pertenece o se agrega a state.inventory
+    if (state && state.inventory) {
+      const invIdx = state.inventory.findIndex(i => i.id === id);
+      if (invIdx !== -1) {
+        state.inventory[invIdx] = {
+          ...state.inventory[invIdx],
+          brand,
+          category,
+          model,
+          stock,
+          cost,
+          price,
+          status
+        };
+      } else if (!id || source === 'new') {
+        const newId = 'inv-' + Date.now();
+        state.inventory.unshift({ id: newId, category, brand, model, stock, cost, price, status, threshold: 5 });
       }
-    } else {
-      const newId = 'inv-' + Date.now();
-      state.inventory.unshift({ id: newId, category, brand, model, stock, cost, price, status, threshold: 5 });
-      showToast('Nuevo producto agregado');
     }
     
-    document.getElementById('modalInventory')?.classList.remove('active');
-    renderInventory();
+    if (typeof renderInventory === 'function') renderInventory();
+    if (typeof window.renderInventory === 'function') window.renderInventory();
+
+    const modal = document.getElementById('modalInventory');
+    if (modal) modal.classList.remove('active');
+
+    showToast(`Producto ${id ? 'actualizado' : 'agregado'}: ${brand} ${model}`);
   }
 
   function replenishStock(itemId) {
@@ -179,7 +267,7 @@
         <div class="catalog-card" style="background: var(--admin-card-bg); border: 1px solid var(--admin-card-border); border-radius: 12px; overflow: hidden; position: relative; box-shadow: var(--admin-shadow);">
           ${stockBadge}
           <div style="height: 180px; overflow: hidden; background: #fff; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--admin-card-border);">
-            <img src="${item.image}" alt="${item.model}" style="width: 100%; height: 100%; object-fit: cover;">
+            <img src="${item.image}" alt="${item.model}" onerror="this.onerror=null; this.src='brands/' + (item.brand ? item.brand.toLowerCase() : 'sylvane') + '.png'; this.style.objectFit='contain'; this.style.padding='1rem';" style="width: 100%; height: 100%; object-fit: cover;">
           </div>
           <div style="padding: 1.5rem;">
             <div style="font-size: 0.75rem; color: var(--admin-primary); font-weight: 800; margin-bottom: 0.25rem; text-transform: uppercase;">${item.brand} | ${item.sku}</div>
@@ -195,7 +283,7 @@
             </div>
             <div style="display: flex; gap: 0.5rem;">
               ${btnSell}
-              ${!isSeller ? `<button class="btn-header-action" style="padding: 0.5rem 1rem;" onclick="showToast('Abriendo editor de producto...')">Editar</button>` : ''}
+              ${!isSeller ? `<button type="button" class="btn-header-action" style="padding: 0.5rem 1rem;" onclick="openInventoryModal('${item.id}')">Editar</button>` : ''}
             </div>
           </div>
         </div>
@@ -236,7 +324,7 @@
         <div class="catalog-card" style="background: var(--admin-card-bg); border: 1px solid var(--admin-card-border); border-radius: 12px; overflow: hidden; position: relative; box-shadow: var(--admin-shadow);">
           ${stockBadge}
           <div style="height: 180px; overflow: hidden; background: #fff; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--admin-card-border);">
-            <img src="${item.image}" alt="${item.model}" style="width: 100%; height: 100%; object-fit: cover;">
+            <img src="${item.image}" alt="${item.model}" onerror="this.onerror=null; this.src='brands/' + (item.brand ? item.brand.toLowerCase() : 'sylvane') + '.png'; this.style.objectFit='contain'; this.style.padding='1rem';" style="width: 100%; height: 100%; object-fit: cover;">
           </div>
           <div style="padding: 1.5rem;">
             <div style="font-size: 0.75rem; color: var(--admin-primary); font-weight: 800; margin-bottom: 0.25rem; text-transform: uppercase;">${item.brand} | ${item.sku}</div>
@@ -251,7 +339,7 @@
             </div>
             <div style="display: flex; gap: 0.5rem;">
               ${btnSell}
-              ${!isSeller ? `<button class="btn-header-action" style="padding: 0.5rem 1rem;" onclick="showToast('Abriendo editor de producto...')">Editar</button>` : ''}
+              ${!isSeller ? `<button type="button" class="btn-header-action" style="padding: 0.5rem 1rem;" onclick="openInventoryModal('${item.id}')">Editar</button>` : ''}
             </div>
           </div>
         </div>

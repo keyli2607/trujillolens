@@ -3,6 +3,7 @@
 
   const LG = window.LG = window.LG || {};
   const C = LG.components = LG.components || {};
+  const STORE_URL = (typeof window !== 'undefined' && window.location.protocol === 'file:') ? 'index.html' : '/';
 
   // 1. TOP BAR
   C.TopBar = function () {
@@ -40,11 +41,12 @@
     const current = opts.current || 'inicio';
     const isHome = opts.isHome !== false;
     const links = isHome ? LG.data.site.nav.home : LG.data.site.nav.tracking;
+    const contactHref = isHome ? '#contacto' : (STORE_URL === '/' ? '/#contacto' : 'index.html#contacto');
 
     return LG.html`
       <header class="site-header" id="siteHeader">
         <div class="container navbar">
-          <a href="${isHome ? '#inicio' : 'index.html'}" class="nav-brand" title="Lens Group Trujillo">
+          <a href="${isHome ? '#inicio' : STORE_URL}" class="nav-brand" title="Lens Group Trujillo">
             <img src="assets/images/logo.jpg" alt="Lens Group Trujillo - Distribuidor Autorizado" class="brand-logo-img">
           </a>
 
@@ -54,16 +56,19 @@
             ${LG.each(links, (item) => {
               const isActive = (item.href === `#${current}` || item.href === current);
               const extraTitle = item.title ? ` title="${LG.esc(item.title)}"` : '';
-              return `<a href="${item.href}" class="nav-link${isActive ? ' active' : ''}"${extraTitle}>${item.label}</a>`;
+              const resolvedHref = (typeof window !== 'undefined' && window.location.protocol === 'file:')
+                ? item.href
+                : item.href.replace(/^index\.html/, '/');
+              return `<a href="${resolvedHref}" class="nav-link${isActive ? ' active' : ''}"${extraTitle}>${item.label}</a>`;
             })}
             <div class="nav-menu-divider"></div>
-            <a href="${isHome ? '#contacto' : 'index.html#contacto'}" class="btn btn-primary drawer-contact-btn">
+            <a href="${contactHref}" class="btn btn-primary drawer-contact-btn">
               Agendar Cita en Trujillo
             </a>
           </nav>
 
           <div class="nav-actions">
-            <a href="${isHome ? '#contacto' : 'index.html#contacto'}" class="btn btn-navy btn-sm btn-contact">
+            <a href="${contactHref}" class="btn btn-navy btn-sm btn-contact">
               Agendar Cita
             </a>
           </div>
@@ -757,19 +762,22 @@
             <div class="footer-col">
               <h4 class="footer-title">${col.title}</h4>
               <ul class="footer-links">
-                ${LG.each(col.links, (l) => LG.html`
-                  <li><a href="${l.href}"${l.style ? ` style="${l.style}"` : ''}>${l.label}</a></li>
-                `)}
+                ${LG.each(col.links, (l) => {
+                  const linkHref = (typeof window !== 'undefined' && window.location.protocol === 'file:')
+                    ? l.href
+                    : l.href.replace(/^index\.html/, '/');
+                  return LG.html`<li><a href="${linkHref}"${l.style ? ` style="${l.style}"` : ''}>${l.label}</a></li>`;
+                })}
               </ul>
             </div>
 
             <div class="footer-col">
               <h4 class="footer-title">Información Legal</h4>
               <ul class="footer-links">
-                <li><a href="${isHome ? '#contacto' : 'index.html#contacto'}">RUC: ${s.ruc}</a></li>
-                <li><a href="${isHome ? '#contacto' : 'index.html#contacto'}">Políticas de Garantía Oficial</a></li>
-                <li><a href="${isHome ? '#contacto' : 'index.html#contacto'}">Términos y Condiciones</a></li>
-                <li><a href="${isHome ? '#contacto' : 'index.html#contacto'}">Protección de Datos Personales</a></li>
+                <li><a href="${isHome ? '#contacto' : (STORE_URL === '/' ? '/#contacto' : 'index.html#contacto')}">RUC: ${s.ruc}</a></li>
+                <li><a href="${isHome ? '#contacto' : (STORE_URL === '/' ? '/#contacto' : 'index.html#contacto')}">Políticas de Garantía Oficial</a></li>
+                <li><a href="${isHome ? '#contacto' : (STORE_URL === '/' ? '/#contacto' : 'index.html#contacto')}">Términos y Condiciones</a></li>
+                <li><a href="${isHome ? '#contacto' : (STORE_URL === '/' ? '/#contacto' : 'index.html#contacto')}">Protección de Datos Personales</a></li>
               </ul>
               <div style="margin-top: 1.25rem; display: flex; align-items: center; gap: 0.6rem; background: rgba(255,255,255,0.05); padding: 0.6rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,0.1);">
                 ${LG.icon('book', { size: 22, sw: 2 })}
@@ -862,7 +870,7 @@
               </a>
             `;
           }
-          const href = isHome ? act.href : `index.html${act.href}`;
+          const href = isHome ? act.href : `${STORE_URL === '/' ? '/' : 'index.html'}${act.href}`;
           return LG.html`
             <a href="${href}" class="mobile-action-btn${act.active && isHome ? ' active' : ''}" id="${act.id}">
               ${LG.icon(act.icon, { size: 24, sw: 2.2 })}
