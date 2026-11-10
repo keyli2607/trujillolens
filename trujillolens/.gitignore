@@ -1,0 +1,4 @@
+orders.json
+node_modules/
+.env
+.env.*

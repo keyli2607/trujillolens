@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 200" width="100%" height="100%">
+  <defs>
+    <linearGradient id="circleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2dd4bf" />
+      <stop offset="100%" stop-color="#0d9488" />
+    </linearGradient>
+    <linearGradient id="lensGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#bae6fd" />
+      <stop offset="50%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+    <filter id="dropShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="1" dy="3" stdDeviation="3" flood-opacity="0.15" />
+    </filter>
+  </defs>
+
+  <!-- Group Emblem Circle -->
+  <g transform="translate(10, 10)">
+    <!-- Teal circle with subtle radial segments -->
+    <circle cx="85" cy="85" r="75" fill="url(#circleGrad)" />
+    <path d="M 85 85 L 85 10 A 75 75 0 0 1 148 43 Z" fill="#38bdf8" opacity="0.25" />
+    <path d="M 85 85 L 148 127 A 75 75 0 0 1 85 160 Z" fill="#0f766e" opacity="0.2" />
+
+    <!-- Big T in black -->
+    <path d="M 38 72 L 78 72 L 78 140 L 58 140 L 58 87 L 38 87 Z" fill="#1e293b" />
+
+    <!-- Big L in white with dark outline overlapping T -->
+    <path d="M 68 35 L 85 35 L 85 102 L 118 102 L 118 118 L 68 118 Z" 
+          fill="#ffffff" stroke="#1e293b" stroke-width="4.5" stroke-linejoin="miter" />
+  </g>
+
+  <!-- Sunglasses Graphic -->
+  <g transform="translate(240, 15) scale(0.9)" filter="url(#dropShadow)">
+    <!-- Frame -->
+    <path d="M 12 28 Q 45 22 80 27 Q 95 30 110 27 Q 145 22 178 28 C 190 30 192 48 185 64 C 176 82 150 86 122 82 C 104 79 97 60 95 56 C 93 60 86 79 68 82 C 40 86 14 82 5 64 C -2 48 0 30 12 28 Z" fill="#0f172a" />
+    <!-- Left Lens -->
+    <path d="M 18 34 Q 45 29 78 34 C 84 48 82 72 65 74 C 42 77 22 72 15 58 C 12 50 14 38 18 34 Z" fill="url(#lensGrad)" />
+    <ellipse cx="32" cy="44" rx="10" ry="4" fill="#ffffff" opacity="0.75" transform="rotate(-15 32 44)" />
+    <ellipse cx="60" cy="58" rx="8" ry="3" fill="#ffffff" opacity="0.4" transform="rotate(-15 60 58)" />
+
+    <!-- Right Lens -->
+    <path d="M 112 34 Q 145 29 172 34 C 176 38 178 50 175 58 C 168 72 148 77 125 74 C 108 72 106 48 112 34 Z" fill="url(#lensGrad)" />
+    <ellipse cx="128" cy="44" rx="10" ry="4" fill="#ffffff" opacity="0.75" transform="rotate(-15 128 44)" />
+    <ellipse cx="156" cy="58" rx="8" ry="3" fill="#ffffff" opacity="0.4" transform="rotate(-15 156 58)" />
+  </g>
+
+  <!-- Typography: LENS Group -->
+  <!-- "ENS" completes "L" -->
+  <text x="175" y="105" font-family="'Plus Jakarta Sans', 'Outfit', sans-serif" font-weight="900" font-size="44" fill="#0d9488" letter-spacing="1.5">ENS</text>
+  <text x="300" y="98" font-family="'Outfit', 'Brush Script MT', cursive, sans-serif" font-style="italic" font-weight="600" font-size="20" fill="#334155">Group</text>
+
+  <!-- Teal Swoosh underline -->
+  <path d="M 175 116 Q 280 122 360 114" stroke="#14b8a6" stroke-width="4.5" stroke-linecap="round" fill="none" />
+
+  <!-- Typography: TRUJILLO (completes T) -->
+  <text x="176" y="152" font-family="'Plus Jakarta Sans', 'Outfit', sans-serif" font-weight="900" font-size="34" fill="#1e293b" letter-spacing="3.5">RUJILLO</text>
+
+  <!-- Subtitle: DISTRIBUIDOR AUTORIZADO -->
+  <rect x="175" y="166" width="310" height="24" rx="5" fill="#0f766e" opacity="0.08" />
+  <text x="330" y="182" text-anchor="middle" font-family="'Inter', sans-serif" font-weight="800" font-size="12" fill="#0f766e" letter-spacing="4">DISTRIBUIDOR AUTORIZADO</text>
+</svg>

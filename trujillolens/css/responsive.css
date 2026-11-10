@@ -1,0 +1,1071 @@
+/* ==========================================================================
+   LENS GROUP TRUJILLO — RESPONSIVE DESIGN (MOBILE-FIRST)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   MEDIUM DEVICES — Tablets (max 1024px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .hero-content {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .hero-description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-cta-group {
+    justify-content: center;
+  }
+
+  .hero-metrics {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .trust-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .simulator-card {
+    grid-template-columns: 1fr;
+  }
+
+  .simulator-viewer {
+    height: 340px;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .about-images-col {
+    order: -1;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   SMALL DEVICES — Phones & Small Tablets (max 768px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+
+  /* === GENERAL SPACING & LAYOUT === */
+  .container {
+    padding-left: 1.1rem;
+    padding-right: 1.1rem;
+  }
+
+  section {
+    padding-top: 3.5rem !important;
+    padding-bottom: 3.5rem !important;
+  }
+
+  h2,
+  .section-title {
+    font-size: 1.75rem !important;
+    line-height: 1.2 !important;
+  }
+
+  /* === TOP BAR === */
+  .top-bar {
+    display: none;
+  }
+
+  /* === NAVBAR === */
+  .navbar {
+    height: 66px;
+  }
+
+  .brand-logo-img {
+    height: 40px;
+  }
+
+  .mobile-toggle {
+    display: block;
+  }
+
+  .nav-actions .btn-contact,
+  .nav-actions .btn-whatsapp {
+    display: none !important;
+  }
+
+  .product-body .btn-sm {
+    padding: 0.5rem 0.4rem;
+    font-size: 0.8rem;
+    gap: 0.25rem;
+  }
+
+  /* === HERO SECTION === */
+  .hero-section {
+    padding: 2rem 0 3.5rem 0;
+  }
+
+  .hero-badge {
+    font-size: 0.8rem;
+  }
+
+  .hero-title {
+    font-size: 2.1rem !important;
+    line-height: 1.15 !important;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-cta-group {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .hero-cta-group .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .hero-metrics {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    padding-top: 1.5rem;
+  }
+
+  .metric-number {
+    font-size: 1.55rem;
+  }
+
+  .metric-label {
+    font-size: 0.75rem;
+  }
+
+  .floating-card {
+    display: none;
+  }
+
+  /* === BRANDS CAROUSEL === */
+  .brands-carousel-track {
+    gap: 2.5rem;
+    animation-duration: 22s;
+  }
+
+  .brand-item {
+    height: 42px;
+    min-width: 110px;
+  }
+
+  /* === TRUST CARDS === */
+  .trust-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .trust-card {
+    padding: 1.25rem 1rem;
+  }
+
+  .trust-icon {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 0.85rem;
+  }
+
+  .trust-title {
+    font-size: 0.95rem;
+  }
+
+  .trust-desc {
+    font-size: 0.8rem;
+  }
+
+  /* === CATALOG / PRODUCTOS === (ver components.css para estilos móvil) */
+
+  /* Product cards más compactas en mobile */
+  .product-media {
+    height: 200px;
+  }
+
+  .product-body {
+    padding: 1rem;
+  }
+
+  .product-title {
+    font-size: 0.95rem;
+  }
+
+  .product-price {
+    font-size: 1.1rem;
+  }
+
+  /* Botones de acción siempre visibles en mobile */
+  .product-quick-actions {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* === MODAL DE PRODUCTO (MOBILE & TABLET SLIM) === */
+  .modal-overlay {
+    padding: 0.75rem;
+    align-items: flex-end; /* Efecto bottom-sheet moderno en móviles */
+  }
+
+  .modal-dialog {
+    max-width: 100%;
+    max-height: 88vh;
+    border-radius: 24px 24px 16px 16px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    box-shadow: 0 -10px 40px rgba(15, 23, 42, 0.25);
+  }
+
+  /* Barra de cierre estilizada tipo handle */
+  .modal-dialog::before {
+    content: '';
+    display: block;
+    width: 44px;
+    height: 5px;
+    border-radius: 10px;
+    background: #cbd5e1;
+    margin: 0.65rem auto 0 auto;
+  }
+
+  .modal-close-btn {
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 34px;
+    height: 34px;
+    background: rgba(15, 23, 42, 0.06);
+    color: var(--color-dark-800);
+    border: none;
+  }
+
+  .modal-content-grid {
+    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modal-viewer-wrapper {
+    border-right: none;
+    border-bottom: 1px solid #f1f5f9;
+    padding-top: 0;
+  }
+
+  .modal-main-info {
+    padding: 0.75rem 1.15rem 0.5rem 1.15rem;
+  }
+
+  .modal-main-info h2 {
+    font-size: 1.25rem !important;
+    line-height: 1.25 !important;
+    margin: 0.2rem 0 0.35rem 0;
+  }
+
+  .modal-main-info .product-price {
+    font-size: 1.55rem;
+  }
+
+  .modal-main-info #modalDesc {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: var(--color-dark-600);
+  }
+
+  .modal-zoom-container {
+    min-height: 200px;
+    max-height: 240px;
+    padding: 1rem 1.25rem;
+    background: radial-gradient(circle at center, #ffffff 0%, #f8fafc 100%);
+  }
+
+  .modal-zoom-image {
+    max-height: 190px;
+    object-fit: contain;
+  }
+
+  .modal-details {
+    padding: 1.15rem;
+    background: #ffffff;
+  }
+
+  .modal-specs-title {
+    font-size: 0.95rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .modal-specs-list {
+    margin: 0 0 1.2rem 0;
+    gap: 0.35rem;
+  }
+
+  .modal-spec-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
+    padding: 0.45rem 0.65rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px solid rgba(226, 232, 240, 0.7);
+  }
+
+  .modal-spec-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--color-dark-400);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .modal-spec-value {
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--color-dark-800);
+    line-height: 1.35;
+  }
+
+  /* === GOOGLE REVIEWS === */
+  .google-business-summary-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem 1.25rem;
+    gap: 1.25rem;
+  }
+
+  .google-summary-left {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .google-biz-name {
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+
+  .google-score-row {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .google-numeric-score {
+    font-size: 1.5rem;
+  }
+
+  .google-stars-icons {
+    font-size: 1.2rem;
+  }
+
+  .google-reviews-count {
+    width: 100%;
+    text-align: center;
+    font-size: 0.8rem;
+  }
+
+  .google-address-chip {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .google-summary-right {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-write-review,
+  .btn-view-maps-outline {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* === TESTIMONIOS === */
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* === ABOUT SECTION === */
+  .about-features-list {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  /* === CONTACT / APPOINTMENT === */
+  .appointment-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  /* === FOOTER === */
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .footer-brand {
+    align-items: center;
+  }
+
+  /* === BOTÓN FLOTANTE WHATSAPP === */
+  .floating-whatsapp {
+    bottom: 1.25rem;
+    right: 1.25rem;
+  }
+
+  .whatsapp-bubble {
+    display: none;
+  }
+
+  /* === TRACKING MOBILE === */
+  .tracking-search-card {
+    padding: 1.5rem;
+    margin: -2.5rem 1rem 0 1rem;
+  }
+
+  .tracking-admin-layout {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin: 0 0.75rem;
+  }
+
+  .optometrista-login-modal {
+    padding: 0.75rem;
+  }
+
+  .optometrista-login-card,
+  .optometrista-dashboard {
+    width: 100%;
+    border-radius: 1.25rem;
+    padding: 1rem 0.9rem;
+  }
+
+  .optometrista-login-form,
+  .optometrista-new-order-form {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+
+  .optometrista-login-form button,
+  .optometrista-new-order-form button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .optometrista-dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 0.85rem;
+  }
+
+  .optometrista-order-top,
+  .optometrista-order-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .optometrista-link-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+  }
+
+  .optometrista-link-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .optometrista-order-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .optometrista-order-actions .btn,
+  .optometrista-link-actions .btn {
+    width: 100%;
+  }
+
+  .tracking-input-group {
+    flex-direction: column;
+  }
+
+  .tracking-btn-submit {
+    width: 100%;
+  }
+
+  .tracking-meta-grid {
+    grid-template-columns: 1fr 1fr;
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+
+  .tracking-timeline-section {
+    padding: 2rem 1.25rem;
+  }
+
+  .timeline-track-wrap {
+    margin: 1.5rem 0 2rem 0;
+  }
+
+  .timeline-track-bar {
+    top: 24px;
+    bottom: 24px;
+    left: 24px;
+    right: auto;
+    width: 5px;
+    height: auto;
+  }
+
+  .timeline-progress-bar {
+    width: 5px !important;
+    transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .timeline-steps {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  .timeline-step {
+    flex-direction: row;
+    width: 100%;
+    text-align: left;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .timeline-node {
+    margin-bottom: 0;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    z-index: 2;
+  }
+
+  .timeline-step-label {
+    font-size: 1rem;
+  }
+
+  .timeline-step-desc {
+    font-size: 0.85rem;
+  }
+
+  .tracking-result-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .tracking-result-actions .btn {
+    width: 100%;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   EXTRA SMALL — Phones pequeños (max 480px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+
+  /* === HERO === */
+  .hero-title {
+    font-size: 1.75rem !important;
+  }
+
+  .hero-metrics {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+
+  .metric-number {
+    font-size: 1.35rem;
+  }
+
+  .metric-label {
+    font-size: 0.7rem;
+  }
+
+  /* === TRUST CARDS === */
+  .trust-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* === ABOUT === */
+  .about-features-list {
+    grid-template-columns: 1fr;
+  }
+
+  /* === FLOATING WHATSAPP === */
+  .floating-whatsapp {
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  /* === APPOINTMENT === */
+  .appointment-card {
+    padding: 1.25rem 1rem;
+  }
+
+  .optometrista-login-card,
+  .optometrista-dashboard {
+    padding: 0.9rem 0.8rem;
+    border-radius: 1rem;
+  }
+
+  .tracking-admin-layout {
+    margin: 0 0.45rem;
+    gap: 0.75rem;
+  }
+
+  .optometrista-dashboard-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .optometrista-dashboard-header h3 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .optometrista-tag {
+    font-size: 0.64rem;
+    padding: 0.3rem 0.55rem;
+  }
+
+  .optometrista-close {
+    top: 0.45rem;
+    right: 0.45rem;
+    width: 28px;
+    height: 28px;
+    font-size: 1.2rem;
+  }
+
+  .optometrista-login-form input {
+    padding: 0.8rem 0.85rem;
+    font-size: 0.9rem;
+  }
+
+  .optometrista-order-card {
+    padding: 0.85rem 0.75rem;
+    border-radius: 0.95rem;
+  }
+
+  .optometrista-order-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .tracking-state-badge {
+    width: 100%;
+    justify-content: center;
+    padding: 0.55rem 0.8rem;
+    font-size: 0.82rem;
+  }
+
+  .optometrista-order-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+  }
+
+  .optometrista-order-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.6rem;
+  }
+
+  .optometrista-order-actions .btn,
+  .optometrista-logout {
+    width: 100%;
+    justify-content: center;
+    min-height: 46px;
+    font-size: 0.96rem;
+  }
+
+  .optometrista-order-code {
+    font-size: 0.92rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   MOBILE-SPECIFIC UX ENHANCEMENTS (Todas las pantallas táctiles)
+   -------------------------------------------------------------------------- */
+@media (hover: none) and (pointer: coarse) {
+
+  .btn {
+    min-height: 48px;
+  }
+
+  .filter-btn {
+    min-height: 40px;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
+
+  .product-card:active {
+    transform: scale(0.98);
+    transition: transform 0.12s ease;
+  }
+
+  .btn:active {
+    opacity: 0.85;
+    transform: scale(0.97);
+  }
+
+  .product-quick-actions {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+
+  .filter-pills,
+  .view-angles-tabs,
+  .brands-carousel-wrapper {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .filter-btn {
+    scroll-snap-align: start;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   LANDSCAPE ORIENTATION EN MOBILE
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) and (orientation: landscape) {
+  .hero-section {
+    padding: 1.5rem 0 2.5rem 0;
+  }
+
+  .hero-title {
+    font-size: 1.65rem !important;
+  }
+
+  .hero-image-wrapper img {
+    height: 280px;
+  }
+
+  .modal-zoom-container {
+    min-height: 200px;
+  }
+
+  .hero-metrics {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   SAFE AREA — Notch & Home Indicator (iPhone X+)
+   -------------------------------------------------------------------------- */
+@supports (padding: max(0px)) {
+  .navbar {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+
+  .floating-whatsapp {
+    bottom: max(1.25rem, calc(env(safe-area-inset-bottom) + 0.5rem));
+    right: max(1.25rem, env(safe-area-inset-right));
+  }
+}
+
+/* --------------------------------------------------------------------------
+   BOTTOM MOBILE ACTION BAR
+   -------------------------------------------------------------------------- */
+.mobile-action-bar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-action-bar {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 900;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(226, 232, 240, 0.9);
+    padding: 0.6rem 1rem;
+    padding-bottom: max(0.6rem, env(safe-area-inset-bottom));
+    gap: 0.5rem;
+    box-shadow: 0 -4px 20px rgba(15, 23, 42, 0.08);
+  }
+
+  .mobile-action-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    padding: 0.5rem 0.25rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--color-dark-600);
+    text-decoration: none;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    transition: all 0.2s ease;
+    font-family: var(--font-body);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobile-action-btn svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .mobile-action-btn:hover,
+  .mobile-action-btn.active {
+    color: var(--color-teal-700);
+    background: var(--color-teal-50);
+  }
+
+  .mobile-action-btn.whatsapp-action {
+    color: var(--color-white);
+    background: linear-gradient(135deg, #25d366, #128c7e);
+    border-radius: 14px;
+    flex: 1.3;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);
+  }
+
+  .mobile-action-btn.whatsapp-action:hover {
+    color: white;
+    background: linear-gradient(135deg, #20bd5a, #0f7a6e);
+  }
+
+  body {
+    padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .floating-whatsapp {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   MEJORAS VISUALES ADICIONALES EN MOBILE
+   -------------------------------------------------------------------------- */
+@media (max-width: 668px) {
+  .product-card {
+    box-shadow: 0 2px 12px rgba(15, 23, 42, 0.07);
+  }
+
+  .testimonials-section .testimonials-grid {
+    display: flex;
+    overflow-x: auto;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .testimonials-section .testimonials-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .testimonial-card {
+    min-width: 82vw;
+    scroll-snap-align: center;
+    flex-shrink: 0;
+  }
+
+  .hero-image-wrapper {
+    border-width: 4px;
+    border-radius: 20px;
+  }
+
+  .hero-image-wrapper img {
+    height: 320px;
+  }
+
+  .section-header {
+    text-align: center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* === SIMULADOR EN MÓVIL === */
+
+  /* Ocultar desktop, mostrar mobile */
+  .sim-desktop-only { display: none !important; }
+  .sim-mobile-only  { display: block !important; }
+
+  /* Viewer de imagen */
+  .sim-mob-viewer {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    background: #000;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    border: 1px solid var(--color-dark-200);
+    border-bottom: none;
+  }
+
+  .sim-mob-viewer .simulator-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .sim-mob-label {
+    position: absolute;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    background: rgba(15, 23, 42, 0.82);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+  }
+
+  /* Pills horizontales scrolleables */
+  .sim-mob-pills-wrap {
+    background: var(--color-dark-50);
+    border-left: 1px solid var(--color-dark-200);
+    border-right: 1px solid var(--color-dark-200);
+    padding: 0.85rem 1rem;
+    overflow: hidden;
+  }
+
+  .sim-mob-pills {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+
+  .sim-mob-pills::-webkit-scrollbar { display: none; }
+
+  .sim-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    white-space: nowrap;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--color-dark-200);
+    background: var(--color-white);
+    color: var(--color-dark-700);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .sim-pill svg { flex-shrink: 0; }
+
+  .sim-pill:hover {
+    border-color: var(--color-teal-400);
+    color: var(--color-teal-700);
+  }
+
+  .sim-pill.active {
+    background: var(--color-teal-600);
+    border-color: var(--color-teal-600);
+    color: #fff;
+  }
+
+  /* Info card debajo */
+  .sim-mob-info {
+    background: var(--color-white);
+    border: 1px solid var(--color-dark-200);
+    border-top: none;
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+    padding: 1.1rem 1.15rem 1.25rem;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .sim-mob-info-header h3 {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--color-dark-900);
+    margin: 0 0 0.4rem 0;
+    line-height: 1.3;
+    transition: all 0.2s ease;
+  }
+
+  .sim-mob-info > p {
+    font-size: 0.83rem;
+    color: var(--color-dark-600);
+    line-height: 1.5;
+    margin: 0 0 0.85rem 0;
+    transition: all 0.2s ease;
+  }
+
+  .sim-mob-ideal {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.45rem;
+    background: var(--color-teal-50);
+    border: 1px solid var(--color-teal-200);
+    border-radius: 8px;
+    padding: 0.65rem 0.85rem;
+  }
+
+  .sim-mob-ideal svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+    stroke: var(--color-teal-600);
+  }
+
+  .sim-mob-ideal p {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--color-teal-800);
+    margin: 0;
+    line-height: 1.4;
+    transition: all 0.2s ease;
+  }
+}
