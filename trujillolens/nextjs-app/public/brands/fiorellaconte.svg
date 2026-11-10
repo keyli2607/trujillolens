@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 60" width="100%" height="100%">
+  <!-- Fiorella Conte Logo SVG -->
+  <text x="50%" y="32" text-anchor="middle" font-family="'Playfair Display', 'Didot', 'Bodoni MT', 'Cinzel', serif" font-weight="700" font-size="18" fill="#1e293b" letter-spacing="2">FIORELLA</text>
+  <text x="50%" y="46" text-anchor="middle" font-family="'Playfair Display', 'Didot', serif" font-style="italic" font-weight="600" font-size="13" fill="#be185d" letter-spacing="3.5">CONTE</text>
+  <line x1="30" y1="52" x2="140" y2="52" stroke="#cbd5e1" stroke-width="0.75" />
+</svg>

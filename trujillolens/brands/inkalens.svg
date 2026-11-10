@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 60" width="100%" height="100%">
+  <!-- Inka Lens Brand Logo SVG -->
+  <g fill="#0c2340">
+    <!-- Stylized Inca eye / lens motif icon -->
+    <path d="M22 30 C 22 23, 29 18, 38 18 C 47 18, 54 23, 54 30 C 54 37, 47 42, 38 42 C 29 42, 22 37, 22 30 Z" fill="none" stroke="#0d9488" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="38" cy="30" r="5" fill="#0d9488"/>
+    <path d="M38 13 L38 16 M38 44 L38 47 M20 30 L17 30 M59 30 L56 30" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+  <text x="64" y="32" font-family="'Inter', 'Montserrat', sans-serif" font-weight="900" font-size="16" fill="#0c2340" letter-spacing="1">INKA</text>
+  <text x="110" y="32" font-family="'Inter', 'Montserrat', sans-serif" font-weight="800" font-size="16" fill="#0d9488" letter-spacing="1">LENS</text>
+  <text x="64" y="44" font-family="'Inter', sans-serif" font-weight="700" font-size="7" fill="#64748b" letter-spacing="2">LABORATORIO ÓPTICO</text>
+</svg>
