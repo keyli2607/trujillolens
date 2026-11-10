@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 60" width="100%" height="100%">
+  <!-- Oakley ellipse icon -->
+  <path d="M 80 14 C 60 14 44 21 44 30 C 44 39 60 46 80 46 C 100 46 116 39 116 30 C 116 21 100 14 80 14 Z M 80 20 C 94 20 106 24 106 30 C 106 36 94 40 80 40 C 66 40 54 36 54 30 C 54 24 66 20 80 20 Z" fill="#0f172a"/>
+  <text x="50%" y="54" text-anchor="middle" font-family="'Inter', sans-serif" font-weight="900" font-size="9" fill="#0f172a" letter-spacing="4">OAKLEY</text>
+</svg>
