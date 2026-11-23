@@ -1972,6 +1972,8 @@ function renderCatalog() {
   const grid = document.getElementById('catalogGrid');
   if (!grid) return;
 
+  const cleanStr = s => String(s || '').replace(/Ã±/g, 'ñ').replace(/Ã¡/g, 'á').replace(/Ã©/g, 'é').replace(/Ã³/g, 'ó').replace(/Ãº/g, 'ú').replace(/Ã‘/g, 'Ñ');
+
   const catFilter = document.getElementById('filterCatalogCategory')?.value || 'all';
   const matFilter = document.getElementById('filterCatalogMaterial')?.value || 'all';
   const ageFilter = document.getElementById('filterCatalogAge')?.value || 'all';
@@ -2007,9 +2009,9 @@ function renderCatalog() {
           <div style="font-size: 0.75rem; color: var(--admin-primary); font-weight: 800; margin-bottom: 0.25rem; text-transform: uppercase;">${item.brand} | ${item.sku}</div>
           <h3 style="margin: 0 0 0.5rem 0; font-size: 1.15rem; color: var(--admin-text-main); font-weight: 700;">${item.model}</h3>
           <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
-            <span style="font-size: 0.75rem; background: var(--admin-bg-alt); color: var(--admin-text-main); padding: 0.2rem 0.6rem; border-radius: 4px; border: 1px solid var(--admin-card-border); font-weight: 500;">${item.category}</span>
-            <span style="font-size: 0.75rem; background: var(--admin-bg-alt); color: var(--admin-text-main); padding: 0.2rem 0.6rem; border-radius: 4px; border: 1px solid var(--admin-card-border); font-weight: 500;">${item.age}</span>
-            <span style="font-size: 0.75rem; background: var(--admin-bg-alt); color: var(--admin-text-main); padding: 0.2rem 0.6rem; border-radius: 4px; border: 1px solid var(--admin-card-border); font-weight: 500;">${item.material}</span>
+            <span style="font-size: 0.75rem; background: var(--admin-bg-alt); color: var(--admin-text-main); padding: 0.2rem 0.6rem; border-radius: 4px; border: 1px solid var(--admin-card-border); font-weight: 500;">${cleanStr(item.category)}</span>
+            <span style="font-size: 0.75rem; background: var(--admin-bg-alt); color: var(--admin-text-main); padding: 0.2rem 0.6rem; border-radius: 4px; border: 1px solid var(--admin-card-border); font-weight: 500;">${cleanStr(item.age)}</span>
+            <span style="font-size: 0.75rem; background: var(--admin-bg-alt); color: var(--admin-text-main); padding: 0.2rem 0.6rem; border-radius: 4px; border: 1px solid var(--admin-card-border); font-weight: 500;">${cleanStr(item.material)}</span>
           </div>
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
             <span style="color: var(--admin-text-dim); font-size: 0.85rem; font-weight: 500;">Color: ${item.color}</span>
@@ -2990,14 +2992,31 @@ function botHas(text, words) {
   return words.some(w => text.includes(w));
 }
 
+window.botAsk = function(question) {
+  const input = document.getElementById('chatbotInput');
+  if (input) {
+    input.value = question;
+    const form = document.getElementById('chatbotForm');
+    if (form) {
+      if (typeof form.requestSubmit === 'function') form.requestSubmit();
+      else form.dispatchEvent(new Event('submit', { cancelable: true }));
+    }
+  }
+};
+
 function botData() {
-  const orders = Object.values(state.orders && Object.keys(state.orders).length ? state.orders : DEFAULT_ORDERS);
-  const inventory = state.inventory || INVENTORY_DB;
-  const kids = MOCK_CATALOG;
-  const adults = MOCK_CATALOG_ADULT;
+  const orders = Object.values(state.orders && Object.keys(state.orders).length ? state.orders : (typeof DEFAULT_ORDERS !== 'undefined' ? DEFAULT_ORDERS : {}));
+  const inventory = state.inventory || (typeof INVENTORY_DB !== 'undefined' ? INVENTORY_DB : []);
+  const kids = typeof MOCK_CATALOG !== 'undefined' ? MOCK_CATALOG : [];
+  const adults = typeof MOCK_CATALOG_ADULT !== 'undefined' ? MOCK_CATALOG_ADULT : [];
+  const crmPatients = state.crmPatients || (typeof DEFAULT_CRM_PATIENTS !== 'undefined' ? DEFAULT_CRM_PATIENTS : []);
+  const sales = state.sales || (typeof DEFAULT_SALES !== 'undefined' ? DEFAULT_SALES : []);
+  const auditLogs = state.auditLogs || (typeof DEFAULT_AUDIT_LOGS !== 'undefined' ? DEFAULT_AUDIT_LOGS : []);
+  const backups = state.backups || (typeof DEFAULT_BACKUPS !== 'undefined' ? DEFAULT_BACKUPS : []);
+  const cardex = state.cardex || (typeof CARDEX_DB !== 'undefined' ? CARDEX_DB : []);
   const revenue = orders.reduce((s, o) => s + (Number(o.price) || 0), 0);
   const cost = orders.reduce((s, o) => s + (Number(o.cost) || 0), 0);
-  return { orders, inventory, kids, adults, revenue, cost, profit: revenue - cost };
+  return { orders, inventory, kids, adults, crmPatients, sales, auditLogs, backups, cardex, revenue, cost, profit: revenue - cost };
 }
 
 function botTopBrands(orders) {
@@ -3016,171 +3035,576 @@ function generateBotReply(rawMsg) {
   const d = botData();
   const statusLabel = { cola: 'En cola', proceso: 'En proceso', listo: 'Listo para entrega' };
 
-  // 1. Saludos / cortesía
-  if (/^(hola|buenas|buenos|hey|hi|que tal|saludos)/.test(t)) {
-    const h = new Date().getHours();
-    const saludo = h < 12 ? 'Buenos días' : h < 19 ? 'Buenas tardes' : 'Buenas noches';
-    return `${saludo} Soy <strong>LensBot</strong>. Puedo responderte sobre ventas, ganancias, lentes más vendidos, stock, órdenes, clientes, catálogo y más. ¿Qué necesitas?`;
-  }
-  if (botHas(t, ['gracias', 'thank'])) return '¡Con gusto! Si necesitas algo más, aquí estoy.';
-  if (botHas(t, ['adios', 'chau', 'hasta luego', 'bye'])) return '¡Hasta luego! Que tengas excelentes ventas';
-  if (botHas(t, ['quien eres', 'que eres', 'como te llamas', 'tu nombre'])) {
-    return 'Soy <strong>LensBot</strong>, el asistente inteligente de Lens Group Trujillo. Analizo en tiempo real las órdenes, el inventario y los catálogos del sistema.';
-  }
-  if (botHas(t, ['ayuda', 'que puedes', 'que sabes', 'opciones', 'comandos', 'help'])) {
-    return `Puedo ayudarte con:<br>
-      • <em>"ventas totales"</em>, <em>"ganancias"</em><br>
-      • <em>"lentes más vendidos"</em>, <em>"mejor marca"</em><br>
-      • <em>"stock crítico"</em>, <em>"inventario"</em><br>
-      • <em>"órdenes pendientes"</em>, <em>"urgentes"</em>, <em>"listos"</em><br>
-      • <em>"clientes"</em> o busca por nombre/DNI/código<br>
-      • <em>"catálogo niños"</em>, <em>"catálogo adultos"</em><br>
-      • <em>"recomendaciones"</em>, <em>"hora"</em>, <em>"fecha"</em>`;
+  // Botón chip rápido
+  const chip = (label, query) => `<button type="button" onclick="botAsk('${query || label}')" style="background: rgba(14,165,233,0.12); color: var(--admin-primary); border: 1px solid rgba(14,165,233,0.3); border-radius: 12px; padding: 0.2rem 0.55rem; font-size: 0.72rem; cursor: pointer; margin: 0.15rem;">${label}</button>`;
+
+  // 1. Navegación asistida directa (Comandos "abre...", "llévame a...", "ve a...")
+  if (botHas(t, ['abre', 'abrir', 'ir a', 've a', 'llevame a', 'muestra', 'mostrar', 'ver modulo', 'pantalla de'])) {
+    if (botHas(t, ['crm', 'paciente', 'postventa', 'seguimiento'])) {
+      if (typeof switchCategory === 'function') switchCategory('postventa');
+      return `¡Listo! Te he llevado a la sección de <strong>CRM & Pacientes Oftalmológicos</strong>. Puedes consultar la cartera de ${d.crmPatients.length} pacientes, historial clínico y notas de WhatsApp.`;
+    }
+    if (botHas(t, ['auditoria', 'backup', 'copia', 'seguridad', 'log'])) {
+      if (typeof switchCategory === 'function') switchCategory('audit');
+      return `¡Listo! Estás en la vista de <strong>Auditoría, Inventario Crítico y Backups</strong>. Aquí puedes ver la bitácora de eventos, descargar backups o restaurar la base de datos.`;
+    }
+    if (botHas(t, ['venta', 'factura', 'boleta', 'comprobante'])) {
+      if (typeof switchCategory === 'function') switchCategory('sales');
+      return `¡Listo! Te he llevado a <strong>Historial de Ventas y Comprobantes</strong>. Tienes el registro de boletas electrónicas B001, facturas F001 y notas de venta.`;
+    }
+    if (botHas(t, ['inventario', 'stock', 'almacen'])) {
+      if (typeof switchCategory === 'function') switchCategory('inventory');
+      return `¡Listo! Estás en <strong>Inventario & Stock Crítico</strong>. Puedes verificar unidades, umbrales mínimos y editar monturas o cristales.`;
+    }
+    if (botHas(t, ['cardex', 'kardex', 'movimiento'])) {
+      if (typeof switchCategory === 'function') switchCategory('cardex');
+      return `¡Listo! Te he llevado a <strong>Cardex de Movimientos</strong>. Revisa aquí todas las entradas, salidas por venta y ajustes de stock.`;
+    }
+    if (botHas(t, ['orden', 'laboratorio', 'taller'])) {
+      if (typeof switchCategory === 'function') switchCategory('orders');
+      return `¡Listo! Te he llevado a <strong>Órdenes de Laboratorio</strong> para controlar los pedidos en cola, en proceso y listos para entrega.`;
+    }
+    if (botHas(t, ['catalogo nino', 'ninos', 'infantil'])) {
+      if (typeof switchCategory === 'function') switchCategory('catalog');
+      return `¡Listo! Abriendo el <strong>Catálogo de Niños</strong>. Monturas de silicona flexible y TR-90 de 0 a 12 años.`;
+    }
+    if (botHas(t, ['catalogo adulto', 'adultos', 'dama', 'caballero'])) {
+      if (typeof switchCategory === 'function') switchCategory('catalog-adult');
+      return `¡Listo! Abriendo el <strong>Catálogo de Adultos</strong> con colecciones de acetato, metal y titanio.`;
+    }
+    if (botHas(t, ['analitica', 'grafico', 'bi', 'estadistica'])) {
+      if (typeof switchCategory === 'function') switchCategory('analytics');
+      return `¡Listo! Estás en <strong>Analítica & Gráficos BI</strong>. Gráficos de tendencias, ventas por marca y ticket promedio.`;
+    }
+    if (botHas(t, ['simulador', 'rentabilidad'])) {
+      if (typeof switchCategory === 'function') switchCategory('simulator');
+      return `¡Listo! Abriendo el <strong>Simulador de Rentabilidad</strong> para calcular márgenes y proyecciones.`;
+    }
+    if (botHas(t, ['decision', 'matriz'])) {
+      if (typeof switchCategory === 'function') switchCategory('decisions');
+      return `¡Listo! Te he llevado a la <strong>Matriz de Toma de Decisiones</strong> ejecutiva.`;
+    }
   }
 
-  // 2. Hora / fecha
+  // 2. Saludos / cortesía
+  if (/^(hola|buenas|buenos|hey|hi|que tal|saludos|como estas)/.test(t)) {
+    const h = new Date().getHours();
+    const saludo = h < 12 ? 'Buenos días' : h < 19 ? 'Buenas tardes' : 'Buenas noches';
+    return `${saludo}. Soy <strong>LensBot</strong>, el asistente operativo integral de Lens Group Trujillo.<br><br>
+    Puedo consultar datos en vivo de:<br>
+    • <strong>Ventas y Facturación:</strong> Ingresos, boletas B001, facturas, comprobantes SUNAT.<br>
+    • <strong>CRM & Pacientes:</strong> Fichas clínicas, graduación, etapas postventa, WhatsApp.<br>
+    • <strong>Inventario & Cardex:</strong> Stock crítico, monturas, cristales, mermas de taller.<br>
+    • <strong>Auditoría & Backups:</strong> Registro de logs, descargas de backup y seguridad.<br>
+    • <strong>Taller & Laboratorio:</strong> Órdenes pendientes, urgentes y listas para entrega.<br><br>
+    <em>¿Qué consulta deseas realizar?</em><br>
+    <div style="margin-top:0.4rem;">
+      ${chip('💰 Ventas de hoy', 'ventas totales')}
+      ${chip('📦 Stock crítico', 'stock critico')}
+      ${chip('👥 Pacientes CRM', 'pacientes')}
+      ${chip('🛡️ Último backup', 'ultimo backup')}
+      ${chip('⏳ Órdenes urgentes', 'ordenes urgentes')}
+    </div>`;
+  }
+  if (botHas(t, ['gracias', 'thank', 'vale', 'perfecto', 'excelente'])) return '¡Con gusto! Estoy aquí para agilizar la gestión de la óptica. Si necesitas algo más, solo pregúntame.';
+  if (botHas(t, ['adios', 'chau', 'hasta luego', 'bye', 'nos vemos'])) return '¡Hasta luego! Que tengas un turno exitoso en Lens Group Trujillo.';
+  if (botHas(t, ['quien eres', 'que eres', 'como te llamas', 'tu nombre', 'creador'])) {
+    return 'Soy <strong>LensBot</strong>, el asistente inteligente oficial de <strong>Lens Group Trujillo</strong>. Estoy conectado directamente a las bases de datos de órdenes, inventario, CRM oftalmológico, facturación y auditoría del sistema.';
+  }
+  if (botHas(t, ['ayuda', 'que puedes', 'que sabes', 'opciones', 'comandos', 'help', 'menu'])) {
+    return `<strong>Comandos y consultas que puedo responder:</strong><br>
+      • <strong>Finanzas:</strong> <em>"ventas totales"</em>, <em>"ganancias"</em>, <em>"ticket promedio"</em>, <em>"boletas emitidas"</em><br>
+      • <strong>CRM:</strong> <em>"pacientes listos para retiro"</em>, <em>"en adaptación"</em>, <em>"control anual"</em>, o busca por nombre/DNI<br>
+      • <strong>Seguridad:</strong> <em>"último backup"</em>, <em>"descargar backup"</em>, <em>"alertas de seguridad"</em>, <em>"logs de hoy"</em><br>
+      • <strong>Stock:</strong> <em>"stock crítico"</em>, <em>"qué falta reponer"</em>, <em>"mermas de taller"</em>, <em>"lunas blue protect"</em><br>
+      • <strong>Catálogos:</strong> <em>"catálogo niños"</em>, <em>"catálogo adultos"</em>, <em>"lentes más caros"</em><br>
+      • <strong>Taller:</strong> <em>"órdenes urgentes"</em>, <em>"órdenes listas"</em>, <em>"estado del laboratorio"</em><br>
+      • <strong>Óptica:</strong> <em>"garantía de lentes"</em>, <em>"tiempo de entrega"</em>, <em>"lunas progresivas"</em><br>
+      • <strong>Navegación:</strong> <em>"abre ventas"</em>, <em>"abre crm"</em>, <em>"abre auditoría"</em>, <em>"abre inventario"</em>`;
+  }
+
+  // 3. Hora y fecha
   if (/\b(que hora|hora es|la hora)\b/.test(t)) return `Son las ${BOT_HL(new Date().toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' }))}.`;
   if (botHas(t, ['fecha', 'que dia es', 'dia es hoy'])) return `Hoy es ${BOT_HL(new Date().toLocaleDateString('es-PE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }))}.`;
 
-  // 3. Búsqueda por código de orden o DNI
-  const codeMatch = t.match(/lgt-\d{4}-\d{3,4}/);
-  const dniMatch = t.match(/\b\d{8}\b/);
-  if (codeMatch || dniMatch) {
-    const o = d.orders.find(x => (codeMatch && BOT_NORM(x.code) === codeMatch[0]) || (dniMatch && x.dni === dniMatch[0]));
-    if (o) {
-      return `<strong>Orden ${o.code}</strong><br>Cliente: ${o.customer} (DNI ${o.dni})<br>Servicio: ${o.service}<br>Entrega: ${o.estimatedDate}<br>Estado: ${BOT_HL(statusLabel[o.estado] || o.estado)}${o.urgente ? ' [Urgente]' : ''}<br>Total: ${BOT_MONEY(o.price)}`;
+  // 4. Copias de seguridad & Backups
+  if (botHas(t, ['backup', 'copia de seguridad', 'copias de seguridad', 'snapshot', 'respaldo', 'restaurar'])) {
+    const b = d.backups;
+    const lastBkp = b && b.length > 0 ? b[0] : null;
+    const countBkp = b ? b.length : 0;
+
+    if (botHas(t, ['como restauro', 'restaurar', 'recuperar base', 'cargar backup'])) {
+      return `<strong>Restauración de Base de Datos:</strong><br>
+      1. Puedes subir un archivo <code>.json</code> generado previamente.<br>
+      2. El sistema validará su estructura, registros y versión.<br>
+      3. Se recargarán automáticamente pacientes, inventario, ventas y órdenes.<br><br>
+      <button type="button" class="btn-header-action" style="padding: 0.35rem 0.75rem; font-size: 0.78rem;" onclick="openRestoreBackupModal()">
+        Abrir Modal de Restauración
+      </button>`;
     }
-    return 'No encontré ninguna orden con ese código o DNI. Verifica el dato e inténtalo de nuevo.';
+
+    let reply = `<strong>Copias de Seguridad del Sistema:</strong><br>`;
+    reply += `Total de copias registradas: <strong>${countBkp}</strong><br>`;
+    if (lastBkp) {
+      reply += `• <strong>Último Backup:</strong> ${lastBkp.date}<br>`;
+      reply += `• <strong>Archivo:</strong> <code>${lastBkp.filename}</code><br>`;
+      reply += `• <strong>Tamaño:</strong> ${lastBkp.size} · Estado: ${BOT_HL(lastBkp.status)}<br>`;
+      reply += `• <strong>Contenido:</strong> ${lastBkp.records}<br>`;
+    }
+    reply += `<div style="margin-top: 0.6rem; display: flex; gap: 0.4rem; flex-wrap: wrap;">
+      <button type="button" class="btn-primary-action" style="padding: 0.35rem 0.75rem; font-size: 0.78rem;" onclick="generateManualBackup()">
+        ⬇ Descargar Backup Ahora (.json)
+      </button>
+      <button type="button" class="btn-header-action" style="padding: 0.35rem 0.75rem; font-size: 0.78rem;" onclick="switchCategory('audit')">
+        Ver Módulo de Auditoría
+      </button>
+    </div>`;
+    return reply;
   }
 
-  // 4. Búsqueda por nombre de cliente
-  const byName = d.orders.find(o => BOT_NORM(o.customer).split(' ').some(p => p.length > 3 && t.split(/\s+/).includes(p)));
-  if (byName && !botHas(t, ['marca'])) {
-    return `Encontré a <strong>${byName.customer}</strong>:<br>Orden: ${byName.code}<br>Servicio: ${byName.service}<br>Estado: ${BOT_HL(statusLabel[byName.estado] || byName.estado)}<br>Teléfono: ${byName.phone}`;
+  // 5. Auditoría, Seguridad y Logs
+  if (botHas(t, ['auditoria', 'logs', 'seguridad', 'bitacora', 'quien entro', 'inicio de sesion', 'alerta de seguridad', 'bloqueo', 'evento'])) {
+    const logs = d.auditLogs || [];
+    const secLogs = logs.filter(l => l.level === 'seguridad' || l.level === 'critico');
+    const totalCrit = logs.filter(l => l.level === 'critico').length;
+    const totalAlert = logs.filter(l => l.level === 'alerta').length;
+
+    let reply = `<strong>Módulo de Auditoría & Seguridad:</strong><br>`;
+    reply += `Total eventos registrados: <strong>${logs.length}</strong> (Críticos: <strong>${totalCrit}</strong>, Alertas: <strong>${totalAlert}</strong>)<br><br>`;
+    reply += `<strong>Últimos eventos destacados:</strong><br>`;
+    logs.slice(0, 3).forEach(l => {
+      reply += `• <strong>${l.date}</strong> [${l.levelText || l.level.toUpperCase()}]: ${l.action} (${l.user || 'Sistema'})<br>`;
+    });
+    if (secLogs.length > 0) {
+      reply += `<br><em>Alerta activa reciente:</em> ${secLogs[0].detail}<br>`;
+    }
+    reply += `<button type="button" class="btn-header-action" style="padding: 0.35rem 0.75rem; font-size: 0.78rem; margin-top: 0.5rem;" onclick="switchCategory('audit')">
+      Explorar Logs Completos
+    </button>`;
+    return reply;
   }
 
-  // 5. Más vendidos / ranking
-  if (botHas(t, ['mas vendid', 'mas se vende', 'top', 'ranking', 'popular', 'mejor marca', 'mejores', 'favorit'])) {
-    const top = botTopBrands(d.orders).slice(0, 5);
-    const medals = ['1.', '2.', '3.', '4.', '5.'];
-    return `<strong>Lentes / marcas más vendidos:</strong><br>` +
-      top.map((b, i) => `${medals[i]} ${b.brand} — ${b.count} venta(s) Â· ${BOT_MONEY(b.total)}`).join('<br>') +
-      `<br><br>Líder: ${BOT_HL(top[0].brand)}. Puedes ver el gráfico de barras en <em>Analítica & Gráficos BI</em>.`;
+  // 6. Facturación Electrónica & Comprobantes SUNAT
+  if (botHas(t, ['boleta', 'factura', 'comprobante', 'nota de venta', 'sunat', 'adelanto', 'quien debe', 'saldo pendiente', 'deuda'])) {
+    const sales = d.sales || [];
+    const boletas = sales.filter(s => s.tipoComprobante === 'Boleta' || (s.nroComprobante || '').startsWith('B'));
+    const facturas = sales.filter(s => s.tipoComprobante === 'Factura' || (s.nroComprobante || '').startsWith('F'));
+    const notas = sales.filter(s => s.tipoComprobante === 'Nota de Venta' || (s.nroComprobante || '').startsWith('NV'));
+    const adelantos = sales.filter(s => (s.condicionPago || '').toLowerCase().includes('adelanto') || (s.estado || '').toLowerCase().includes('adelanto'));
+    const totalFacturado = sales.reduce((acc, s) => acc + (Number(s.montoTotal) || 0), 0);
+
+    if (botHas(t, ['adelanto', 'quien debe', 'saldo', 'deuda'])) {
+      if (adelantos.length === 0) return 'No hay comprobantes pendientes de cancelación total; todas las ventas registradas están pagadas al 100%.';
+      let reply = `<strong>Ventas con Adelanto 50% (${adelantos.length}):</strong><br>`;
+      adelantos.forEach(s => {
+        reply += `• <strong>${s.nroComprobante}</strong>: ${s.cliente} — Total: ${BOT_MONEY(s.montoTotal)} (Saldo pendiente por cobrar al entregar)<br>`;
+      });
+      return reply;
+    }
+
+    let reply = `<strong>Comprobantes y Facturación Electrónica:</strong><br>`;
+    reply += `• Total comprobantes emitidos: <strong>${sales.length}</strong><br>`;
+    reply += `• Boletas Electrónicas (B001): <strong>${boletas.length}</strong><br>`;
+    reply += `• Facturas Electrónicas (F001): <strong>${facturas.length}</strong><br>`;
+    reply += `• Notas de Venta: <strong>${notas.length}</strong><br>`;
+    reply += `• Monto total facturado: ${BOT_HL(BOT_MONEY(totalFacturado))}<br><br>`;
+    reply += `<em>Los comprobantes se firman y envían automáticamente al OSE de SUNAT al emitirse.</em><br>`;
+    reply += `<button type="button" class="btn-header-action" style="padding: 0.35rem 0.75rem; font-size: 0.78rem; margin-top: 0.4rem;" onclick="switchCategory('sales')">
+      Ver Historial de Ventas
+    </button>`;
+    return reply;
   }
 
-  // 6. Menos vendidos
-  if (botHas(t, ['menos vendid', 'no se vende', 'peor'])) {
-    const all = botTopBrands(d.orders);
-    const low = all.slice(-3).reverse();
-    return `<strong>Menor rotación:</strong><br>` + low.map(b => `• ${b.brand} — ${b.count} venta(s)`).join('<br>') +
-      `<br>Considera promociones o combos para estas marcas.`;
+  // Helper para formatear graduación (soporte objeto {esf,cil,eje} y string)
+  const fmtGrad = g => {
+    if (!g) return '—';
+    if (typeof g === 'string') return g;
+    const parts = [];
+    if (g.esf) parts.push(g.esf);
+    if (g.cil) parts.push(`cil ${g.cil}`);
+    if (g.eje) parts.push(`eje ${g.eje}`);
+    return parts.join(' ') || '—';
+  };
+  // Helper para leer estado/etapa del paciente (soporta ambos campos)
+  const pEtapa = p => p.estadoTexto || p.etapa || p.estado || '—';
+  const pNota  = p => p.notaSeguimiento || p.seguimiento || '—';
+
+  // 7. Búsqueda específica en CRM por DNI o código de orden/ticket
+  const codeMatch = t.match(/(?:lgt|b001|f001|nv)-\d{4}-\d{3,6}/);
+  const dniMatch  = t.match(/\b\d{8}\b/);
+  if (codeMatch || dniMatch) {
+    // Buscar en CRM primero
+    const p = d.crmPatients.find(x =>
+      (dniMatch && x.dni === dniMatch[0]) ||
+      (codeMatch && BOT_NORM(x.ticket || '') === codeMatch[0])
+    );
+    // Buscar en órdenes
+    const o = d.orders.find(x =>
+      (codeMatch && BOT_NORM(x.code) === codeMatch[0]) ||
+      (dniMatch && x.dni === dniMatch[0])
+    );
+
+    if (p) {
+      const etapaColor = pEtapa(p).includes('Listo') ? '#10b981' : pEtapa(p).includes('Adaptación') ? '#0ea5e9' : '#f59e0b';
+      const odStr = fmtGrad(p.graduacion?.od);
+      const oiStr = fmtGrad(p.graduacion?.oi);
+      return `<strong>Ficha Clínica — ${p.nombre}</strong><br>
+        • <strong>DNI:</strong> ${p.dni} &nbsp;|&nbsp; Edad: ${p.edad} años &nbsp;|&nbsp; ${p.ocupacion || 'Paciente'}<br>
+        • <strong>Tel:</strong> ${p.telefono || '—'}<br>
+        • <strong>Montura:</strong> ${p.montura}<br>
+        • <strong>Lunas:</strong> ${p.lunas}<br>
+        • <strong>Graduación:</strong> OD ${odStr} &nbsp;/&nbsp; OI ${oiStr}${p.graduacion?.add ? ` &nbsp;(ADD: ${p.graduacion.add})` : ''}<br>
+        • <strong>Diagnóstico:</strong> ${p.graduacion?.diagnostico || '—'}<br>
+        • <strong>Etapa CRM:</strong> <span style="color:${etapaColor};font-weight:700;">${pEtapa(p)}</span><br>
+        • <strong>Nota:</strong> ${pNota(p)}<br>
+        • <strong>Próximo Control:</strong> ${p.proximaRevision || '—'}<br>
+        <button type="button" class="btn-primary-action" style="padding: 0.35rem 0.75rem; font-size: 0.78rem; margin-top: 0.4rem;" onclick="openPatientRecordModal('${p.id}')">
+          Ver Ficha Completa
+        </button>`;
+    }
+
+    if (o) {
+      return `<strong>Orden de Laboratorio ${o.code}</strong><br>
+        • <strong>Cliente:</strong> ${o.customer} (DNI ${o.dni})<br>
+        • <strong>Servicio:</strong> ${o.service}<br>
+        • <strong>Tratamiento:</strong> ${o.treatment || 'Estándar'}<br>
+        • <strong>Fecha Entrega:</strong> ${o.estimatedDate}<br>
+        • <strong>Estado:</strong> ${BOT_HL(statusLabel[o.estado] || o.estado)}${o.urgente ? ' 🔴 [Urgente]' : ''}<br>
+        • <strong>Total:</strong> ${BOT_MONEY(o.price)}`;
+    }
+    return `No encontré órdenes ni fichas clínicas con ese ${dniMatch ? 'DNI' : 'código'}. Verifica los datos e intenta nuevamente.<br>${chip('🔍 Ver CRM completo', 'pacientes')}`;
   }
 
-  // 7. Ganancias / utilidad / margen
-  if (botHas(t, ['ganancia', 'utilidad', 'margen', 'rentab', 'beneficio', 'profit'])) {
-    const margin = d.revenue ? (d.profit / d.revenue * 100).toFixed(1) : 0;
-    return `<strong>Rentabilidad:</strong><br>Ingresos: ${BOT_MONEY(d.revenue)}<br>Costos: ${BOT_MONEY(d.cost)}<br>Utilidad neta: ${BOT_HL(BOT_MONEY(d.profit))}<br>Margen: <strong>${margin}%</strong>`;
+  // 8. Búsqueda de pacientes por nombre en CRM
+  const patientHits = d.crmPatients.filter(p => {
+    const fullName = BOT_NORM(p.nombre);
+    return t.split(/\s+/).some(w => w.length > 3 && fullName.includes(w));
+  });
+  if (patientHits.length > 0 && !botHas(t, ['marca', 'montura', 'precio', 'stock'])) {
+    if (patientHits.length === 1) {
+      const p = patientHits[0];
+      const odStr = fmtGrad(p.graduacion?.od);
+      const oiStr = fmtGrad(p.graduacion?.oi);
+      return `<strong>Paciente: ${p.nombre}</strong><br>
+        • <strong>DNI:</strong> ${p.dni} &nbsp;·&nbsp; Tel: ${p.telefono}<br>
+        • <strong>Montura:</strong> ${p.montura}<br>
+        • <strong>Lunas:</strong> ${p.lunas}<br>
+        • <strong>Graduación:</strong> OD ${odStr} / OI ${oiStr}<br>
+        • <strong>Estado:</strong> ${BOT_HL(pEtapa(p))}<br>
+        • <strong>Nota:</strong> ${pNota(p)}<br>
+        <button type="button" class="btn-primary-action" style="padding: 0.35rem 0.75rem; font-size: 0.78rem; margin-top: 0.4rem;" onclick="openPatientRecordModal('${p.id}')">
+          Abrir Ficha Clínica
+        </button>`;
+    }
+    return `<strong>Encontré ${patientHits.length} pacientes:</strong><br>` +
+      patientHits.slice(0, 5).map(p => `• <strong>${p.nombre}</strong> (DNI ${p.dni}) — ${pEtapa(p)}`).join('<br>') +
+      `<br><em>Escribe el DNI o nombre completo para ver la graduación y ficha.</em>`;
   }
 
-  // 8. Ventas / ingresos
-  if (botHas(t, ['venta', 'vendi', 'ingreso', 'factur', 'dinero', 'plata', 'cuanto', 'total', 'caja', 'hoy', 'semana', 'resumen', 'mes'])) {
-    const avg = d.orders.length ? d.revenue / d.orders.length : 0;
-    const best = [...d.orders].sort((a, b) => b.price - a.price)[0];
-    return `<strong>Resumen de ventas:</strong><br>Órdenes registradas: <strong>${d.orders.length}</strong><br>Ingresos totales: ${BOT_HL(BOT_MONEY(d.revenue))}<br>Ticket promedio: ${BOT_MONEY(avg)}<br>Venta más alta: ${best ? `${best.customer} (${BOT_MONEY(best.price)})` : '-'}`;
+  // 9. Etapas y filtros del CRM
+  if (botHas(t, ['crm', 'paciente', 'postventa', 'seguimiento', 'fidelizado', 'adaptacion', 'retiro', 'control anual', 'garantia'])) {
+    const pts = d.crmPatients;
+    const listos   = pts.filter(p => pEtapa(p).toLowerCase().includes('listo') || (p.estado || '') === 'listo');
+    const adapt    = pts.filter(p => pEtapa(p).toLowerCase().includes('adaptac'));
+    const control  = pts.filter(p => pEtapa(p).toLowerCase().includes('control'));
+    const garantia = pts.filter(p => pEtapa(p).toLowerCase().includes('garantia') || pEtapa(p).toLowerCase().includes('garantía'));
+    const fidel    = pts.filter(p => pEtapa(p).toLowerCase().includes('fideliz'));
+
+    if (botHas(t, ['listo', 'retiro', 'recojo', 'entrega', 'listos'])) {
+      if (listos.length === 0) return '✓ No hay pacientes con lentes listos para retiro en este momento.';
+      let r = `<strong>Pacientes con Lentes Listos para Retiro (${listos.length}):</strong><br>`;
+      listos.forEach(p => {
+        r += `• <strong>${p.nombre}</strong> — Tel: ${p.telefono} — ${p.montura}<br>`;
+        r += `&nbsp;&nbsp;<em>${pNota(p)}</em><br>`;
+      });
+      r += `<br><em>💡 Tip: Contáctalos por WhatsApp para confirmar el retiro y asegurar el saldo pendiente.</em><br>`;
+      r += chip('📱 Ver CRM completo', 'pacientes');
+      return r;
+    }
+    if (botHas(t, ['adaptacion'])) {
+      if (adapt.length === 0) return 'No hay pacientes en fase de adaptación actualmente.';
+      let r = `<strong>Pacientes en Fase de Adaptación (${adapt.length}):</strong><br>`;
+      adapt.forEach(p => { r += `• <strong>${p.nombre}</strong>: ${pNota(p)}<br>`; });
+      return r;
+    }
+    if (botHas(t, ['control anual', 'revision', 'proximo control', 'vencimiento'])) {
+      if (control.length === 0) return 'No hay pacientes con control anual programado próximamente.';
+      let r = `<strong>Pacientes para Control Anual (${control.length}):</strong><br>`;
+      control.forEach(p => { r += `• <strong>${p.nombre}</strong> — Próxima revisión: <strong>${p.proximaRevision || '—'}</strong><br>`; });
+      return r;
+    }
+    if (botHas(t, ['garantia'])) {
+      if (garantia.length === 0) return 'No hay pacientes con garantía activa registrada.';
+      let r = `<strong>Pacientes con Garantía Activa (${garantia.length}):</strong><br>`;
+      garantia.forEach(p => { r += `• <strong>${p.nombre}</strong> (hasta ${p.fechaGarantia || '1 año'}) — ${pNota(p)}<br>`; });
+      return r;
+    }
+
+    return `<strong>Cartera CRM & Pacientes Oftalmológicos — ${pts.length} registrados:</strong><br>
+      • <strong>🟢 Listos para Retiro:</strong> ${listos.length} pacientes<br>
+      • <strong>🔵 En Adaptación:</strong> ${adapt.length} pacientes<br>
+      • <strong>🟡 Control Anual:</strong> ${control.length} pacientes<br>
+      • <strong>🟠 Garantía Activa:</strong> ${garantia.length} pacientes<br>
+      • <strong>⭐ Fidelizados:</strong> ${fidel.length} pacientes<br><br>
+      <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.3rem;">
+        ${chip('🟢 Listos', 'pacientes listos para retiro')}
+        ${chip('🔵 En Adaptación', 'pacientes en adaptacion')}
+        ${chip('🟡 Control Anual', 'pacientes control anual')}
+        <button type="button" class="btn-primary-action" style="padding: 0.35rem 0.75rem; font-size: 0.78rem;" onclick="switchCategory('postventa')">Ver Tabla CRM</button>
+      </div>`;
   }
 
-  // 9. Órdenes por estado
-  if (botHas(t, ['urgente'])) {
-    const u = d.orders.filter(o => o.urgente);
-    return u.length ? `<strong>Órdenes urgentes (${u.length}):</strong><br>` + u.map(o => `• ${o.code} — ${o.customer} (${statusLabel[o.estado]})`).join('<br>') : 'No hay órdenes urgentes en este momento.';
-  }
-  if (botHas(t, ['listo', 'entrega', 'recoger', 'terminad'])) {
-    const l = d.orders.filter(o => o.estado === 'listo');
-    return `<strong>Listos para entrega (${l.length}):</strong><br>` + (l.map(o => `• ${o.code} — ${o.customer} Â· Tel: ${o.phone}`).join('<br>') || 'Ninguno por ahora.');
-  }
-  if (botHas(t, ['orden', 'pedido', 'pendiente', 'proceso', 'taller', 'laboratorio', 'cola', 'trabajo'])) {
-    const c = s => d.orders.filter(o => o.estado === s).length;
-    return `<strong>Estado del laboratorio:</strong><br>En cola: <strong>${c('cola')}</strong><br>En proceso: <strong>${c('proceso')}</strong><br>Listos: <strong>${c('listo')}</strong><br>Urgentes: <strong>${d.orders.filter(o => o.urgente).length}</strong>`;
+  // 10. Cardex, Mermas y Movimientos de Inventario
+  if (botHas(t, ['cardex', 'kardex', 'merma', 'rotura', 'astillamiento', 'entrada', 'salida', 'movimiento'])) {
+    const cdx = d.cardex || [];
+    const entradas = cdx.filter(c => c.type === 'entrada');
+    const salidas = cdx.filter(c => c.type === 'salida');
+    const mermas = cdx.filter(c => c.type === 'merma' || c.type === 'ajuste');
+
+    let reply = `<strong>Cardex y Movimientos de Inventario:</strong><br>`;
+    reply += `• Total movimientos registrados: <strong>${cdx.length}</strong><br>`;
+    reply += `• Entradas al almacén: <strong>${entradas.length}</strong> unidades<br>`;
+    reply += `• Salidas por venta: <strong>${salidas.length}</strong> unidades<br>`;
+    reply += `• Mermas / Ajustes técnicos: <strong>${mermas.length}</strong> incidencias<br><br>`;
+    if (mermas.length > 0) {
+      reply += `<strong>Último ajuste/merma:</strong> ${mermas[0].product} (${mermas[0].reason || 'Taller'})<br>`;
+    }
+    reply += `<button type="button" class="btn-header-action" style="padding: 0.35rem 0.75rem; font-size: 0.78rem; margin-top: 0.4rem;" onclick="switchCategory('cardex')">
+      Abrir Cardex Completo
+    </button>`;
+    return reply;
   }
 
-  // 10. Clientes / pacientes
-  if (botHas(t, ['cliente', 'paciente', 'persona', 'comprador'])) {
-    const names = d.orders.slice(0, 6).map(o => `• ${o.customer}`).join('<br>');
-    return `Tenemos <strong>${d.orders.length}</strong> clientes con órdenes registradas:<br>${names}<br>Escríbeme un nombre, DNI o código (ej. LGT-2025-0342) para ver el detalle.`;
+  // 11. Productos, Stock Crítico & Inventario
+  if (botHas(t, ['agotad', 'critico', 'falta', 'reponer', 'comprar', 'bajo stock', 'minimo'])) {
+    const crit = d.inventory.filter(i => (i.stock !== undefined && i.stock <= (i.threshold || 3)) || i.status === 'critical');
+    if (crit.length === 0) return '✓ ¡Excelente noticia! No hay productos en nivel crítico de inventario en este momento.';
+    let reply = `<strong>Productos en Stock Crítico / Urgentes (${crit.length}):</strong><br>`;
+    crit.slice(0, 6).forEach(i => {
+      reply += `• <strong>${i.brand} ${i.model}</strong>: ${i.stock} en vitrina (mínimo: ${i.threshold || 3})<br>`;
+    });
+    reply += `<div style="margin-top:0.5rem;">
+      <button type="button" class="btn-primary-action" style="padding: 0.35rem 0.75rem; font-size: 0.78rem;" onclick="switchCategory('inventory')">
+        Reponer en Inventario
+      </button>
+    </div>`;
+    return reply;
   }
 
-  // 11. Catálogos
-  if (botHas(t, ['nino', 'nina', 'infantil', 'kids', 'junior'])) {
+  if (botHas(t, ['stock', 'inventario', 'montura', 'catalogo', 'producto', 'unidades', 'existencia', 'almacen', 'gafa'])) {
+    const total = d.inventory.reduce((s, i) => s + (Number(i.stock) || 0), 0);
+    const value = d.inventory.reduce((s, i) => s + (Number(i.stock) || 0) * (Number(i.cost) || 0), 0);
+    const crit = d.inventory.filter(i => (i.stock <= (i.threshold || 3)) || i.status === 'critical').length;
+    const kidsStock = d.kids.reduce((s, f) => s + f.stock, 0);
+    const adultStock = d.adults.reduce((s, f) => s + f.stock, 0);
+    return `<strong>Inventario General de Lens Group:</strong><br>
+      • Modelos catalogados: <strong>${d.inventory.length}</strong><br>
+      • Unidades totales en stock: <strong>${total}</strong><br>
+      • Valorización de almacén: ${BOT_HL(BOT_MONEY(value))}<br>
+      • Artículos en nivel crítico: <strong>${crit}</strong><br>
+      • Monturas de Niños disponibles: <strong>${kidsStock} u.</strong><br>
+      • Monturas de Adultos disponibles: <strong>${adultStock} u.</strong><br><br>
+      <button type="button" class="btn-header-action" style="padding: 0.35rem 0.75rem; font-size: 0.78rem;" onclick="switchCategory('inventory')">
+        Gestionar Inventario
+      </button>`;
+  }
+
+  // 12. Catálogos específicos (Niños y Adultos)
+  if (botHas(t, ['nino', 'nina', 'infantil', 'kids', 'junior', 'silicona'])) {
     const stock = d.kids.reduce((s, f) => s + f.stock, 0);
     const out = d.kids.filter(f => f.stock === 0);
-    return `<strong>Catálogo de Niños:</strong><br>${d.kids.length} modelos Â· ${BOT_HL(stock + ' unidades')} en stock<br>` +
-      d.kids.map(f => `• ${f.brand} ${f.model} — ${f.stock} u. Â· ${BOT_MONEY(f.price)}`).join('<br>') +
-      (out.length ? `<br>Agotados: ${out.map(f => f.model).join(', ')}` : '');
+    return `<strong>Catálogo de Niños / Infantil:</strong><br>
+      • Modelos: <strong>${d.kids.length}</strong> · Stock total: ${BOT_HL(stock + ' unidades')}<br>
+      • Edades: 0-3 años, 4-8 años, 9-12 años<br>
+      • Materiales: Silicona Ultra Flexible y TR-90 irrompible.<br>` +
+      d.kids.map(f => `• ${f.brand} ${f.model} (${f.age}) — ${f.stock} u. · ${BOT_MONEY(f.price)}`).join('<br>') +
+      (out.length ? `<br><em>Agotados:</em> ${out.map(f => f.model).join(', ')}` : '') +
+      `<br><button type="button" class="btn-primary-action" style="padding:0.35rem 0.75rem;font-size:0.78rem;margin-top:0.4rem;" onclick="switchCategory('catalog')">Ver Catálogo Niños</button>`;
   }
+
   if (botHas(t, ['adulto', 'dama', 'caballero', 'hombre', 'mujer'])) {
     const stock = d.adults.reduce((s, f) => s + f.stock, 0);
     const out = d.adults.filter(f => f.stock === 0);
-    return `<strong>Catálogo de Adultos:</strong><br>${d.adults.length} modelos Â· ${BOT_HL(stock + ' unidades')} en stock<br>` +
-      d.adults.map(f => `• ${f.brand} ${f.model} — ${f.stock} u. Â· ${BOT_MONEY(f.price)}`).join('<br>') +
-      (out.length ? `<br>Agotados: ${out.map(f => f.model).join(', ')}` : '');
+    return `<strong>Catálogo de Adultos:</strong><br>
+      • Modelos: <strong>${d.adults.length}</strong> · Stock total: ${BOT_HL(stock + ' unidades')}<br>
+      • Colecciones: Damas, Caballeros y Unisex.<br>` +
+      d.adults.map(f => `• ${f.brand} ${f.model} (${f.material}) — ${f.stock} u. · ${BOT_MONEY(f.price)}`).join('<br>') +
+      (out.length ? `<br><em>Agotados:</em> ${out.map(f => f.model).join(', ')}` : '') +
+      `<br><button type="button" class="btn-primary-action" style="padding:0.35rem 0.75rem;font-size:0.78rem;margin-top:0.4rem;" onclick="switchCategory('catalog-adult')">Ver Catálogo Adultos</button>`;
   }
 
-  // 12. Stock / inventario
-  if (botHas(t, ['agotad', 'critico', 'falta', 'reponer', 'comprar', 'bajo'])) {
-    const crit = d.inventory.filter(i => i.stock <= i.threshold);
-    return `<strong>Productos a reponer (${crit.length}):</strong><br>` +
-      crit.map(i => `• ${i.brand} ${i.model} — ${i.stock}/${i.threshold} u.`).join('<br>');
-  }
-  if (botHas(t, ['stock', 'inventario', 'montura', 'catalogo', 'producto', 'unidades', 'existencia', 'lente', 'luna', 'cristal', 'gafa'])) {
-    const total = d.inventory.reduce((s, i) => s + i.stock, 0);
-    const value = d.inventory.reduce((s, i) => s + i.stock * i.cost, 0);
-    const crit = d.inventory.filter(i => i.stock <= i.threshold).length;
-    const kidsStock = d.kids.reduce((s, f) => s + f.stock, 0);
-    const adultStock = d.adults.reduce((s, f) => s + f.stock, 0);
-    return `<strong>Inventario general:</strong><br>Productos: ${d.inventory.length} Â· Unidades: <strong>${total}</strong><br>Valor en stock: ${BOT_HL(BOT_MONEY(value))}<br>En nivel crítico: <strong>${crit}</strong><br>Monturas niños: ${kidsStock} u. Â· Adultos: ${adultStock} u.`;
+  // 13. Ventas, ingresos y finanzas
+  if (botHas(t, ['ganancia', 'utilidad', 'margen', 'rentab', 'beneficio', 'profit'])) {
+    const margin = d.revenue ? (d.profit / d.revenue * 100).toFixed(1) : 0;
+    return `<strong>Análisis de Rentabilidad:</strong><br>
+      • Ingresos totales: ${BOT_MONEY(d.revenue)}<br>
+      • Costo de lunas y monturas: ${BOT_MONEY(d.cost)}<br>
+      • Utilidad neta: ${BOT_HL(BOT_MONEY(d.profit))}<br>
+      • Margen de ganancia: <strong>${margin}%</strong>`;
   }
 
-  // 13. Precios
+  if (botHas(t, ['venta', 'vendi', 'ingreso', 'factur', 'dinero', 'plata', 'cuanto', 'total', 'caja', 'hoy', 'semana', 'resumen', 'mes'])) {
+    const avg = d.orders.length ? d.revenue / d.orders.length : 0;
+    const best = [...d.orders].sort((a, b) => b.price - a.price)[0];
+    return `<strong>Resumen de Ventas de la Óptica:</strong><br>
+      • Órdenes registradas: <strong>${d.orders.length}</strong><br>
+      • Ingresos totales: ${BOT_HL(BOT_MONEY(d.revenue))}<br>
+      • Ticket promedio: ${BOT_MONEY(avg)}<br>
+      • Venta más alta: ${best ? `${best.customer} (${BOT_MONEY(best.price)})` : '—'}<br>
+      • Comprobantes SUNAT emitidos: <strong>${d.sales.length}</strong>`;
+  }
+
+  // 14. Rankings de marcas
+  if (botHas(t, ['mas vendid', 'mas se vende', 'top', 'ranking', 'popular', 'mejor marca', 'mejores', 'favorit'])) {
+    const top = botTopBrands(d.orders).slice(0, 5);
+    const medals = ['1.°', '2.°', '3.°', '4.°', '5.°'];
+    return `<strong>Top Marcas Más Vendidas:</strong><br>` +
+      top.map((b, i) => `${medals[i]} <strong>${b.brand}</strong> — ${b.count} ventas · ${BOT_MONEY(b.total)}`).join('<br>') +
+      `<br><br>Líder del mercado: ${BOT_HL(top[0].brand)}.`;
+  }
+
+  if (botHas(t, ['menos vendid', 'no se vende', 'peor', 'baja rotacion'])) {
+    const all = botTopBrands(d.orders);
+    const low = all.slice(-3).reverse();
+    return `<strong>Marcas con Menor Rotación:</strong><br>` +
+      low.map(b => `• <strong>${b.brand}</strong> — ${b.count} ventas`).join('<br>') +
+      `<br><em>Sugerencia: Crear paquetes promocionales montura + antirreflejo para aumentar la salida.</em>`;
+  }
+
+  // 15. Taller, laboratorio y órdenes
+  if (botHas(t, ['urgente'])) {
+    const u = d.orders.filter(o => o.urgente);
+    return u.length
+      ? `<strong>Órdenes Urgentes en Taller (${u.length}):</strong><br>` + u.map(o => `• <strong>${o.code}</strong> — ${o.customer} (${statusLabel[o.estado]})`).join('<br>')
+      : '✓ No hay órdenes con prioridad urgente pendientes en este momento.';
+  }
+  if (botHas(t, ['orden', 'pedido', 'pendiente', 'proceso', 'taller', 'laboratorio', 'cola', 'trabajo'])) {
+    const c = s => d.orders.filter(o => o.estado === s).length;
+    return `<strong>Flujo de Trabajo en Laboratorio:</strong><br>
+      • En cola de biselado: <strong>${c('cola')}</strong><br>
+      • En proceso de calibración: <strong>${c('proceso')}</strong><br>
+      • Listos para entrega: <strong>${c('listo')}</strong><br>
+      • Urgencias: <strong>${d.orders.filter(o => o.urgente).length}</strong><br><br>
+      <button type="button" class="btn-primary-action" style="padding:0.35rem 0.75rem;font-size:0.78rem;" onclick="switchCategory('orders')">
+        Ver Tablero de Órdenes
+      </button>`;
+  }
+
+  // 16. Preguntas Clínicas, Lunas, Tratamientos y Filtros
+  if (botHas(t, ['blue protect', 'blue defense', 'luz azul', 'uv420', 'computadora', 'pantalla'])) {
+    return `<strong>Tratamiento Blue Defense UV420:</strong><br>
+      • <strong>Función:</strong> Bloquea la radiación de luz azul-violeta nociva emitida por computadoras, celulares y tablets.<br>
+      • <strong>Beneficios:</strong> Reduce la fatiga visual digital, previene el ardor ocular y mejora los ciclos de sueño.<br>
+      • <strong>Compatibilidad:</strong> Se aplica en lunas de resina CR-39, policarbonato y progresivos digitales.`;
+  }
+
+  if (botHas(t, ['progresivo', 'freeform', 'multifocal', 'presbicia', 'bifocal'])) {
+    return `<strong>Lunas Progresivas Digitales FreeForm:</strong><br>
+      • <strong>Tecnología:</strong> Tallado digital punto por punto de ultra precisión.<br>
+      • <strong>Campos:</strong> Visión nítida continua en lejos, zona intermedia (computadora) y lectura cercana sin líneas divisorias.<br>
+      • <strong>Tiempo de entrega:</strong> 3 a 5 días hábiles (incluye garantía de adaptación de 30 días).`;
+  }
+
+  if (botHas(t, ['fotocromatico', 'transition', 'transitions', 'fotosensible', 'sol'])) {
+    return `<strong>Lunas Fotocromáticas (Transition Gen 8):</strong><br>
+      • <strong>Comportamiento:</strong> Lunas totalmente claras en interiores que se oscurecen dinámicamente en menos de 30 segundos al contacto con los rayos UV del sol.<br>
+      • <strong>Protección:</strong> 100% de filtro contra rayos UVA y UVB. Disponibles en tonos gris y café.`;
+  }
+
+  if (botHas(t, ['antirreflejo', 'crizal', 'hd', 'reflejo'])) {
+    return `<strong>Tratamiento Antirreflejo HD:</strong><br>
+      • Elimina el 99.8% de los reflejos parásitos de luces nocturnas y faros de autos.<br>
+      • Cuenta con capa hidrofóbica y oleofóbica que repele el agua, polvo y huellas dactilares.`;
+  }
+
+  if (botHas(t, ['garantia', 'garantias'])) {
+    return `<strong>Políticas de Garantía en Lens Group Trujillo:</strong><br>
+      • <strong>Monturas:</strong> 1 año de garantía contra defectos de fabricación o ensamblaje.<br>
+      • <strong>Lunas y tratamientos:</strong> 1 año de garantía contra desprendimiento de capas antirreflejo.<br>
+      • <strong>Adaptación en Progresivos:</strong> 30 días de garantía médica para ajuste de altura pupilar o graduación sin costo adicional.`;
+  }
+
+  if (botHas(t, ['tiempo', 'demora', 'cuanto tarda', 'cuando entregan', 'plazo'])) {
+    return `<strong>Tiempos de Entrega en Laboratorio:</strong><br>
+      • <strong>Lunas monofocales de stock:</strong> 24 a 48 horas.<br>
+      • <strong>Lunas progresivas digitales FreeForm:</strong> 3 a 5 días hábiles.<br>
+      • <strong>Servicio Express (emergencias):</strong> Monturas en stock con biselado el mismo día según disponibilidad de taller.`;
+  }
+
+  if (botHas(t, ['pago', 'tarjeta', 'yape', 'plin', 'transferencia', 'efectivo', 'metodos de pago'])) {
+    return `<strong>Métodos de Pago Aceptados:</strong><br>
+      • Efectivo en caja.<br>
+      • Tarjetas de crédito y débito Visa, Mastercard, Diners, American Express.<br>
+      • Billeteras digitales: Yape y Plin sin recargo adicional.<br>
+      • Transferencias bancarias directas: BCP y BBVA.`;
+  }
+
+  if (botHas(t, ['horario', 'abren', 'cierran', 'direccion', 'ubicacion', 'donde estan', 'local'])) {
+    return `<strong>Lens Group Trujillo — Sede Principal:</strong><br>
+      📍 <strong>Dirección:</strong> Galería San Antonio, Jr. Gamarra N° 778 – Centro Histórico de Trujillo.<br>
+      🕒 <strong>Horario de Atención:</strong> Lunes a Sábado de 9:00 a.m. a 8:00 p.m. (Horario corrido).`;
+  }
+
+  // 17. Usuarios y personal
+  if (botHas(t, ['usuario', 'personal', 'empleado', 'trabajador', 'equipo', 'quien atiende'])) {
+    const users = state.users || [];
+    return `<strong>Equipo de Trabajo Registrado:</strong><br>` +
+      users.map(u => `• <strong>${u.name}</strong> — ${u.role} (${u.status === 'activo' ? 'Activo' : 'Inactivo'})`).join('<br>');
+  }
+
+  // 18. Precios generales
   if (botHas(t, ['precio', 'caro', 'barato', 'cuesta', 'vale'])) {
     const all = [...d.inventory, ...d.kids, ...d.adults];
-    const sorted = [...all].sort((a, b) => b.price - a.price);
-    return `Mayor precio: <strong>${sorted[0].brand} ${sorted[0].model}</strong> (${BOT_MONEY(sorted[0].price)})<br>Menor precio: <strong>${sorted.at(-1).brand} ${sorted.at(-1).model}</strong> (${BOT_MONEY(sorted.at(-1).price)})`;
+    const sorted = [...all].filter(p => p.price).sort((a, b) => b.price - a.price);
+    if (sorted.length > 0) {
+      return `<strong>Rango de Precios en Óptica:</strong><br>
+        • Montura de mayor valor: <strong>${sorted[0].brand} ${sorted[0].model}</strong> (${BOT_MONEY(sorted[0].price)})<br>
+        • Montura más económica: <strong>${sorted.at(-1).brand} ${sorted.at(-1).model}</strong> (${BOT_MONEY(sorted.at(-1).price)})<br>
+        • Cristales monofocales desde ${BOT_MONEY(80)}.<br>
+        • Progresivos digitales FreeForm desde ${BOT_MONEY(350)}.`;
+    }
   }
 
-  // 14. Búsqueda por marca o modelo
+  // 19. Búsqueda por marca o modelo
   const allProducts = [...d.inventory, ...d.kids, ...d.adults];
   const prodHits = allProducts.filter(p => {
     const name = BOT_NORM(`${p.brand} ${p.model}`);
     return t.split(/\s+/).some(w => w.length > 3 && name.includes(w));
   });
-  if (prodHits.length) {
-    return `<strong>Encontré ${prodHits.length} producto(s):</strong><br>` +
-      prodHits.slice(0, 6).map(p => `• ${p.brand} ${p.model} — ${p.stock} u. Â· ${BOT_MONEY(p.price)}`).join('<br>');
+  if (prodHits.length > 0) {
+    return `<strong>Encontré ${prodHits.length} producto(s) en catálogo:</strong><br>` +
+      prodHits.slice(0, 5).map(p => `• <strong>${p.brand} ${p.model}</strong> — ${p.stock !== undefined ? `${p.stock} u. en stock` : ''} · ${BOT_MONEY(p.price)}`).join('<br>');
   }
 
-  // 15. Recomendaciones / decisiones
-  if (botHas(t, ['recomienda', 'consejo', 'sugerencia', 'que hago', 'decision', 'mejorar', 'estrategia', 'idea'])) {
-    const crit = d.inventory.filter(i => i.stock <= i.threshold);
-    const top = botTopBrands(d.orders)[0];
-    return `<strong>Recomendaciones:</strong><br>1. Reponer ${crit.length} producto(s) críticos (ej. ${crit[0] ? crit[0].brand + ' ' + crit[0].model : '-'}).<br>2. Potenciar ${top.brand}, tu marca líder, con exhibición destacada.<br>3. Ofrecer combos montura + tratamiento Blue Protect para subir el ticket.<br>4. Contactar a los clientes con órdenes listas para acelerar la entrega.`;
+  // 20. Recomendaciones de negocio
+  if (botHas(t, ['recomienda', 'consejo', 'sugerencia', 'que hago', 'decision', 'estrategia', 'idea'])) {
+    const crit = d.inventory.filter(i => (i.stock <= (i.threshold || 3)) || i.status === 'critical');
+    const top = botTopBrands(d.orders)[0] || { brand: 'Ray-Ban' };
+    const listos = d.crmPatients.filter(p => p.etapa === 'Listo p/ Retiro').length;
+    return `<strong>Recomendaciones Operativas para Hoy:</strong><br>
+      1. <strong>Reponer stock crítico:</strong> Tienes ${crit.length} producto(s) por debajo del mínimo de seguridad.<br>
+      2. <strong>Potenciar marca líder:</strong> ${top.brand} genera la mayor rotación; asegúrate de tenerla en la vitrina principal.<br>
+      3. <strong>Retiro de lentes:</strong> Hay ${listos} paciente(s) con trabajos listos; contáctalos por WhatsApp para asegurar el cobro del saldo.<br>
+      4. <strong>Venta cruzada:</strong> Ofrece Blue Defense UV420 a pacientes que trabajen en oficina o diseño para aumentar el ticket promedio.`;
   }
 
-  // 16. Usuarios / personal
-  if (botHas(t, ['usuario', 'personal', 'empleado', 'trabajador', 'equipo'])) {
-    return `<strong>Personal:</strong><br>` + state.users.map(u => `• ${u.name} — ${u.role} (${u.status})`).join('<br>');
-  }
-
-  // 17. Preguntas generales sobre ópticas
-  if (botHas(t, ['miopia', 'astigmat', 'hipermetrop', 'presbicia', 'vista', 'ojo', 'vision'])) {
-    return 'Para problemas visuales recomendamos un examen optométrico completo. Ofrecemos lunas monofocales, bifocales, progresivas FreeForm, fotocromáticas y con filtro Blue Protect para pantallas.';
-  }
-  if (botHas(t, ['horario', 'abren', 'cierran', 'direccion', 'ubicacion', 'donde'])) {
-    return 'Galería San Antonio, Jr. Gamarra N° 778 – Trujillo.<br>Lunes a sábado de 9:00 a.m. a 8:00 p.m.';
-  }
-
-  // 18. Respuesta general (siempre útil, nunca "no entendí")
+  // 21. Respuesta General / Menú Inteligente (Siempre útil, nunca dice "no sé")
   const d2 = d.orders.filter(o => o.estado !== 'listo').length;
-  return `Buena pregunta Te comparto un panorama rápido del negocio:<br>Ingresos: ${BOT_HL(BOT_MONEY(d.revenue))} Â· Utilidad: ${BOT_MONEY(d.profit)}<br>Órdenes activas: <strong>${d2}</strong><br>Marca líder: <strong>${botTopBrands(d.orders)[0].brand}</strong><br><br>Puedes preguntarme por ventas, ganancias, stock, clientes, órdenes, catálogo o pedirme recomendaciones.`;
+  const topB = botTopBrands(d.orders)[0]?.brand || 'Ray-Ban';
+  return `Buena consulta. Te comparto un resumen ejecutivo en tiempo real:<br>
+    • <strong>Ingresos:</strong> ${BOT_HL(BOT_MONEY(d.revenue))} (Margen: ${d.revenue ? (d.profit / d.revenue * 100).toFixed(1) : 0}%)<br>
+    • <strong>Órdenes en taller:</strong> <strong>${d2} activas</strong><br>
+    • <strong>Pacientes en CRM:</strong> <strong>${d.crmPatients.length} registrados</strong><br>
+    • <strong>Marca líder:</strong> <strong>${topB}</strong><br><br>
+    <em>Puedes preguntarme sobre:</em><br>
+    <div style="margin-top:0.4rem;">
+      ${chip('💰 Ventas y Finanzas', 'ventas totales')}
+      ${chip('👥 Pacientes CRM', 'pacientes listos')}
+      ${chip('📦 Stock Crítico', 'stock critico')}
+      ${chip('🛡️ Backups y Seguridad', 'ultimo backup')}
+      ${chip('🧾 Facturación SUNAT', 'boletas emitidas')}
+      ${chip('⏱️ Tiempos de entrega', 'tiempo de entrega')}
+    </div>`;
 }
 
 
@@ -3342,7 +3766,7 @@ function renderOrdersTable() {
         </td>
         <td>
           <div style="font-weight: 600; color: var(--admin-text-main);">${order.customer}</div>
-          <div style="font-size: 0.75rem; color: var(--admin-text-dim);">DNI: ${order.dni || 'Sin DNI'} Â· Cel: ${order.phone || '958...'}</div>
+          <div style="font-size: 0.75rem; color: var(--admin-text-dim);">DNI: ${order.dni || 'Sin DNI'} · Cel: ${order.phone || '958...'}</div>
         </td>
         <td style="max-width: 260px;">
           <div style="font-weight: 500; font-size: 0.8rem; color: #cbd5e1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
@@ -4134,7 +4558,7 @@ function simSetDelta(el, current, base) {
     el.textContent = '— sin cambios vs. base';
   } else {
     el.classList.add(diff > 0 ? 'up' : 'down');
-    el.textContent = `${diff > 0 ? 'â–² +' : 'â–¼ '}S/ ${Math.abs(diff).toLocaleString('es-PE')} (${pct > 0 ? '+' : ''}${pct.toFixed(1)}%)`;
+    el.textContent = `${diff > 0 ? '▲ +' : '▼ '}S/ ${Math.abs(diff).toLocaleString('es-PE')} (${pct > 0 ? '+' : ''}${pct.toFixed(1)}%)`;
   }
 }
 
@@ -4470,9 +4894,9 @@ function _renderCardexTable(movements) {
 
   const TYPE_META = {
     entrada: { label: 'Entrada', cls: 'cardex-badge-entrada', symbol: '+' },
-    salida:  { label: 'Salida',  cls: 'cardex-badge-salida',  symbol: 'âˆ’' },
-    ajuste:  { label: 'Ajuste',  cls: 'cardex-badge-ajuste',  symbol: 'Â±' },
-    merma:   { label: 'Merma',   cls: 'cardex-badge-merma',   symbol: 'â†“' },
+    salida:  { label: 'Salida',  cls: 'cardex-badge-salida',  symbol: '-' },
+    ajuste:  { label: 'Ajuste',  cls: 'cardex-badge-ajuste',  symbol: '±' },
+    merma:   { label: 'Merma',   cls: 'cardex-badge-merma',   symbol: '↓' },
   };
 
   tbody.innerHTML = movements
@@ -4481,7 +4905,7 @@ function _renderCardexTable(movements) {
     .map(m => {
       const meta = TYPE_META[m.type] || TYPE_META.ajuste;
       const absQty = Math.abs(m.qty);
-      const qtySign = m.qty > 0 ? '+' : 'âˆ’';
+      const qtySign = m.qty > 0 ? '+' : '-';
       const qtyColor = m.type === 'entrada'
         ? '#10b981'
         : m.type === 'salida'
@@ -4732,7 +5156,7 @@ window.renderCRM = function() {
       adaptacion: { cls: 'crm-badge-adaptacion', icon: '', text: 'En Adaptación' },
       control: { cls: 'crm-badge-control', icon: '', text: 'Control Anual' },
       garantia: { cls: 'crm-badge-garantia', icon: '', text: 'Garantía Vigente' },
-      fidelizado: { cls: 'crm-badge-fidelizado', icon: 'â­', text: 'Fidelizado / VIP' }
+      fidelizado: { cls: 'crm-badge-fidelizado', icon: '⭐', text: 'Fidelizado / VIP' }
     };
     const bInfo = badgeMap[p.estado] || badgeMap.listo;
     const cleanPhone = String(p.telefono || '').replace(/\D/g, '');
@@ -4811,7 +5235,7 @@ window.renderCRM = function() {
               <option value="adaptacion" ${p.estado === 'adaptacion' ? 'selected' : ''}>En Adaptación</option>
               <option value="control" ${p.estado === 'control' ? 'selected' : ''}>Control Anual</option>
               <option value="garantia" ${p.estado === 'garantia' ? 'selected' : ''}>Garantía</option>
-              <option value="fidelizado" ${p.estado === 'fidelizado' ? 'selected' : ''}>â­ Fidelizado</option>
+              <option value="fidelizado" ${p.estado === 'fidelizado' ? 'selected' : ''}>⭐ Fidelizado</option>
             </select>
           </div>
         </td>
@@ -4976,7 +5400,7 @@ window.sendPatientWhatsApp = function(patientId, templateKey) {
     adaptacion: `¡Hola ${firstName}! Te saluda el equipo de Lens Group Trujillo.\nQueremos saber cómo te has sentido con tus nuevas lunas *${p.lunas}*. Recuerda que si necesitas algún ajuste en las plaquetas o calibración de la montura, puedes visitarnos en Jr. Gamarra 778 sin ningún costo. ¡Tu confort visual es nuestra prioridad!`,
     control: `¡Hola ${firstName}! Esperamos que te encuentres muy bien. Te escribimos de Lens Group Trujillo.\nRevisando tu historial óptico, ha transcurrido un año desde tu última graduación. Te invitamos a una reevaluación optométrica preventiva gratuita en nuestra sede de Jr. Gamarra 778 para verificar tu agudeza visual. ¿Te gustaría agendar tu cita esta semana?`,
     garantia: `¡Hola ${firstName}! En Lens Group Trujillo te recordamos que tu montura *${p.montura}* cuenta con garantía activa hasta el *${p.fechaGarantia || '2027'}*.\nPuedes visitarnos cuando desees para tu servicio gratuito de limpieza ultrasónica y ajuste de tornillos. ¡Te esperamos en Jr. Gamarra 778!`,
-    fidelizado: `¡Hola ${firstName}! Gracias por confiar tu salud visual en Lens Group Trujillo. â­\nPor ser un paciente preferencial, este mes cuentas con un beneficio exclusivo del 20% de descuento en gafas de sol polarizadas o para un familiar directo. ¡Pregúntanos por los nuevos modelos de catálogo!`
+    fidelizado: `¡Hola ${firstName}! Gracias por confiar tu salud visual en Lens Group Trujillo. ⭐\nPor ser un paciente preferencial, este mes cuentas con un beneficio exclusivo del 20% de descuento en gafas de sol polarizadas o para un familiar directo. ¡Pregúntanos por los nuevos modelos de catálogo!`
   };
 
   const text = templates[tKey] || templates.listo;
@@ -5488,7 +5912,7 @@ window.openCrmTemplatesModal = function(patientId) {
             <option value="adaptacion">2. Seguimiento Postventa / Adaptación y Confort Visual</option>
             <option value="control">3. Recordatorio de Examen Preventivo Anual (1 Año)</option>
             <option value="garantia">4. Garantía Activa / Limpieza Ultrasónica Gratuita</option>
-            <option value="fidelizado">â­ 5. Promoción de Fidelización / Beneficio VIP</option>
+            <option value="fidelizado">⭐ 5. Promoción de Fidelización / Beneficio VIP</option>
           </select>
         </div>
 
@@ -5813,7 +6237,7 @@ window.renderCriticalStockTable = function() {
   const inventory = state.inventory || [];
   const criticalItems = inventory.filter(i => i.status === 'critical' || (i.stock !== undefined && parseInt(i.stock) <= 3));
   if (criticalItems.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--admin-teal);">âœ“ Sin productos en stock crítico actualmente.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--admin-teal);">✓ Sin productos en stock crítico actualmente.</td></tr>`;
     return;
   }
   tbody.innerHTML = criticalItems.map(item => {
@@ -5948,7 +6372,7 @@ window.generateManualBackup = function() {
   state.auditLogs.unshift(newLog);
 
   if (state.currentCategory === 'audit') renderAuditView();
-  if (typeof showToast === 'function') showToast(`âœ“ Backup generado y descargado: ${filename}`);
+  if (typeof showToast === 'function') showToast(`✓ Backup generado y descargado: ${filename}`);
 };
 
 window._pendingRestoreData = null;
@@ -5983,7 +6407,7 @@ window.handleBackupFileSelected = function(event) {
         const meta = data._meta || {};
         preview.innerHTML = `
           <div style="margin-top:1rem;padding:0.85rem;background:rgba(15,23,42,0.6);border-radius:var(--radius-sm);border:1px solid var(--admin-card-border);">
-            <div style="font-weight:700;color:var(--admin-teal);margin-bottom:0.5rem;">âœ“ Archivo válido detectado</div>
+            <div style="font-weight:700;color:var(--admin-teal);margin-bottom:0.5rem;">✓ Archivo válido detectado</div>
             <div style="font-size:0.82rem;display:grid;grid-template-columns:1fr 1fr;gap:0.4rem 1rem;">
               <div><span style="color:var(--admin-text-muted);">Referencia:</span> ${meta.ref || file.name}</div>
               <div><span style="color:var(--admin-text-muted);">Creado:</span> ${meta.createdAt ? new Date(meta.createdAt).toLocaleString('es-PE') : '—'}</div>
@@ -5995,14 +6419,14 @@ window.handleBackupFileSelected = function(event) {
               <div><span style="color:var(--admin-text-muted);">Logs:</span> ${(data.auditLogs || []).length}</div>
             </div>
             <div style="margin-top:0.5rem;padding:0.5rem;background:rgba(239,68,68,0.1);border-radius:var(--radius-sm);border:1px solid rgba(239,68,68,0.3);font-size:0.78rem;color:#ef4444;">
-              âš  Esta acción reemplazará los datos actuales del sistema. Asegúrese de haber generado un backup reciente antes de continuar.
+              ⚠️ Esta acción reemplazará los datos actuales del sistema. Asegúrese de haber generado un backup reciente antes de continuar.
             </div>
           </div>`;
       }
       if (confirmBtn) confirmBtn.style.display = 'inline-flex';
     } catch(err) {
       const preview = document.getElementById('restoreBackupPreview');
-      if (preview) preview.innerHTML = `<div style="margin-top:0.5rem;color:#ef4444;">âœ— Error: El archivo no es un backup válido (JSON inválido).</div>`;
+      if (preview) preview.innerHTML = `<div style="margin-top:0.5rem;color:#ef4444;">✗ Error: El archivo no es un backup válido (JSON inválido).</div>`;
     }
   };
   reader.readAsText(file);
@@ -6042,7 +6466,7 @@ window.confirmRestoreBackup = function() {
   document.getElementById('modalRestoreBackup').classList.remove('active');
   window._pendingRestoreData = null;
   if (state.currentCategory === 'audit') renderAuditView();
-  if (typeof showToast === 'function') showToast('âœ“ Base de datos restaurada desde backup exitosamente.');
+  if (typeof showToast === 'function') showToast('✓ Base de datos restaurada desde backup exitosamente.');
 };
 
 window.exportAuditLogsCsv = function() {
@@ -6061,7 +6485,7 @@ window.exportAuditLogsCsv = function() {
   a.download = `auditoria_lens_group_${new Date().toISOString().slice(0,10)}.csv`;
   a.click();
   URL.revokeObjectURL(url);
-  if (typeof showToast === 'function') showToast('âœ“ Logs de auditoría exportados como CSV.');
+  if (typeof showToast === 'function') showToast('✓ Logs de auditoría exportados como CSV.');
 };
 
 
