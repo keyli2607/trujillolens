@@ -5,8 +5,8 @@
 
 const ADMIN_STORAGE_KEY = 'lens_group_admin_session';
 
-const SUPABASE_URL = 'https://rsjondlejagmnjrmbolf.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_A86Q2r3lrF6z14HunWuuwQ_Y-G8ziVV';
+const SUPABASE_URL = 'https://ijgjmjkcqquctjahvgot.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_Zwy0deNz_LQ-6DaUopa1uA_w-OWPI-j';
 
 // Ya no usamos las rutas locales /api porque en GitHub Pages no hay servidor Node
 const API_ORDERS_URL = `${SUPABASE_URL}/rest/v1/ordenes_laboratorio?select=*,ventas(*)`;

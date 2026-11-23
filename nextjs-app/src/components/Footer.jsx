@@ -77,26 +77,31 @@ export default function Footer() {
               <li><Link href="/#contacto">Protección de Datos Personales</Link></li>
             </ul>
             {/* Libro de Reclamaciones */}
-            <div
+            <Link
+              href="/libro-de-reclamaciones"
               style={{
                 marginTop: "1.25rem",
-                display: "flex",
+                display: "inline-flex",
                 alignItems: "center",
                 gap: "0.6rem",
-                background: "rgba(255,255,255,0.05)",
-                padding: "0.6rem 0.85rem",
+                background: "rgba(56, 189, 248, 0.08)",
+                padding: "0.65rem 0.95rem",
                 borderRadius: "var(--radius-sm)",
-                border: "1px solid rgba(255,255,255,0.1)",
+                border: "1px solid rgba(56, 189, 248, 0.3)",
+                textDecoration: "none",
+                transition: "all 0.2s ease",
+                cursor: "pointer"
               }}
+              className="hover:border-sky-400"
             >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" strokeWidth="2">
                 <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
                 <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
               </svg>
-              <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "white" }}>
+              <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#38bdf8" }}>
                 Libro de Reclamaciones Virtual
               </span>
-            </div>
+            </Link>
           </div>
         </div>
 

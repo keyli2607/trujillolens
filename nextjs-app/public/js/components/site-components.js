@@ -779,10 +779,10 @@
                 <li><a href="${isHome ? '#contacto' : (STORE_URL === '/' ? '/#contacto' : 'index.html#contacto')}">Términos y Condiciones</a></li>
                 <li><a href="${isHome ? '#contacto' : (STORE_URL === '/' ? '/#contacto' : 'index.html#contacto')}">Protección de Datos Personales</a></li>
               </ul>
-              <div style="margin-top: 1.25rem; display: flex; align-items: center; gap: 0.6rem; background: rgba(255,255,255,0.05); padding: 0.6rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,0.1);">
-                ${LG.icon('book', { size: 22, sw: 2 })}
-                <span style="font-size: 0.8rem; font-weight: 700; color: white;">Libro de Reclamaciones Virtual</span>
-              </div>
+              <a href="/libro-de-reclamaciones" style="margin-top: 1.25rem; display: inline-flex; align-items: center; gap: 0.6rem; background: rgba(56, 189, 248, 0.08); padding: 0.65rem 0.95rem; border-radius: var(--radius-sm); border: 1px solid rgba(56, 189, 248, 0.3); text-decoration: none; cursor: pointer;">
+                ${LG.icon('book', { size: 22, sw: 2, stroke: '#38bdf8' })}
+                <span style="font-size: 0.82rem; font-weight: 700; color: #38bdf8;">Libro de Reclamaciones Virtual</span>
+              </a>
             </div>
           </div>
 

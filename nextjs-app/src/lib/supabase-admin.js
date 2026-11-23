@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
 
-const SUPABASE_URL = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || "https://rsjondlejagmnjrmbolf.supabase.co";
-const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "sb_publishable_A86Q2r3lrF6z14HunWuuwQ_Y-G8ziVV";
+const SUPABASE_URL = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || "https://ijgjmjkcqquctjahvgot.supabase.co";
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "sb_publishable_Zwy0deNz_LQ-6DaUopa1uA_w-OWPI-j";
 const SESSION_SECRET = process.env.ADMIN_SESSION_SECRET || "lens_group_trujillo_super_secret_key_2026";
 
 export function isSupabaseAdminConfigured() {

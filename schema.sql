@@ -270,5 +270,35 @@ VALUES
 ON CONFLICT (codigo_sistema) DO UPDATE 
 SET precio_venta = EXCLUDED.precio_venta, activo = EXCLUDED.activo;
 
+-- ==============================================================================
+-- 10. TABLA: reclamaciones (Libro de Reclamaciones Virtual - Conforme a INDECOPI)
+-- ==============================================================================
+CREATE TABLE IF NOT EXISTS reclamaciones (
+  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  codigo varchar UNIQUE NOT NULL,
+  fecha timestamp with time zone DEFAULT now(),
+  consumidor_nombre varchar NOT NULL,
+  consumidor_documento_tipo varchar DEFAULT 'DNI',
+  consumidor_documento_numero varchar NOT NULL,
+  consumidor_telefono varchar,
+  consumidor_email varchar NOT NULL,
+  consumidor_domicilio text,
+  menor_edad boolean DEFAULT false,
+  apoderado_nombre varchar,
+  tipo_bien varchar DEFAULT 'Producto', -- 'Producto' o 'Servicio'
+  monto_reclamado numeric DEFAULT 0,
+  descripcion_bien text,
+  tipo_reclamo varchar NOT NULL, -- 'Reclamo' o 'Queja'
+  detalle text NOT NULL,
+  pedido text NOT NULL,
+  estado varchar DEFAULT 'Pendiente', -- 'Pendiente', 'En Trámite', 'Atendido'
+  respuesta text,
+  respondido_en timestamp with time zone,
+  creado_en timestamp with time zone DEFAULT now()
+);
+
+ALTER TABLE reclamaciones DISABLE ROW LEVEL SECURITY;
+GRANT ALL ON TABLE reclamaciones TO anon, authenticated, service_role;
+
 -- Refrescar la caché del esquema PostgREST
 NOTIFY pgrst, 'reload schema';

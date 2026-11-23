@@ -17,8 +17,8 @@
   const LG = (window.LG = window.LG || {});
 
   const CONFIG = {
-    url: 'https://rsjondlejagmnjrmbolf.supabase.co',
-    anonKey: 'sb_publishable_A86Q2r3lrF6z14HunWuuwQ_Y-G8ziVV'
+    url: 'https://ijgjmjkcqquctjahvgot.supabase.co',
+    anonKey: 'sb_publishable_Zwy0deNz_LQ-6DaUopa1uA_w-OWPI-j'
   };
 
   /**
