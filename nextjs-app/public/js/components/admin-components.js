@@ -1970,10 +1970,16 @@
           <button onclick="toggleChatbot()" style="background: none; border: none; color: var(--admin-text-muted); cursor: pointer; font-size: 1.2rem;">&times;</button>
         </div>
         <div id="chatbotMessages" style="flex: 1; padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; font-size: 0.9rem;">
-          <div style="align-self: flex-start; background: var(--admin-bg-alt); padding: 0.75rem; border-radius: 8px 8px 8px 0; border: 1px solid var(--admin-card-border); color: var(--admin-text-main); max-width: 85%;">
-            ¡Hola! Soy tu asistente virtual. Puedes preguntarme cosas como: <br><br>
-            <span style="color: var(--admin-primary);">"¿Cuánto se vendió hoy?"</span><br>
-            <span style="color: var(--admin-primary);">"Dame un resumen de la semana"</span>
+          <div style="align-self: flex-start; background: var(--admin-bg-alt); padding: 0.75rem; border-radius: 8px 8px 8px 0; border: 1px solid var(--admin-card-border); color: var(--admin-text-main); max-width: 88%; line-height: 1.45;">
+            ¡Hola! Soy <strong>LensBot</strong>, tu asistente operativo de Lens Group Trujillo.<br>
+            Consulta en tiempo real sobre ventas, pacientes CRM, stock crítico, órdenes y backups.<br><br>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.3rem;">
+              <button type="button" onclick="botAsk('ventas totales')" style="background: rgba(14,165,233,0.12); color: var(--admin-primary); border: 1px solid rgba(14,165,233,0.3); border-radius: 12px; padding: 0.2rem 0.55rem; font-size: 0.72rem; cursor: pointer;">💰 Ventas</button>
+              <button type="button" onclick="botAsk('pacientes listos')" style="background: rgba(14,165,233,0.12); color: var(--admin-primary); border: 1px solid rgba(14,165,233,0.3); border-radius: 12px; padding: 0.2rem 0.55rem; font-size: 0.72rem; cursor: pointer;">👥 Pacientes listos</button>
+              <button type="button" onclick="botAsk('stock critico')" style="background: rgba(14,165,233,0.12); color: var(--admin-primary); border: 1px solid rgba(14,165,233,0.3); border-radius: 12px; padding: 0.2rem 0.55rem; font-size: 0.72rem; cursor: pointer;">📦 Stock crítico</button>
+              <button type="button" onclick="botAsk('ultimo backup')" style="background: rgba(14,165,233,0.12); color: var(--admin-primary); border: 1px solid rgba(14,165,233,0.3); border-radius: 12px; padding: 0.2rem 0.55rem; font-size: 0.72rem; cursor: pointer;">🛡️ Backups</button>
+              <button type="button" onclick="botAsk('boletas emitidas')" style="background: rgba(14,165,233,0.12); color: var(--admin-primary); border: 1px solid rgba(14,165,233,0.3); border-radius: 12px; padding: 0.2rem 0.55rem; font-size: 0.72rem; cursor: pointer;">🧾 Comprobantes</button>
+            </div>
           </div>
         </div>
         <form id="chatbotForm" style="padding: 1rem; border-top: 1px solid var(--admin-card-border); display: flex; gap: 0.5rem; background: var(--admin-bg-alt);">

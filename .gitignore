@@ -2,3 +2,7 @@ orders.json
 node_modules/
 .env
 .env.*
+
+v8_context_snapshot.bin
+resources/
+locales/
