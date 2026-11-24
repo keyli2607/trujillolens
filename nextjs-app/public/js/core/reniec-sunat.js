@@ -49,9 +49,13 @@
       return cached;
     }
 
-    // 2. Intentar servicio backend interno (sin problemas de CORS)
+    // 2. Intentar servicio backend interno (sin problemas de CORS y con soporte Scrall/APIsPeru/PeruDevs)
     try {
-      const res = await fetch(`/api/consulta-documento?tipo=dni&numero=${clean}`, {
+      const scrallKey = localStorage.getItem('lens_scrall_key') || '';
+      const url = scrallKey
+        ? `/api/consulta-documento?tipo=dni&numero=${clean}&scrallKey=${encodeURIComponent(scrallKey)}`
+        : `/api/consulta-documento?tipo=dni&numero=${clean}`;
+      const res = await fetch(url, {
         headers: { 'Accept': 'application/json' }
       });
       if (res.ok) {

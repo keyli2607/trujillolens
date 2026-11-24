@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 // Tokens configurables por variables de entorno con fallbacks públicos
 const APIS_NET_PE_TOKEN = process.env.APIS_NET_PE_TOKEN || process.env.DECOLECTA_TOKEN || process.env.NEXT_PUBLIC_APIS_TOKEN || 'apis-token-1.aTSI10NVAlmq0zAcGQ0UsYYYFetGm0Da';
 const PERUDEVS_KEY = process.env.PERUDEVS_KEY || 'cGVydWRldnMucHJvZHVjdGlvbi5iaXRjb2lucy42ODQyOGM1Y2QzNzI0NGI2ODgxNTRjNmU1MjQ4YjNkNQ==';
+const SCRALL_API_KEY = process.env.SCRALL_API_KEY || process.env.NEXT_PUBLIC_SCRALL_KEY || '';
 
 // Cache en memoria para acelerar consultas repetidas y ahorrar cuota
 const memoryCacheDni = new Map();
@@ -19,9 +20,51 @@ async function fetchWithTimeout(url, options = {}, timeoutMs = 4500) {
   }
 }
 
-async function consultarDniEnProveedores(dni) {
+async function consultarDniEnProveedores(dni, customScrallKey = null) {
   if (memoryCacheDni.has(dni)) {
     return memoryCacheDni.get(dni);
+  }
+
+  // Proveedor 0: Scrall.net API (RENIEC Básico)
+  const activeScrallKey = customScrallKey || SCRALL_API_KEY;
+  if (activeScrallKey) {
+    try {
+      const authHeader = activeScrallKey.startsWith('Basic ') ? activeScrallKey : `Basic ${activeScrallKey}`;
+      const res = await fetchWithTimeout('https://api.scrall.net/v1/reniec/basico', {
+        method: 'POST',
+        headers: {
+          'Authorization': authHeader,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({ dni })
+      }, 5000);
+
+      if (res.ok) {
+        const data = await res.json();
+        const r = data.data || data.resultado || data;
+        if (r && (r.nombres || r.nombre_completo || r.nombreCompleto)) {
+          const nombres = (r.nombres || r.primer_nombre || '').trim();
+          const apePat = (r.apellidoPaterno || r.apellido_paterno || '').trim();
+          const apeMat = (r.apellidoMaterno || r.apellido_materno || '').trim();
+          const nombreCompleto = (r.nombreCompleto || r.nombre_completo || `${nombres} ${apePat} ${apeMat}`).trim();
+          const result = {
+            success: true,
+            tipo: 'DNI',
+            dni,
+            nombres,
+            apellidoPaterno: apePat,
+            apellidoMaterno: apeMat,
+            nombreCompleto,
+            fuente: 'RENIEC (Scrall)'
+          };
+          memoryCacheDni.set(dni, result);
+          return result;
+        }
+      }
+    } catch (e) {
+      // Si falla Scrall, continuar a proveedores de respaldo
+    }
   }
 
   // Proveedor 1: Decolecta / APIs.net.pe v2 (El estándar más usado en Perú)
@@ -287,6 +330,7 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const tipo = (searchParams.get('tipo') || '').toLowerCase().trim();
     const numero = (searchParams.get('numero') || searchParams.get('documento') || '').trim().replace(/\D/g, '');
+    const customKey = searchParams.get('scrallKey') || request.headers.get('x-scrall-key') || '';
 
     if (!numero) {
       return NextResponse.json({ error: 'Parámetro "numero" es requerido.' }, { status: 400 });
@@ -297,7 +341,7 @@ export async function GET(request) {
         return NextResponse.json({ error: 'El DNI debe contener exactamente 8 dígitos numéricos.' }, { status: 400 });
       }
 
-      const infoDni = await consultarDniEnProveedores(numero);
+      const infoDni = await consultarDniEnProveedores(numero, customKey);
       if (infoDni) {
         return NextResponse.json(infoDni, { status: 200 });
       }
@@ -327,6 +371,35 @@ export async function GET(request) {
     return NextResponse.json({ error: 'Tipo de documento no válido. Use "dni" (8 dígitos) o "ruc" (11 dígitos).' }, { status: 400 });
   } catch (err) {
     return NextResponse.json({ error: 'Error interno en el servicio de consulta: ' + err.message }, { status: 500 });
+  }
+}
+
+export async function POST(request) {
+  try {
+    const body = await request.json().catch(() => ({}));
+    const dni = (body.dni || body.numero || '').toString().trim().replace(/\D/g, '');
+    const ruc = (body.ruc || '').toString().trim().replace(/\D/g, '');
+    const customKey = body.apiKey || body.key || request.headers.get('x-scrall-key') || '';
+
+    if (dni && dni.length === 8) {
+      const infoDni = await consultarDniEnProveedores(dni, customKey);
+      if (infoDni) {
+        return NextResponse.json(infoDni, { status: 200 });
+      }
+      return NextResponse.json({ error: `DNI ${dni} no encontrado en RENIEC.`, notFound: true }, { status: 404 });
+    }
+
+    if (ruc && ruc.length === 11) {
+      const infoRuc = await consultarRucEnProveedores(ruc);
+      if (infoRuc) {
+        return NextResponse.json(infoRuc, { status: 200 });
+      }
+      return NextResponse.json({ error: `RUC ${ruc} no encontrado en SUNAT.`, notFound: true }, { status: 404 });
+    }
+
+    return NextResponse.json({ error: 'Debe enviar un "dni" (8 dígitos) o "ruc" (11 dígitos).' }, { status: 400 });
+  } catch (err) {
+    return NextResponse.json({ error: 'Error al procesar consulta: ' + err.message }, { status: 500 });
   }
 }
 
